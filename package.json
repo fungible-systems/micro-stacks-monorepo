@@ -1,0 +1,57 @@
+{
+  "name": "@micro-stacks/react-monorepo",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Opinionated React integration for micro-stacks.",
+  "scripts": {
+    "lint": "pnpm lint -r",
+    "build": "pnpm build -r",
+    "postbuild": "shx rm -rf ./dist",
+    "dev:build": "pnpm build && pnpm dev:publish",
+    "dev:publish": "pnpm -r dev:publish",
+    "ci:publish": "pnpm build && pnpm publish -r --no-git-checks --access public",
+    "ci:version": "pnpm changeset version && pnpm install --no-frozen-lockfile && git add .",
+    "ci:generate": "ultra -r --filter \"@nelson-ui/theme\" generate && git add ."
+  },
+  "dependencies": {
+    "bob-esbuild": "^2.0.0",
+    "bob-esbuild-cli": "^2.0.0"
+  },
+  "prettier": "@stacks/prettier-config",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fungible-systems/micro-stacks-react.git"
+  },
+  "keywords": [
+    "stacks",
+    "web3",
+    "small-bundle"
+  ],
+  "author": "Thomas Osmonson",
+  "contributors": [],
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/fungible-systems/micro-stacks-react/issues"
+  },
+  "homepage": "https://github.com/fungible-systems/micro-stacks-react",
+  "devDependencies": {
+    "@changesets/changelog-github": "0.4.1",
+    "@changesets/cli": "2.17.0",
+    "@fungible-systems/eslint-config": "0.0.1",
+    "@stacks/prettier-config": "0.0.9",
+    "@typescript-eslint/eslint-plugin": "5.1.0",
+    "@typescript-eslint/parser": "5.1.0",
+    "esbuild": "0.13.2",
+    "eslint": "8.0.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-import-resolver-alias": "1.1.2",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-jest": "25.2.2",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.26.1",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "prettier": "2.4.1",
+    "typescript": "4.4.4",
+    "shx": "^0.3.3"
+  }
+}
