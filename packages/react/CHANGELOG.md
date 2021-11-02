@@ -1,5 +1,11 @@
 # @micro-stacks/react
 
+## 0.0.4
+
+### Patch Changes
+
+- [#5](https://github.com/fungible-systems/micro-stacks-react/pull/5) [`e88fd70`](https://github.com/fungible-systems/micro-stacks-react/commit/e88fd7089c33334e323054dc26a6429216ee72a0) Thanks [@aulneau](https://github.com/aulneau)! - Minor fix around deps for each package.
+
 ## 0.0.3
 
 ### Patch Changes
