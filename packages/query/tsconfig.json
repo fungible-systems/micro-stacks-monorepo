@@ -11,6 +11,12 @@
       ],
       "react-query": [
         "node_modules/react-query/"
+      ],
+      "jotai": [
+        "node_modules/jotai/"
+      ],
+      "jotai/*": [
+        "node_modules/jotai/*"
       ]
     }
   },

@@ -86,6 +86,6 @@
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0",
-    "react-query": "^3.30.0"
+    "react-query": "^3.31.0"
   }
 }

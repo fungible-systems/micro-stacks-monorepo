@@ -29,6 +29,10 @@
     "url": "https://github.com/fungible-systems/micro-stacks-react/issues"
   },
   "homepage": "https://github.com/fungible-systems/micro-stacks-react",
+  "dependencies": {
+    "jotai": "^1.4.2",
+    "react-query": "^3.31.0"
+  },
   "devDependencies": {
     "@babel/core": "7.15.8",
     "@babel/plugin-proposal-class-properties": "7.14.5",
