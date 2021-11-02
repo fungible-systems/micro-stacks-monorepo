@@ -9,14 +9,15 @@ import {
   fetchAccountTransactionsWithTransfers,
   getNextPageParam,
 } from 'micro-stacks/api';
-import { DEFAULT_LIST_LIMIT } from '../../common/constants';
-import { AccountClientKeys } from './keys';
+import { AccountClientKeys } from './accounts.keys';
 
 import type {
   PrincipalWithNetwork,
   PrincipalListWithNetwork,
   PrincipalListHeightWithNetwork,
 } from 'micro-stacks/api';
+
+import { DEFAULT_LIST_LIMIT } from '@micro-stacks/react';
 
 import type {
   AddressAssetsListResponse,

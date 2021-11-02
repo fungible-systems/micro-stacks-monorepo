@@ -1,26 +1,33 @@
-import { AuthOptions, defaultStorageAdapter } from 'micro-stacks/connect';
-import { NextPage } from 'next';
+import { defaultStorageAdapter } from 'micro-stacks/connect';
 import { withInitialQueryData } from 'jotai-query-toolkit/nextjs';
-import { AppProviderAtomBuilder } from "@micro-stacks/react";
-import { setSessionCookies } from './cookies';
-import { buildMicroStacksAtoms } from './build-micro-stacks-atoms';
+import {
+  getStacksNetworkFromCookies,
+  resetSessionCookies,
+  setSessionCookies,
+} from './common/cookies';
+import { buildMicroStacksAtoms } from './builders/build-micro-stacks-atoms';
+import type { AppProviderAtomBuilder } from '@micro-stacks/react';
+import type { NextPage } from 'next';
 
 export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
-  const authOptions: AuthOptions = {
-    ...options.authOptions,
-    onFinish(payload) {
-      options?.authOptions?.onFinish?.(payload);
-      setSessionCookies(payload);
-    },
-  };
-  return (page: NextPage) =>
-    withInitialQueryData(
+  return function Wrapper(page: NextPage) {
+    return withInitialQueryData(
       page,
       buildMicroStacksAtoms({
-        authOptions,
-        network: options.network,
+        authOptions: {
+          ...options.authOptions,
+          onFinish(payload) {
+            options?.authOptions?.onFinish?.(payload);
+            setSessionCookies(payload);
+          },
+          onSignOut() {
+            resetSessionCookies();
+            options?.authOptions?.onSignOut?.();
+          },
+        },
+        network: options.network || getStacksNetworkFromCookies(),
         storageAdapter: options.storageAdapter || defaultStorageAdapter,
       })
     );
+  };
 }
-

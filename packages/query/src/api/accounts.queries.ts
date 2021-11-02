@@ -1,6 +1,8 @@
-import { Queries } from 'jotai-query-toolkit/nextjs';
-import { makeAccountClientKeys } from './keys';
-import { DEFAULT_LIST_LIMIT } from '../../common/constants';
+import type { Queries } from 'jotai-query-toolkit/nextjs';
+import { DEFAULT_LIST_LIMIT } from '@micro-stacks/react';
+
+import { makeAccountClientKeys } from './accounts.keys';
+
 import {
   fetchAccountAssets,
   fetchAccountBalances,

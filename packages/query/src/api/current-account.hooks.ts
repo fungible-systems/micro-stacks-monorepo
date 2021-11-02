@@ -5,9 +5,7 @@ import {
   useAccountTransactionsWithTransfersClient,
   useAccountTransactionsClient,
   useAccountMempoolTransactionsClient,
-  InfiniteOptionsLimitHeight,
-  InfiniteOptionsWithLimit,
-} from './use-account-clients';
+} from './accounts.hooks';
 import { useCurrentStxAddress } from '@micro-stacks/react';
 import type {
   AddressAssetsListResponse,
@@ -15,6 +13,7 @@ import type {
   AddressTransactionsWithTransfersListResponse,
   MempoolTransactionListResponse,
 } from '@stacks/stacks-blockchain-api-types';
+import { InfiniteOptionsLimitHeight, InfiniteOptionsWithLimit } from '../common/types';
 
 function useAssertPrincipal(): string {
   const principal = useCurrentStxAddress();

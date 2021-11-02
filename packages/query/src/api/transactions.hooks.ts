@@ -1,10 +1,10 @@
-import { TransactionResults, TransactionType } from '@stacks/stacks-blockchain-api-types';
-import { useCurrentNetworkUrl } from '@micro-stacks/react';
+import { useInfiniteQueryAtom } from 'jotai-query-toolkit';
+import { useCurrentNetworkUrl, DEFAULT_LIST_LIMIT } from '@micro-stacks/react';
+import { transactionClient, transactionsListClient } from './transactions.atoms';
 
-import { transactionClient, transactionsListClient } from '../api/tx/clients';
-import { AtomWithInfiniteQueryOptions, useInfiniteQueryAtom } from 'jotai-query-toolkit';
-import { DEFAULT_LIST_LIMIT } from '../common/constants';
-import { WithLimit } from '../common/types';
+import type { TransactionResults, TransactionType } from '@stacks/stacks-blockchain-api-types';
+import type { AtomWithInfiniteQueryOptions } from 'jotai-query-toolkit';
+import type { WithLimit } from '../common/types';
 
 import { useAtom } from 'jotai';
 

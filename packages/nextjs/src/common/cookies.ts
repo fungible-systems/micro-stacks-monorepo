@@ -1,15 +1,23 @@
 import type { GetServerSidePropsContext, GetStaticPropsContext, NextPageContext } from 'next';
 import { StacksSessionState } from 'micro-stacks/connect';
-import nookies, { destroyCookie, setCookie } from 'nookies';
+import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import { PartialStacksSession, SessionCookie } from './types';
-import { StacksNetwork } from 'micro-stacks/network';
+import { StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+import { ChainID } from 'micro-stacks/common';
 
-
-function formatStacksNetworkCookie(payload: StacksNetwork) {
+export function formatStacksNetworkCookie(payload: StacksNetwork) {
   return [payload.getCoreApiUrl(), payload.chainId];
 }
+
+export function parseNetworkCookie(payload?: string) {
+  if (!payload) return new StacksMainnet();
+  const [networkUrl, chainId] = JSON.parse(payload);
+  if (chainId === ChainID.Testnet) return new StacksTestnet({ url: networkUrl });
+  return new StacksMainnet({ url: networkUrl });
+}
+
 function formatSessionCookie(payload: StacksSessionState) {
   return [
     payload.addresses.mainnet,
@@ -34,11 +42,16 @@ export function parseSessionCookie(payload?: string): PartialStacksSession | nul
   };
 }
 
-export function getStacksSessionFromCookies(ctx: GetServerSidePropsContext | NextPageContext) {
-  return nookies.get(ctx)?.StacksSessionState;
+export function getStacksSessionFromCookies(ctx?: GetServerSidePropsContext | NextPageContext) {
+  const value = parseCookies(ctx)?.['StacksSessionState'];
+  return parseSessionCookie(value);
 }
-export function getStacksNetworkFromCookies(ctx: GetServerSidePropsContext | NextPageContext) {
-  return nookies.get(ctx)?.StacksNetwork;
+
+export function getStacksNetworkFromCookies(
+  ctx?: GetServerSidePropsContext | NextPageContext
+): StacksNetwork {
+  const value = parseCookies(ctx)?.['StacksNetwork'];
+  return parseNetworkCookie(value);
 }
 
 export function stacksSessionFromCtx(
@@ -48,27 +61,27 @@ export function stacksSessionFromCtx(
     console.warn('GetStaticPropsContext cannot be passed to stacksSessionFromCtx');
     return { partialStacksSession: null };
   }
-  const partialStacksSession = parseSessionCookie(
-    getStacksSessionFromCookies(ctx as GetServerSidePropsContext | NextPageContext)
+  const partialStacksSession = getStacksSessionFromCookies(
+    ctx as GetServerSidePropsContext | NextPageContext
   );
   return {
     partialStacksSession,
     isSignedIn: !!partialStacksSession,
   };
 }
+
 export function stacksNetworkFromCtx(
   ctx: GetServerSidePropsContext | NextPageContext | GetStaticPropsContext
 ) {
   if ('preview' in ctx) {
     console.warn('GetStaticPropsContext cannot be passed to stacksNetworkFromCtx');
-    return { partialStacksSession: null };
+    return { stacksNetwork: new StacksMainnet() };
   }
-  const partialStacksSession = parseSessionCookie(
-    getStacksSessionFromCookies(ctx as GetServerSidePropsContext | NextPageContext)
+  const stacksNetwork = getStacksNetworkFromCookies(
+    ctx as GetServerSidePropsContext | NextPageContext
   );
   return {
-    partialStacksSession,
-    isSignedIn: !!partialStacksSession,
+    stacksNetwork,
   };
 }
 
@@ -78,6 +91,7 @@ export function setSessionCookies(payload: StacksSessionState) {
     path: '/',
   });
 }
+
 export function setNetworkCookies(payload: StacksNetwork) {
   setCookie(null, 'StacksNetwork', JSON.stringify(formatStacksNetworkCookie(payload)), {
     maxAge: 30 * 24 * 60 * 60,
@@ -90,53 +104,22 @@ export function resetSessionCookies() {
   destroyCookie(null, 'StacksNetwork');
 }
 
-
-
 const cookieMap = new Map();
+
 export const useCookiesAtom = atom(false);
+
 export const atomWithCookieStorage = (key: string, value: string) => {
   const match = cookieMap.get(key);
   if (match) return match;
-  const { get, set } = cookies();
   const anAtom = atomWithStorage<string | undefined>(key, value, {
-    getItem: get,
+    getItem: key => {
+      const cookies = parseCookies();
+      return cookies[key];
+    },
     setItem: (key, newValue) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      set(key, newValue as any, {});
+      if (newValue) setCookie(null, key, newValue);
     },
   });
   cookieMap.set(key, anAtom);
   return anAtom;
 };
-
-export function cookies() {
-  const doc = typeof document === 'undefined' ? { cookie: '' } : document;
-
-  function get(key: string) {
-    const splat = doc.cookie.split(/;\s*/);
-    for (let i = 0; i < splat.length; i++) {
-      const ps = splat[i].split('=');
-      const k = unescape(ps[0]);
-      if (k === key) return unescape(ps[1]);
-    }
-    return undefined;
-  }
-
-  function set(key: string, value: string, opts?: any) {
-    if (!opts) opts = {};
-    let s = escape(key) + '=' + escape(value);
-    if (opts.expires) s += '; expires=' + opts.expires;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    if (opts.path) s += '; path=' + escape(opts.path);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    if (opts.domain) s += '; domain=' + escape(opts.domain);
-    if (opts.secure) s += '; secure';
-    doc.cookie = s;
-    return s;
-  }
-
-  return {
-    set,
-    get,
-  };
-}

@@ -47,6 +47,18 @@
       ],
       "react-query": [
         "packages/query/node_modules/react-query/"
+      ],
+      "micro-stacks/*": [
+        "node_modules/micro-stacks/*"
+      ],
+      "micro-stacks": [
+        "node_modules/micro-stacks"
+      ],
+      "jotai": [
+        "node_modules/jotai"
+      ],
+      "jotai/*": [
+        "node_modules/jotai/*"
       ]
     }
   }

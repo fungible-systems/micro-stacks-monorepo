@@ -6,29 +6,28 @@
   "files": [
     "dist"
   ],
-  "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "main": "./dist/index.mjs",
-      "module": "./dist/index.mjs",
-      "import": "./dist/index.mjs"
+      "main": "./dist/index.js",
+      "module": "./dist/index.js",
+      "import": "./dist/index.js"
     },
     "./*": {
       "types": "./dist/*.d.ts",
       "require": "./dist/*.js",
       "main": "./dist/*.js",
-      "module": "./dist/*.mjs",
-      "import": "./dist/*.mjs"
+      "module": "./dist/*.js",
+      "import": "./dist/*.js"
     }
   },
   "sideEffects": false,
   "scripts": {
-    "build": "shx rm -rf ./dist && bob-esbuild tsc && bob-esbuild build",
+    "build": "shx rm -rf ./dist && rollup -c ./rollup.config.js",
     "typecheck": "tsc --noEmit --target esnext",
     "dev:publish": "yalc publish --push",
     "lint": "pnpm lint:eslint && pnpm lint:prettier",
@@ -77,9 +76,10 @@
     "@types/react-dom": "17.0.10"
   },
   "dependencies": {
-    "micro-stacks": "0.0.36",
+    "@micro-stacks/react": "workspace:*",
+    "micro-stacks": "0.1.0",
     "jotai": "1.4.2",
-    "jotai-query-toolkit": "^0.1.13",
+    "jotai-query-toolkit": "0.1.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-query": "^3.30.0"

@@ -1,7 +1,3 @@
-import { Queries } from 'jotai-query-toolkit/nextjs';
-import { makeTxClientKeys } from './keys';
-import { TransactionType } from '@stacks/stacks-blockchain-api-types';
-import { DEFAULT_LIST_LIMIT } from '../../common/constants';
 import {
   fetchDroppedMempoolTransactionsList,
   fetchMempoolTransactionsList,
@@ -10,6 +6,12 @@ import {
   fetchTransactionsByBlockHeight,
   fetchTransactionsList,
 } from 'micro-stacks/api';
+
+import { DEFAULT_LIST_LIMIT } from '@micro-stacks/react';
+import { makeTxClientKeys } from './transactions.keys';
+
+import type { Queries } from 'jotai-query-toolkit/nextjs';
+import type { TransactionType } from '@stacks/stacks-blockchain-api-types';
 
 export function transactionListQuery({
   networkUrl,

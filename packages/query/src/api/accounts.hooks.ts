@@ -1,16 +1,12 @@
-import {
-  AtomWithInfiniteQueryOptions,
-  useInfiniteQueryAtom,
-  useQueryAtom,
-} from 'jotai-query-toolkit';
+import { useInfiniteQueryAtom, useQueryAtom } from 'jotai-query-toolkit';
 import type {
   AddressAssetsListResponse,
   AddressTransactionsListResponse,
   AddressTransactionsWithTransfersListResponse,
   MempoolTransactionListResponse,
 } from '@stacks/stacks-blockchain-api-types';
-import { useCurrentNetworkUrl } from '@micro-stacks/react';
-import { DEFAULT_LIST_LIMIT } from '../common/constants';
+import { DEFAULT_LIST_LIMIT, useCurrentNetworkUrl } from '@micro-stacks/react';
+
 import {
   accountAssetsListClientAtom,
   accountBalancesClientAtom,
@@ -18,11 +14,8 @@ import {
   accountStxBalanceClientAtom,
   accountTransactionsListClientAtom,
   accountTransactionsListWithTransfersClientAtom,
-} from '../api/accounts/clients';
-import type { WithHeight, WithLimit } from '../common/types';
-
-export type InfiniteOptionsWithLimit<T> = WithLimit<AtomWithInfiniteQueryOptions<T>>;
-export type InfiniteOptionsLimitHeight<T> = WithHeight<WithLimit<AtomWithInfiniteQueryOptions<T>>>;
+} from './accounts.atoms';
+import type { InfiniteOptionsLimitHeight, InfiniteOptionsWithLimit } from '../common/types';
 
 const DEFAULT_LIMIT_OPTS = {
   limit: DEFAULT_LIST_LIMIT,

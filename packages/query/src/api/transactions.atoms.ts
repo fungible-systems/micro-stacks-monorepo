@@ -6,7 +6,7 @@ import {
   TransactionResults,
   TransactionType,
 } from '@stacks/stacks-blockchain-api-types';
-import { DEFAULT_LIST_LIMIT } from '../../common/constants';
+import { DEFAULT_LIST_LIMIT } from '@micro-stacks/react';
 import {
   fetchDroppedMempoolTransactionsList,
   fetchMempoolTransactionsList,
@@ -16,8 +16,8 @@ import {
   fetchTransactionsByBlockHeight,
   fetchTransactionsList,
 } from 'micro-stacks/api';
-import { TxClientKeys } from './keys';
-import { getNextPageParam } from '../../common/utils';
+import { TxClientKeys } from './transactions.keys';
+import { getNextPageParam } from '../common/utils';
 
 type TransactionsListParams = [
   networkUrl: string,
