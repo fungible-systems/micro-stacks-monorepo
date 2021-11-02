@@ -13,9 +13,9 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useLoading(LOADING_KEYS.AUTHENTICATION);
   const storageAdapter = useDefaultStorageAdapter();
   const resetSession = useResetSessionCallback();
-  const handleSignIn = useAtomCallback<void, { onFinish?: (payload: any) => void }>(
+  const handleSignIn = useAtomCallback<void, { onFinish?: (payload: any) => void } | undefined>(
     useCallback(
-      async (get, set, { onFinish }) => {
+      async (get, set, params) => {
         const authOptions = get(authOptionsAtom);
         if (!authOptions) throw Error('[handleSignIn] No authOptions provided.');
         setIsLoading(true);
@@ -23,7 +23,7 @@ export function useAuth() {
           {
             ...authOptions,
             onFinish: payload => {
-              if (onFinish) onFinish(payload);
+              if (params?.onFinish) params?.onFinish(payload);
               authOptions?.onFinish?.(payload);
               set(stacksSessionAtom, payload);
               set(isSignedInAtom, true);
