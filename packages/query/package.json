@@ -77,11 +77,15 @@
   },
   "dependencies": {
     "@micro-stacks/react": "workspace:*",
-    "micro-stacks": "0.1.0",
-    "jotai": "1.4.2",
-    "jotai-query-toolkit": "0.1.15",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "jotai": ">=1.4.2",
+    "jotai-query-toolkit": "^0.1.16",
+    "next": "^12.0.1",
+    "nookies": "^2.5.2",
+    "micro-stacks": ">=0.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0",
     "react-query": "^3.30.0"
   }
 }
