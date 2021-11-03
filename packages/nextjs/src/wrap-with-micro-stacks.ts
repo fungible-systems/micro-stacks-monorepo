@@ -1,4 +1,3 @@
-import { defaultStorageAdapter } from 'micro-stacks/connect';
 import { withInitialQueryData } from 'jotai-query-toolkit/nextjs';
 import {
   getStacksNetworkFromCookies,
@@ -26,7 +25,6 @@ export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
           },
         },
         network: options.network || getStacksNetworkFromCookies(),
-        storageAdapter: options.storageAdapter || defaultStorageAdapter,
       })
     );
   };
