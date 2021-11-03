@@ -1,6 +1,5 @@
 import { useAtom } from 'jotai';
 import {
-  asyncStacksSessionAtom,
   authOptionsAtom,
   isSignedInAtom,
   partialStacksSessionAtom,
@@ -34,16 +33,10 @@ export function useSession(): [
 export function useResetSessionCallback() {
   const [, setPartial] = useAtom(partialStacksSessionAtom);
   const [, setSession] = useAtom(stacksSessionAtom);
-  const [, setIsSignedIn] = useAtom(isSignedInAtom);
   return useCallback(() => {
     setPartial(null);
     setSession(null);
-    setIsSignedIn(false);
-  }, [setPartial, setSession, setIsSignedIn]);
-}
-
-export function useAsyncSession() {
-  return useAtom(asyncStacksSessionAtom);
+  }, [setPartial, setSession]);
 }
 
 export function useAuthOptions() {
@@ -55,7 +48,6 @@ export function useAuthOptions() {
  *
  * @return [isSignedIn: boolean, setIsSignedIn: SetAtom<boolean>]
  */
-export function useIsSignedIn(): [isSignedIn: boolean, setIsSignedIn: SetAtom<boolean>] {
-  const [isSignedIn, setIsSignedIn] = useAtom(isSignedInAtom);
-  return [isSignedIn, setIsSignedIn];
+export function useIsSignedIn(): boolean {
+  return useAtomValue(isSignedInAtom);
 }

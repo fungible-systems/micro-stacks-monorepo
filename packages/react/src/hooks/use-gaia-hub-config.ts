@@ -1,4 +1,4 @@
-import { primaryGaiaHubConfigAtom } from '../store/storage';
+import { primaryGaiaHubConfigAtom } from '../store/gaia-hub-config';
 import { useCallback } from 'react';
 import { generateGaiaHubConfig, GenerateGaiaHubConfigOptions } from 'micro-stacks/storage';
 import { useSession } from './use-session';

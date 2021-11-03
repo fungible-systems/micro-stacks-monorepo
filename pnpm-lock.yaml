@@ -142,10 +142,12 @@ importers:
       '@types/randombytes': 2.0.0
       '@types/react': 17.0.31
       '@types/react-dom': 17.0.10
+      broadcast-channel: 4.4.0
       jotai: latest
       micro-stacks: latest
       stable-hash: 0.0.2
     dependencies:
+      broadcast-channel: 4.4.0
       jotai: 1.4.2_c8c5d2d08eb23f2e90b8bda5e2c67997
       micro-stacks: 0.1.0
       stable-hash: 0.0.2
@@ -2561,6 +2563,18 @@ packages:
       '@babel/runtime': 7.16.0
       detect-node: 2.1.0
       js-sha3: 0.8.0
+      microseconds: 0.2.0
+      nano-time: 1.0.0
+      oblivious-set: 1.0.0
+      rimraf: 3.0.2
+      unload: 2.2.0
+    dev: false
+
+  /broadcast-channel/4.4.0:
+    resolution: {integrity: sha512-25UGbuDUqVnMVy+wEFT2eSDWBVncpxiHnGmFqb1r4lYNuC7YUN7gcsXQlTUlaHsP51leOQ007K+d44aN0qrGtg==}
+    dependencies:
+      '@babel/runtime': 7.16.0
+      detect-node: 2.1.0
       microseconds: 0.2.0
       nano-time: 1.0.0
       oblivious-set: 1.0.0

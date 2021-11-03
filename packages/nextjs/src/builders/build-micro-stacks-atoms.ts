@@ -1,18 +1,15 @@
 import { InitialValuesAtomBuilder } from 'jotai-query-toolkit/nextjs';
 import {
   networkValueAtom,
-  storageAdapterAtom,
   getNetwork,
   MicroStacksProviderAtoms,
   AppProviderAtomBuilder,
-  _isSignedInAtom,
   authOptionsAtom,
   partialStacksSessionAtom,
 } from '@micro-stacks/react';
 
 import { useCookiesAtom } from '../common/cookies';
 
-import { defaultStorageAdapter } from 'micro-stacks/connect';
 import { Atom } from 'jotai/core/atom';
 
 type Builders = Record<
@@ -23,13 +20,6 @@ const builders: Builders = {
   [MicroStacksProviderAtoms.AuthOptions]: (options: AppProviderAtomBuilder) =>
     function buildAuthOptionsAtom(value: AppProviderAtomBuilder['authOptions']) {
       return [authOptionsAtom, value || options.authOptions] as const;
-    },
-  [MicroStacksProviderAtoms.StorageAdapter]: (options: AppProviderAtomBuilder) =>
-    function buildStorageAdapterAtom(value: AppProviderAtomBuilder['storageAdapter']) {
-      return [
-        storageAdapterAtom,
-        value || options.storageAdapter || defaultStorageAdapter,
-      ] as const;
     },
   [MicroStacksProviderAtoms.Network]: (options: AppProviderAtomBuilder) =>
     function buildNetworkAtom(value: AppProviderAtomBuilder['network']) {
@@ -42,10 +32,6 @@ const builders: Builders = {
   [MicroStacksProviderAtoms.EnableCookies]: (_options: AppProviderAtomBuilder) =>
     function buildEnableCookiesAtom(value?: boolean) {
       return [useCookiesAtom, typeof value === 'boolean' ? value : true] as const;
-    },
-  [MicroStacksProviderAtoms.IsSignedIn]: (_options: AppProviderAtomBuilder) =>
-    function buildIsSignedInAtom(value?: boolean) {
-      return [_isSignedInAtom, typeof value === 'boolean' ? value : false] as const;
     },
 };
 

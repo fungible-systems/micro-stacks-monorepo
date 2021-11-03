@@ -1,9 +1,9 @@
 import { StacksMainnet, StacksNetwork, StacksRegtest, StacksTestnet } from 'micro-stacks/network';
-import { atomWithStorageAdapter } from './storage-adapter';
 import { PersistedDataKeys } from 'micro-stacks/connect';
 
 import { atom } from 'jotai';
 import { ChainID } from 'micro-stacks/common';
+import { atomWithStorageBroadcastChannel } from '../common/storage-with-broadcast-channel';
 
 function serializeNetwork(network: StacksNetwork): string {
   return JSON.stringify([network.getCoreApiUrl(), network.chainId]);
@@ -33,7 +33,7 @@ function getNetworkName(network: StacksNetwork) {
 export const networkValueAtom = atom(new StacksMainnet());
 networkValueAtom.debugLabel = 'networkValueAtom';
 
-export const networkAtom = atomWithStorageAdapter<
+export const networkAtom = atomWithStorageBroadcastChannel<
   StacksNetwork | StacksTestnet | StacksMainnet | StacksRegtest
 >(
   PersistedDataKeys.NetworkStorageKey,
