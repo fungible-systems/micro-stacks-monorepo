@@ -144,9 +144,11 @@ importers:
       '@types/react-dom': 17.0.10
       jotai: latest
       micro-stacks: latest
+      stable-hash: 0.0.2
     dependencies:
       jotai: 1.4.2_c8c5d2d08eb23f2e90b8bda5e2c67997
       micro-stacks: 0.1.0
+      stable-hash: 0.0.2
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 0.70.0
       '@types/common-tags': 1.8.1
@@ -5782,6 +5784,10 @@ packages:
   /sprintf-js/1.0.3:
     resolution: {integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=}
     dev: true
+
+  /stable-hash/0.0.2:
+    resolution: {integrity: sha512-tPwQ3c1rLIwbJpq59duoznegEbmgfV630C2n4R4G96LKBFljgK8j+O9AxjqB6cAzu4gE7s4pByrLWtZel8E+Mg==}
+    dev: false
 
   /stacktrace-parser/0.1.10:
     resolution: {integrity: sha512-KJP1OCML99+8fhOHxwwzyWrlUuVX5GQ0ZpJTd1DFXhdkrvg1szxfHhawXUZ3g9TkXORQd4/WG68jMlQZ2p8wlg==}

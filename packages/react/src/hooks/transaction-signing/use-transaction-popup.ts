@@ -1,35 +1,21 @@
-import type {
-  ContractCallTxOptions,
-  ContractDeployTxOptions,
-  StxTransferTxOptions,
-  TransactionPayloadBase,
-} from 'micro-stacks/connect';
+import { useCallback } from 'react';
 import {
   makeContractCallToken,
   makeContractDeployToken,
   makeStxTransferToken,
   openTransactionPopup,
 } from 'micro-stacks/connect';
-import { useAuthOptions } from './use-session';
-import { useCallback } from 'react';
-import { useNetwork } from './use-network';
-import { useUserData } from './use-user';
 import { ChainID } from 'micro-stacks/common';
 
-interface MakeContractCallOptions extends Omit<ContractCallTxOptions, 'privateKey'> {
-  onFinish?: TransactionPayloadBase['onFinish'];
-  onCancel?: TransactionPayloadBase['onCancel'];
-}
+import { useAuthOptions } from '../use-session';
+import { useNetwork } from '../use-network';
+import { useUserData } from '../use-user';
 
-interface MakeContractDeployOptions extends Omit<ContractDeployTxOptions, 'privateKey'> {
-  onFinish?: TransactionPayloadBase['onFinish'];
-  onCancel?: TransactionPayloadBase['onCancel'];
-}
-
-interface MakeStxTransferOptions extends Omit<StxTransferTxOptions, 'privateKey'> {
-  onFinish?: TransactionPayloadBase['onFinish'];
-  onCancel?: TransactionPayloadBase['onCancel'];
-}
+import type {
+  MakeContractCallOptions,
+  MakeContractDeployOptions,
+  MakeStxTransferOptions,
+} from './types';
 
 export function useTransactionPopup() {
   const userData = useUserData();
