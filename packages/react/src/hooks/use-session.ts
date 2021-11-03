@@ -21,12 +21,13 @@ export function useSession(): [
   const [partialSession] = useAtom(partialStacksSessionAtom);
   const [session, setSession] = useAtom(stacksSessionAtom);
 
-  const combined = !(session && partialSession)
-    ? null
-    : ({
-        ...(session || {}),
-        ...(partialSession || {}),
-      } as Partial<StacksSessionState>);
+  const combined =
+    !session && !partialSession
+      ? null
+      : ({
+          ...(session || {}),
+          ...(partialSession || {}),
+        } as Partial<StacksSessionState>);
   return [combined, setSession as SetAtom<StacksSessionState | null>];
 }
 
