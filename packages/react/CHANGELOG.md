@@ -1,5 +1,11 @@
 # @micro-stacks/react
 
+## 0.0.5
+
+### Patch Changes
+
+- [#8](https://github.com/fungible-systems/micro-stacks-react/pull/8) [`48525fd`](https://github.com/fungible-systems/micro-stacks-react/commit/48525fd0edd7a43baf7df8524a9c1119a95ebd70) Thanks [@aulneau](https://github.com/aulneau)! - Fixes a conditional logic bug where session would not be returned correctly.
+
 ## 0.0.4
 
 ### Patch Changes
