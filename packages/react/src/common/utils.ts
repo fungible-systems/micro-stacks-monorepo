@@ -17,11 +17,9 @@ export function getNetwork(network?: NetworkType) {
 
 export enum MicroStacksProviderAtoms {
   AuthOptions = 'authOptions',
-  StorageAdapter = 'storageAdapter',
   Network = 'network',
   PartialStacksSession = 'partialStacksSession',
   EnableCookies = 'useCookies',
-  IsSignedIn = 'isSignedIn',
 }
 
 export function cookies() {

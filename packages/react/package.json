@@ -76,6 +76,7 @@
     "@types/react-dom": "17.0.10"
   },
   "dependencies": {
+    "broadcast-channel": "4.4.0",
     "jotai": "latest",
     "micro-stacks": "latest",
     "stable-hash": "0.0.2"
