@@ -1,5 +1,12 @@
 # @micro-stacks/query
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`6f73bf6`](https://github.com/fungible-systems/micro-stacks-react/commit/6f73bf6db66cdf58ff772747e0c5fa488bbb85f9), [`1d07f46`](https://github.com/fungible-systems/micro-stacks-react/commit/1d07f46b918ee1511943d7657b5db0d5af8138cb)]:
+  - @micro-stacks/react@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
