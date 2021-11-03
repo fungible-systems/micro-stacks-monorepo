@@ -47,6 +47,7 @@ export function useAuth() {
         const authOptions = get(authOptionsAtom);
         if (!authOptions) throw Error('[handleSignOut] No authOptions provided.');
         storageAdapter.removeItem(PersistedDataKeys.SessionStorageKey);
+        if (typeof localStorage !== 'undefined') localStorage.clear();
         resetSession();
         authOptions?.onSignOut?.();
       },
