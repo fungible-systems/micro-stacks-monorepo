@@ -1,5 +1,15 @@
 # @micro-stacks/nextjs
 
+## 0.0.6
+
+### Patch Changes
+
+- [`cd36e4c`](https://github.com/fungible-systems/micro-stacks-react/commit/cd36e4c6f6e24119006d37986ee7e56d7f0e9896) Thanks [@aulneau](https://github.com/aulneau)! - Updates peer dep resolution for external deps.
+
+- Updated dependencies [[`cd36e4c`](https://github.com/fungible-systems/micro-stacks-react/commit/cd36e4c6f6e24119006d37986ee7e56d7f0e9896)]:
+  - @micro-stacks/query@0.0.6
+  - @micro-stacks/react@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
