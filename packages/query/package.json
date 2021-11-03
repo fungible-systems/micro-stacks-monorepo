@@ -1,7 +1,7 @@
 {
   "name": "@micro-stacks/query",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Opinionated integration with react, jotai, and react-query for micro-stacks.",
   "files": [
     "dist"
