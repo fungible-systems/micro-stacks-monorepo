@@ -77,7 +77,7 @@
   },
   "dependencies": {
     "@micro-stacks/react": "workspace:*",
-    "jotai": "latest",
+    "jotai": "1.4.3",
     "jotai-query-toolkit": "latest",
     "next": "latest",
     "nookies": "latest",
