@@ -9,7 +9,7 @@ import type { AppProviderAtomBuilder } from '@micro-stacks/react';
 import type { NextPage } from 'next';
 
 export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
-  return function Wrapper(page: NextPage) {
+  return function Wrapper<T>(page: NextPage<T>) {
     return withInitialQueryData(
       page,
       buildMicroStacksAtoms({
