@@ -3,7 +3,7 @@ import {
   stacksNetworkFromCtx,
   stacksSessionFromCtx,
 } from '../common/cookies';
-import { getServerSideQueryProps, Queries } from 'jotai-query-toolkit/nextjs';
+import { getServerSideQueryProps, Queries, Query } from 'jotai-query-toolkit/nextjs';
 import { GetServerSideProps, GetServerSidePropsContext, NextPageContext } from 'next';
 import { QueriesLiteral, queryMap } from '../common/query-map';
 import { PartialStacksSession } from '../common/types';
@@ -26,7 +26,7 @@ const getBuiltInQuery = (
 };
 
 export const makeGetServerSideProps = (
-  queries: (QueriesLiteral | GetQueriesFromServerSideProps)[],
+  queries: (QueriesLiteral | GetQueriesFromServerSideProps | Query)[],
   getServerSideProps?: GetServerSideProps
 ) => {
   return getServerSideQueryProps(context => {
@@ -40,7 +40,10 @@ export const makeGetServerSideProps = (
       item => typeof item === 'function'
     ) as GetQueriesFromServerSideProps[];
 
-    const final: Queries = [];
+    const final: Queries = queries.filter(
+      item => Array.isArray(item) && item.length === 2
+    ) as Query[];
+
     const builtInQueries = builtIn
       .map(item => getBuiltInQuery(item, { session, networkUrl: network?.getCoreApiUrl() }))
       .filter(Boolean) as Queries;
@@ -57,13 +60,13 @@ export const makeGetServerSideProps = (
 
     return builtInQueries;
   })(async context => {
-    const serverProps = (await getServerSideProps?.(context)) || {};
+    const serverSideProps = (await getServerSideProps?.(context)) || { props: {} };
     const session = stacksSessionFromCtx(context);
     const network = stacksNetworkFromCtx(context);
 
     const props = {
       ...session,
-      ...serverProps,
+      ...('props' in serverSideProps ? serverSideProps.props : {}),
       stacksNetwork: formatStacksNetworkCookie(network.stacksNetwork),
     };
     return {
