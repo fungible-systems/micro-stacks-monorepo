@@ -1,5 +1,11 @@
 # @micro-stacks/nextjs
 
+## 0.0.8
+
+### Patch Changes
+
+- [#15](https://github.com/fungible-systems/micro-stacks-react/pull/15) [`f27bb1a`](https://github.com/fungible-systems/micro-stacks-react/commit/f27bb1af81c59aadcecdb3228ce8c2d858ac9b24) Thanks [@aulneau](https://github.com/aulneau)! - This update makes it so you can pass base queries to makeGetServerSideProps and improves types for wrapWithMicroStacks
+
 ## 0.0.7
 
 ### Patch Changes
