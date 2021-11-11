@@ -11,7 +11,8 @@ import { PartialStacksSession } from '../common/types';
 type GetQueriesFromServerSideProps = (params: {
   ctx: NextPageContext | GetServerSidePropsContext;
   session: PartialStacksSession | null;
-}) => Queries | null;
+  networkUrl: string;
+}) => Queries | null | Promise<Queries | null>;
 
 const getBuiltInQuery = (
   query: QueriesLiteral,
@@ -29,7 +30,7 @@ export const makeGetServerSideProps = (
   queries: (QueriesLiteral | GetQueriesFromServerSideProps | Query)[],
   getServerSideProps?: GetServerSideProps
 ) => {
-  return getServerSideQueryProps(context => {
+  return getServerSideQueryProps(async context => {
     const session = stacksSessionFromCtx(context).partialStacksSession;
     const network = stacksNetworkFromCtx(context).stacksNetwork;
     const ctx = context as NextPageContext | GetServerSidePropsContext;
@@ -48,13 +49,16 @@ export const makeGetServerSideProps = (
       .map(item => getBuiltInQuery(item, { session, networkUrl: network?.getCoreApiUrl() }))
       .filter(Boolean) as Queries;
 
-    custom.forEach(queryBuilder => {
-      const q = queryBuilder({
-        ctx,
-        session,
-      });
-      if (q?.length) final.push(...q);
-    });
+    await Promise.all(
+      custom.map(async queryBuilder => {
+        const q = await queryBuilder({
+          ctx,
+          session,
+          networkUrl: network?.getCoreApiUrl(),
+        });
+        if (q?.length) final.push(...q);
+      })
+    );
 
     final.push(...builtInQueries);
 
