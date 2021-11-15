@@ -1,5 +1,11 @@
 # @micro-stacks/nextjs
 
+## 0.0.9
+
+### Patch Changes
+
+- [#17](https://github.com/fungible-systems/micro-stacks-react/pull/17) [`ebaae0a`](https://github.com/fungible-systems/micro-stacks-react/commit/ebaae0a155aa0eedb1506bf9db31a680f899fdc6) Thanks [@aulneau](https://github.com/aulneau)! - This update makes it so you can pass an async query builder to makeGetServerSideProps.
+
 ## 0.0.8
 
 ### Patch Changes
