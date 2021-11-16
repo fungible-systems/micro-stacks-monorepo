@@ -1,4 +1,4 @@
-import { withInitialQueryData } from 'jotai-query-toolkit/nextjs';
+import { InitialValuesAtomBuilder, withInitialQueryData } from 'jotai-query-toolkit/nextjs';
 import {
   getStacksNetworkFromCookies,
   resetSessionCookies,
@@ -9,10 +9,12 @@ import type { AppProviderAtomBuilder } from '@micro-stacks/react';
 import type { NextPage } from 'next';
 
 export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
-  return function Wrapper<T>(page: NextPage<T>) {
-    return withInitialQueryData(
-      page,
-      buildMicroStacksAtoms({
+  return function Wrapper<T>(
+    page: NextPage<T>,
+    initialValuesAtomBuilders: InitialValuesAtomBuilder[] = []
+  ) {
+    return withInitialQueryData(page, [
+      ...buildMicroStacksAtoms({
         authOptions: {
           ...options.authOptions,
           onFinish(payload) {
@@ -25,7 +27,8 @@ export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
           },
         },
         network: options.network || getStacksNetworkFromCookies(),
-      })
-    );
+      }),
+      ...initialValuesAtomBuilders,
+    ]);
   };
 }
