@@ -1,4 +1,4 @@
-import { authenticate } from 'micro-stacks/connect';
+import { authenticate, StacksSessionState } from 'micro-stacks/connect';
 import { useCallback } from 'react';
 import { useIsSignedIn, useResetSessionCallback, useSession } from './use-session';
 import { useLoading } from './use-loading';
@@ -11,7 +11,10 @@ export function useAuth() {
   const isSignedIn = useIsSignedIn();
   const [isLoading, setIsLoading] = useLoading(LOADING_KEYS.AUTHENTICATION);
   const resetSession = useResetSessionCallback();
-  const handleSignIn = useAtomCallback<void, { onFinish?: (payload: any) => void } | undefined>(
+  const handleSignIn = useAtomCallback<
+    void,
+    { onFinish?: (payload: StacksSessionState) => void } | undefined
+  >(
     useCallback(
       async (get, set, params) => {
         const authOptions = get(authOptionsAtom);

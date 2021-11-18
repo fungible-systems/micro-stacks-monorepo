@@ -15,3 +15,5 @@ export * from './store/network';
 export * from './store/common';
 export * from './store/gaia-hub-config';
 export * from './store/auth';
+
+export * from './provider';

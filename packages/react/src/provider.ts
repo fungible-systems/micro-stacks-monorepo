@@ -1,4 +1,4 @@
-import { StacksMainnet, StacksNetwork } from 'micro-stacks/network';
+import { StacksMainnet } from 'micro-stacks/network';
 import { createElement, useMemo } from 'react';
 import { Provider } from 'jotai';
 import hash from 'stable-hash';
@@ -10,8 +10,7 @@ import { getNetwork } from './common/utils';
 import type { FC } from 'react';
 import type { AuthOptions } from 'micro-stacks/connect';
 import type { Atom } from 'jotai';
-
-export type NetworkType = StacksNetwork | 'mainnet' | 'testnet' | 'mocknet';
+import type { NetworkType } from './common/types';
 
 export interface MicroStacksProviderProps {
   authOptions: AuthOptions;
