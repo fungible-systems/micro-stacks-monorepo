@@ -11,20 +11,28 @@ export function useContractCall(options: MakeContractCallOptions) {
   const [isLoading, setIsLoading] = useLoading(key);
   const popup = useTransactionPopup();
 
-  const handleContractCall = useCallback(async () => {
-    setIsLoading(true);
-    await popup.handleContractCall({
-      ...options,
-      onFinish(payload) {
-        options?.onFinish?.(payload);
-        setIsLoading(false);
-      },
-      onCancel(payload) {
-        options?.onCancel?.(payload);
-        setIsLoading(false);
-      },
-    });
-  }, [options]);
+  const handleContractCall = useCallback(
+    async (partialOptions?: {
+      onFinish?: MakeContractCallOptions['onFinish'];
+      onCancel?: MakeContractCallOptions['onCancel'];
+    }) => {
+      setIsLoading(true);
+      await popup.handleContractCall({
+        ...options,
+        onFinish(payload) {
+          partialOptions?.onFinish?.(payload);
+          options?.onFinish?.(payload);
+          setIsLoading(false);
+        },
+        onCancel(payload) {
+          partialOptions?.onCancel?.(payload);
+          options?.onCancel?.(payload);
+          setIsLoading(false);
+        },
+      });
+    },
+    [options]
+  );
 
   return {
     handleContractCall,

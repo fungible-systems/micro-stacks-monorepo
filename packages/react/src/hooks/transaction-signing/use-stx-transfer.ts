@@ -11,23 +11,31 @@ export function useStxTransfer(options: MakeStxTransferOptions) {
   const [isLoading, setIsLoading] = useLoading(key);
   const popup = useTransactionPopup();
 
-  const handleContractCall = useCallback(async () => {
-    setIsLoading(true);
-    await popup.handleStxTransfer({
-      ...options,
-      onFinish(payload) {
-        options?.onFinish?.(payload);
-        setIsLoading(false);
-      },
-      onCancel(payload) {
-        options?.onCancel?.(payload);
-        setIsLoading(false);
-      },
-    });
-  }, [options]);
+  const handleStxTransfer = useCallback(
+    async (partialOptions?: {
+      onFinish?: MakeStxTransferOptions['onFinish'];
+      onCancel?: MakeStxTransferOptions['onCancel'];
+    }) => {
+      setIsLoading(true);
+      await popup.handleStxTransfer({
+        ...options,
+        onFinish(payload) {
+          partialOptions?.onFinish?.(payload);
+          options?.onFinish?.(payload);
+          setIsLoading(false);
+        },
+        onCancel(payload) {
+          partialOptions?.onCancel?.(payload);
+          options?.onCancel?.(payload);
+          setIsLoading(false);
+        },
+      });
+    },
+    [options]
+  );
 
   return {
-    handleContractCall,
+    handleStxTransfer,
     isLoading,
   };
 }
