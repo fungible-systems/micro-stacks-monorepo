@@ -1,5 +1,15 @@
 # @micro-stacks/nextjs
 
+## 0.0.10
+
+### Patch Changes
+
+- [#19](https://github.com/fungible-systems/micro-stacks-react/pull/19) [`24469a8`](https://github.com/fungible-systems/micro-stacks-react/commit/24469a8b7cb144ef60649fbcb31663728fd171c0) Thanks [@aulneau](https://github.com/aulneau)! - This update adds the ability to pass initial values for atoms to the wrapWithMicroStacks factory.
+
+- Updated dependencies [[`24469a8`](https://github.com/fungible-systems/micro-stacks-react/commit/24469a8b7cb144ef60649fbcb31663728fd171c0)]:
+  - @micro-stacks/react@0.0.8
+  - @micro-stacks/query@0.0.8
+
 ## 0.0.9
 
 ### Patch Changes
