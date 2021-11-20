@@ -1,5 +1,5 @@
 import { currentNetworkName, networkAtom } from '../store/network';
-import { StacksMainnet, StacksNetwork, StacksRegtest, StacksTestnet } from 'micro-stacks/network';
+import { StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
 import { useCallback } from 'react';
 import { useAtomValue, useUpdateAtom } from 'jotai/utils';
 import { ChainID } from 'micro-stacks/common';
@@ -8,8 +8,8 @@ export function useNetwork() {
   const network = useAtomValue<StacksNetwork>(networkAtom);
   const name = useAtomValue(currentNetworkName);
   const setNetwork = useUpdateAtom<
-    StacksNetwork | StacksTestnet | StacksMainnet | StacksRegtest,
-    StacksNetwork | StacksTestnet | StacksMainnet | StacksRegtest,
+    StacksNetwork | StacksTestnet | StacksMainnet,
+    StacksNetwork | StacksTestnet | StacksMainnet,
     void
   >(networkAtom);
 
@@ -20,7 +20,6 @@ export function useNetwork() {
 
   const handleSetTestnet = () => handleSetNetwork(new StacksTestnet());
   const handleSetMainnet = () => handleSetNetwork(new StacksMainnet());
-  const handleSetRegtest = () => handleSetNetwork(new StacksRegtest());
 
   return {
     network,
@@ -28,7 +27,6 @@ export function useNetwork() {
     name,
     handleSetMainnet,
     handleSetTestnet,
-    handleSetRegtest,
     handleSetNetwork,
   };
 }
