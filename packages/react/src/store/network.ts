@@ -1,4 +1,4 @@
-import { StacksMainnet, StacksNetwork, StacksRegtest, StacksTestnet } from 'micro-stacks/network';
+import { StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
 import { PersistedDataKeys } from 'micro-stacks/connect';
 
 import { atom } from 'jotai';
@@ -21,8 +21,6 @@ function getNetworkName(network: StacksNetwork) {
   switch (network.getCoreApiUrl()) {
     case 'https://stacks-node-api.mainnet.stacks.co':
       return 'mainnet';
-    case 'https://stacks-node-api.regtest.stacks.co':
-      return 'regtest';
     case 'https://stacks-node-api.testnet.stacks.co':
       return 'testnet';
   }
@@ -34,7 +32,7 @@ export const networkValueAtom = atom(new StacksMainnet());
 networkValueAtom.debugLabel = 'networkValueAtom';
 
 export const networkAtom = atomWithStorageBroadcastChannel<
-  StacksNetwork | StacksTestnet | StacksMainnet | StacksRegtest
+  StacksNetwork | StacksTestnet | StacksMainnet
 >(
   PersistedDataKeys.NetworkStorageKey,
   get => get(networkValueAtom),
