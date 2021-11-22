@@ -62,7 +62,7 @@ export const makeGetServerSideProps = (
 
     final.push(...builtInQueries);
 
-    return builtInQueries;
+    return final;
   })(async context => {
     const serverSideProps = (await getServerSideProps?.(context)) || { props: {} };
     const session = stacksSessionFromCtx(context);
