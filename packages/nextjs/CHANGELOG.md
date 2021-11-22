@@ -1,5 +1,11 @@
 # @micro-stacks/nextjs
 
+## 0.0.11
+
+### Patch Changes
+
+- [#24](https://github.com/fungible-systems/micro-stacks-react/pull/24) [`2a49bac`](https://github.com/fungible-systems/micro-stacks-react/commit/2a49bac11a58722c98ea220216579dc25a3343d5) Thanks [@aulneau](https://github.com/aulneau)! - This fixes a small bug where non-built-in queries were not correctly returned to the prop builder.
+
 ## 0.0.10
 
 ### Patch Changes
