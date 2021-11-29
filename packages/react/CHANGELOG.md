@@ -1,5 +1,15 @@
 # @micro-stacks/react
 
+## 0.1.0
+
+### Minor Changes
+
+- [#23](https://github.com/fungible-systems/micro-stacks-react/pull/23) [`ce11c60`](https://github.com/fungible-systems/micro-stacks-react/commit/ce11c60582b598436918ca28c66afb520c1db50b) Thanks [@aviculturist](https://github.com/aviculturist)! - Removes the Regtest network settings as this node has been permanently deprecated
+
+### Patch Changes
+
+- [#27](https://github.com/fungible-systems/micro-stacks-react/pull/27) [`66a1143`](https://github.com/fungible-systems/micro-stacks-react/commit/66a11435f29219b0048ed9734218ec2e54e9595f) Thanks [@aulneau](https://github.com/aulneau)! - This update expands the options available to be passed for a useContractCall's handleContractCall method.
+
 ## 0.0.8
 
 ### Patch Changes

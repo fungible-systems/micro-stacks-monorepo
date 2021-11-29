@@ -1,7 +1,7 @@
 {
   "name": "@micro-stacks/nextjs",
   "private": false,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Opinionated next.js integration for micro-stacks.",
   "files": [
     "dist"
