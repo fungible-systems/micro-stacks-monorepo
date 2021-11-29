@@ -57,11 +57,11 @@ export function useContractCall(options: UseContractCallParams) {
 
       const updatedKey = hash(finalOptions);
 
-      setKey(updatedKey);
+      if (key !== updatedKey) setKey(updatedKey);
 
       await popup.handleContractCall(finalOptions);
     },
-    [options]
+    [options, key, setKey]
   );
 
   return {
