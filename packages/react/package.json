@@ -76,9 +76,9 @@
     "@types/react-dom": "17.0.10"
   },
   "dependencies": {
-    "broadcast-channel": "4.4.0",
-    "jotai": "1.4.3",
-    "micro-stacks": "latest",
+    "broadcast-channel": ">=4.7.1",
+    "jotai": ">=1.4.7",
+    "micro-stacks": ">=0.1.10",
     "stable-hash": "0.0.2"
   },
   "peerDependencies": {

@@ -84,17 +84,17 @@ importers:
       '@stacks/stacks-blockchain-api-types': 0.70.0
       '@types/react': 17.0.31
       '@types/react-dom': 17.0.10
-      jotai: 1.4.3
-      jotai-query-toolkit: latest
-      micro-stacks: latest
-      next: latest
-      nookies: latest
+      jotai: '>=1.4.7'
+      jotai-query-toolkit: '>=0.1.22'
+      micro-stacks: '>=0.1.10'
+      next: '>=12.0.0'
+      nookies: '>=2.5.2'
     dependencies:
       '@micro-stacks/query': link:../query
       '@micro-stacks/react': link:../react
-      jotai: 1.4.3_c8c5d2d08eb23f2e90b8bda5e2c67997
-      jotai-query-toolkit: 0.1.17_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.1.0
+      jotai: 1.4.7_c8c5d2d08eb23f2e90b8bda5e2c67997
+      jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
+      micro-stacks: 0.1.10
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
     devDependencies:
@@ -112,18 +112,20 @@ importers:
       '@types/randombytes': 2.0.0
       '@types/react': 17.0.31
       '@types/react-dom': 17.0.10
-      jotai: 1.4.3
-      jotai-query-toolkit: latest
-      micro-stacks: latest
-      next: latest
-      nookies: latest
+      jotai: '>=1.4.7'
+      jotai-query-toolkit: '>=0.1.22'
+      micro-stacks: '>=0.1.10'
+      next: '>=12.0.0'
+      nookies: '>=2.5.2'
+      react-query: '>=3.34.2'
     dependencies:
       '@micro-stacks/react': link:../react
-      jotai: 1.4.3_c8c5d2d08eb23f2e90b8bda5e2c67997
-      jotai-query-toolkit: 0.1.17_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.1.0
+      jotai: 1.4.7_7f4f4b1220b549555fd6dd6d4aa011e8
+      jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
+      micro-stacks: 0.1.10
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
+      react-query: 3.34.2
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 0.70.0
       '@types/common-tags': 1.8.1
@@ -142,14 +144,14 @@ importers:
       '@types/randombytes': 2.0.0
       '@types/react': 17.0.31
       '@types/react-dom': 17.0.10
-      broadcast-channel: 4.4.0
-      jotai: 1.4.3
-      micro-stacks: latest
+      broadcast-channel: '>=4.7.1'
+      jotai: '>=1.4.7'
+      micro-stacks: '>=0.1.10'
       stable-hash: 0.0.2
     dependencies:
-      broadcast-channel: 4.4.0
-      jotai: 1.4.3_c8c5d2d08eb23f2e90b8bda5e2c67997
-      micro-stacks: 0.1.0
+      broadcast-channel: 4.7.1
+      jotai: 1.4.7_c8c5d2d08eb23f2e90b8bda5e2c67997
+      micro-stacks: 0.1.10
       stable-hash: 0.0.2
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 0.70.0
@@ -1798,6 +1800,14 @@ packages:
     dev: false
     optional: true
 
+  /@noble/hashes/0.4.4:
+    resolution: {integrity: sha512-crq2J2g8nIcczVZjYjIQ73GafloqJ6sSual8I/iC8iacMyHwI/ZVskR8Jn8ZmYBq48VC4G+16d2R0SYWVARYGg==}
+    dev: false
+
+  /@noble/secp256k1/1.3.3:
+    resolution: {integrity: sha512-uzKQA9AzoypXGQusSQahpZbNYYnzZblOgr4AjNjI9s3cGy15V+exxmEnjcC6L/slVKMR30NC+srp00Ch6Pm2hg==}
+    dev: false
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2570,16 +2580,17 @@ packages:
       unload: 2.2.0
     dev: false
 
-  /broadcast-channel/4.4.0:
-    resolution: {integrity: sha512-25UGbuDUqVnMVy+wEFT2eSDWBVncpxiHnGmFqb1r4lYNuC7YUN7gcsXQlTUlaHsP51leOQ007K+d44aN0qrGtg==}
+  /broadcast-channel/4.7.1:
+    resolution: {integrity: sha512-liKNu7gwUtBVyTzqx3Thg//7ZooKXfnXxFm/pjLPaxG3t8CquwqnobH8jtFe2FQenFduC2dUzkL1bIrld7auqg==}
     dependencies:
       '@babel/runtime': 7.16.0
       detect-node: 2.1.0
       microseconds: 0.2.0
       nano-time: 1.0.0
       oblivious-set: 1.0.0
+      p-queue: 6.6.2
       rimraf: 3.0.2
-      unload: 2.2.0
+      unload: 2.3.1
     dev: false
 
   /brorand/1.1.0:
@@ -3737,6 +3748,10 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
+  /eventemitter3/4.0.7:
+    resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
+    dev: false
+
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -4362,8 +4377,8 @@ packages:
       supports-color: 8.1.1
     dev: false
 
-  /jotai-query-toolkit/0.1.17_@babel+core@7.15.8+next@12.0.3:
-    resolution: {integrity: sha512-iBNJBw7GOxu4y/BwVRexQDZLBt2a1V9X5b1dh/YtvcRnH1eM5iENvKO02FkLXZfkqy/79snxcGBZ2yLVgigP1g==}
+  /jotai-query-toolkit/0.1.22_@babel+core@7.15.8+next@12.0.3:
+    resolution: {integrity: sha512-GkDtbUvCLNxCrTw+PjuyGd5jBR+57mGyi5j8jTFn/OA5CVInUSIaoZe8HD7o7MWtG8nThwsLly4f7YtHtR3mCw==}
     engines: {node: '>=12'}
     peerDependencies:
       next: '*'
@@ -4374,9 +4389,10 @@ packages:
         optional: true
     dependencies:
       fast-deep-equal: 3.1.3
-      jotai: 1.4.3_bc92b9e3930f2c484a5f27e1facb91f8
+      jotai: 1.4.7_7f4f4b1220b549555fd6dd6d4aa011e8
       next: 12.0.3_@babel+core@7.15.8
-      react-query: 3.32.1
+      react-query: 3.34.2
+      use-memo-one: 1.1.2
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/template'
@@ -4427,8 +4443,8 @@ packages:
       react-query: 3.31.0
     dev: false
 
-  /jotai/1.4.3_bc92b9e3930f2c484a5f27e1facb91f8:
-    resolution: {integrity: sha512-ttgbxK/DqHq2CFg0/qcRu2G4QpSPz8/PdvzskFAIyjgOadFOMIpOFxyDz1P975RjZKI3Bul6fm+X5n80HJ+NFg==}
+  /jotai/1.4.7_7f4f4b1220b549555fd6dd6d4aa011e8:
+    resolution: {integrity: sha512-EZFmhovnufIVoH0OAW6kuOv8RLjCX2HvHEqzwRG79l/LDeyp1BI+85vrEpR/fQmqh3jUhY4SyjhboEItd4+reQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -4462,11 +4478,11 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.15.8
-      react-query: 3.32.1
+      react-query: 3.34.2
     dev: false
 
-  /jotai/1.4.3_c8c5d2d08eb23f2e90b8bda5e2c67997:
-    resolution: {integrity: sha512-ttgbxK/DqHq2CFg0/qcRu2G4QpSPz8/PdvzskFAIyjgOadFOMIpOFxyDz1P975RjZKI3Bul6fm+X5n80HJ+NFg==}
+  /jotai/1.4.7_c8c5d2d08eb23f2e90b8bda5e2c67997:
+    resolution: {integrity: sha512-EZFmhovnufIVoH0OAW6kuOv8RLjCX2HvHEqzwRG79l/LDeyp1BI+85vrEpR/fQmqh3jUhY4SyjhboEItd4+reQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@babel/core': '*'
@@ -4757,12 +4773,12 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micro-stacks/0.1.0:
-    resolution: {integrity: sha512-ydFjga2LQIzGYCqeVV8sv3v9XMgPK6mGEvSQdKC9XrGSiliULz7IusDORcAsv+6O7VJx3i8i3AbC3/6wLgeY4Q==}
+  /micro-stacks/0.1.10:
+    resolution: {integrity: sha512-JZBlgNi2YY0TcoghbfpEmF0Hi/vulg97V5ndH+JMzU04lnK1nap44o3+gJt0UMr5LRXceIQS1RbXTrOI7oyCNg==}
     engines: {node: '>=12'}
     dependencies:
-      noble-hashes: 0.2.2
-      noble-secp256k1: 1.2.14
+      '@noble/hashes': 0.4.4
+      '@noble/secp256k1': 1.3.3
     dev: false
 
   /micromatch/4.0.4:
@@ -4931,14 +4947,6 @@ packages:
       - webpack
     dev: false
 
-  /noble-hashes/0.2.2:
-    resolution: {integrity: sha512-5wKykPleHvJ8y6htmb4+4ecgHA0n1F4n0xtfMdXjkhqoQsZE9QTp+nriQzss9RQKJ86GUWZwXnq0CM4VW8ApSg==}
-    dev: false
-
-  /noble-secp256k1/1.2.14:
-    resolution: {integrity: sha512-GSCXyoZBUaaPwVWdYncMEmzlSUjF9J/YeEHpklYJCyg8wPuJP3NzDx0BkiwArzINkdX2HJHvUJhL6vVWPOQQcg==}
-    dev: false
-
   /node-fetch/2.6.1:
     resolution: {integrity: sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==}
     engines: {node: 4.x || >=6.0.0}
@@ -5099,7 +5107,6 @@ packages:
   /p-finally/1.0.0:
     resolution: {integrity: sha1-P7z7FbiZpEEjs0ttzBi3JDNqLK4=}
     engines: {node: '>=4'}
-    dev: true
 
   /p-limit/1.3.0:
     resolution: {integrity: sha512-vvcXsLAJ9Dr5rQOPk7toZQZJApBl2K4J6dANSsEuh6QI41JYcsS/qhTGa9ErIUUgK3WNQoJYvylxvjqmiqEA9Q==}
@@ -5144,6 +5151,21 @@ packages:
     resolution: {integrity: sha512-y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw==}
     engines: {node: '>=6'}
     dev: true
+
+  /p-queue/6.6.2:
+    resolution: {integrity: sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      eventemitter3: 4.0.7
+      p-timeout: 3.2.0
+    dev: false
+
+  /p-timeout/3.2.0:
+    resolution: {integrity: sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg==}
+    engines: {node: '>=8'}
+    dependencies:
+      p-finally: 1.0.0
+    dev: false
 
   /p-try/1.0.0:
     resolution: {integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=}
@@ -5446,8 +5468,8 @@ packages:
       match-sorter: 6.3.1
     dev: false
 
-  /react-query/3.32.1:
-    resolution: {integrity: sha512-7UN8BYBaZb911iJUyJ/T+CjlBGBf5W8rcm3jRQ5wW4f+mt/onvRxJlB0U2r2fsT204poJt6VO0jPlm5dwu3PrQ==}
+  /react-query/3.34.2:
+    resolution: {integrity: sha512-Y817mmZa65kysW5YloRiC6/3zj/S7/dphUOfK4ujqVcKtl7/NkiMqJv3hjnLCS9cYeOA4pU8LmYQCSPQALrkcg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0
       react-dom: '*'
@@ -6256,6 +6278,13 @@ packages:
       detect-node: 2.1.0
     dev: false
 
+  /unload/2.3.1:
+    resolution: {integrity: sha512-MUZEiDqvAN9AIDRbbBnVYVvfcR6DrjCqeU2YQMmliFZl9uaBUjTkhuDQkBiyAy8ad5bx1TXVbqZ3gg7namsWjA==}
+    dependencies:
+      '@babel/runtime': 7.16.0
+      detect-node: 2.1.0
+    dev: false
+
   /unpipe/1.0.0:
     resolution: {integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=}
     engines: {node: '>= 0.8'}
@@ -6266,6 +6295,12 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /use-memo-one/1.1.2:
+    resolution: {integrity: sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+    dev: false
 
   /use-subscription/1.5.1:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
