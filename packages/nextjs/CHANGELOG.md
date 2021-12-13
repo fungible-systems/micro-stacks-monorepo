@@ -1,5 +1,15 @@
 # @micro-stacks/nextjs
 
+## 0.0.13
+
+### Patch Changes
+
+- [#28](https://github.com/fungible-systems/micro-stacks-react/pull/28) [`069640e`](https://github.com/fungible-systems/micro-stacks-react/commit/069640e8114fa478c36942a3f1424fed21353edc) Thanks [@aulneau](https://github.com/aulneau)! - Update dependencies accross all packages.
+
+- Updated dependencies [[`069640e`](https://github.com/fungible-systems/micro-stacks-react/commit/069640e8114fa478c36942a3f1424fed21353edc)]:
+  - @micro-stacks/query@0.0.10
+  - @micro-stacks/react@0.1.1
+
 ## 0.0.12
 
 ### Patch Changes
