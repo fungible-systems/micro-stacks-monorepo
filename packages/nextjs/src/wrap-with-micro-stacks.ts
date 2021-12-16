@@ -1,34 +1,23 @@
 import { InitialValuesAtomBuilder, withInitialQueryData } from 'jotai-query-toolkit/nextjs';
-import {
-  getStacksNetworkFromCookies,
-  resetSessionCookies,
-  setSessionCookies,
-} from './common/cookies';
-import { buildMicroStacksAtoms } from './builders/build-micro-stacks-atoms';
 import type { AppProviderAtomBuilder } from '@micro-stacks/react';
 import type { NextPage } from 'next';
+import {
+  GetQueriesWithStxInfo,
+  getWithGetInitialProps,
+  WithGetInitialProps,
+} from './common/get-with-get-initial-props';
+import { getAtomBuilders } from './common/get-atom-builders';
 
-export function wrapWithMicroStacks(options: AppProviderAtomBuilder) {
-  return function Wrapper<T>(
+export function wrapWithMicroStacks<T, QueryProps extends object = any>(
+  options: AppProviderAtomBuilder
+) {
+  return function Wrapper(
     page: NextPage<T>,
-    initialValuesAtomBuilders: InitialValuesAtomBuilder[] = []
+    initialValuesAtomBuilders?: InitialValuesAtomBuilder[],
+    withGetInitialProps?: GetQueriesWithStxInfo<QueryProps> | WithGetInitialProps<QueryProps, T>
   ) {
-    return withInitialQueryData(page, [
-      ...buildMicroStacksAtoms({
-        authOptions: {
-          ...options.authOptions,
-          onFinish(payload) {
-            options?.authOptions?.onFinish?.(payload);
-            setSessionCookies(payload);
-          },
-          onSignOut() {
-            resetSessionCookies();
-            options?.authOptions?.onSignOut?.();
-          },
-        },
-        network: options.network || getStacksNetworkFromCookies(),
-      }),
-      ...initialValuesAtomBuilders,
-    ]);
+    const atomBuilders = getAtomBuilders(options, initialValuesAtomBuilders || []);
+    if (withGetInitialProps) return getWithGetInitialProps(withGetInitialProps, page, atomBuilders);
+    return withInitialQueryData(page, atomBuilders);
   };
 }
