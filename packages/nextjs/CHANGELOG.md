@@ -1,5 +1,11 @@
 # @micro-stacks/nextjs
 
+## 0.0.14
+
+### Patch Changes
+
+- [#30](https://github.com/fungible-systems/micro-stacks-react/pull/30) [`0e1d7ea`](https://github.com/fungible-systems/micro-stacks-react/commit/0e1d7ea2a4aa1a04ed96e6d48ba070e6ad6aca75) Thanks [@aulneau](https://github.com/aulneau)! - This update improves the `wrapWithMicrostacks` helper to allow use of `getInitialProps` in place of `getServerSideProps`.
+
 ## 0.0.13
 
 ### Patch Changes
