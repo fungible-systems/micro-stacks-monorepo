@@ -9,9 +9,11 @@ import { NextPage, NextPageContext } from 'next';
 import { formatStacksNetworkCookie, stacksNetworkFromCtx, stacksSessionFromCtx } from './cookies';
 import { PartialStacksSession } from './types';
 
-type GetInitialProps<PageProps> = (context: NextPageContext) => PageProps | Promise<PageProps>;
+export type GetInitialProps<PageProps> = (
+  context: NextPageContext
+) => PageProps | Promise<PageProps>;
 
-interface WithStacksInfo {
+export interface WithStacksInfo {
   session: PartialStacksSession | null;
   networkUrl: string;
 }
