@@ -6,28 +6,29 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
+  "import": "./dist/esm/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "main": "./dist/index.js",
-      "module": "./dist/index.js",
-      "import": "./dist/index.js"
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js"
     },
     "./*": {
       "types": "./dist/*.d.ts",
       "require": "./dist/*.js",
       "main": "./dist/*.js",
-      "module": "./dist/*.js",
-      "import": "./dist/*.js"
+      "module": "./dist/esm/*.js",
+      "import": "./dist/esm/*.js"
     }
   },
   "sideEffects": false,
   "scripts": {
-    "build": "shx rm -rf ./dist && rollup -c ./rollup.config.js",
+    "build": "shx rm -rf ./dist && tsup src/index.ts --format esm,cjs --dts --minify --target node16 --splitting --legacy-output",
     "typecheck": "tsc --noEmit --target esnext",
     "dev:publish": "yalc publish --push",
     "lint": "pnpm lint:eslint && pnpm lint:prettier",
@@ -73,7 +74,8 @@
     "@types/jsdom": "16.2.13",
     "@types/randombytes": "2.0.0",
     "@types/react": "17.0.31",
-    "@types/react-dom": "17.0.10"
+    "@types/react-dom": "17.0.10",
+    "tsup": "5.11.6"
   },
   "dependencies": {
     "broadcast-channel": ">=4.7.1",
