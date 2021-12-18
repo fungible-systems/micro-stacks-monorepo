@@ -1,5 +1,11 @@
 # @micro-stacks/react
 
+## 0.1.2
+
+### Patch Changes
+
+- [#32](https://github.com/fungible-systems/micro-stacks-react/pull/32) [`e9e82de`](https://github.com/fungible-systems/micro-stacks-react/commit/e9e82de7848817bf2b53e3e24e6bc13c2879f6e6) Thanks [@aulneau](https://github.com/aulneau)! - This updates the build tooling around how we bundle our packages. this should improve tree shaking and bundle size of apps that use these libraries
+
 ## 0.1.1
 
 ### Patch Changes
