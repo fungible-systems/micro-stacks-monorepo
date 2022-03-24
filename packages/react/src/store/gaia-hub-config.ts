@@ -13,9 +13,7 @@ export const primaryGaiaHubConfigAtom = atom(get => {
   if (IS_SSR) return;
   const session = get(stacksSessionAtom);
   if (!session) {
-    console.group('[micro-stacks] primaryGaiaHubConfigAtom');
     console.debug('makeGaiaHubConfigAtom: no user session. Are they signed in?');
-    console.groupEnd();
     return;
   }
   return generateGaiaHubConfig({
@@ -33,9 +31,7 @@ export const makeGaiaHubConfigAtom = atomFamily<
     if (IS_SSR) return;
     const session = get(stacksSessionAtom);
     if (!session) {
-      console.group('[micro-stacks] makeGaiaHubConfigAtom');
-      console.debug('no user session. Are they signed in?');
-      console.groupEnd();
+      console.debug('[micro-stacks] makeGaiaHubConfigAtom -- no user session. Are they signed in?');
       return;
     }
     return generateGaiaHubConfig({

@@ -80,7 +80,7 @@
   "dependencies": {
     "broadcast-channel": ">=4.7.1",
     "jotai": ">=1.4.7",
-    "micro-stacks": ">=0.1.15",
+    "micro-stacks": ">=0.2.3",
     "stable-hash": "0.0.2"
   },
   "peerDependencies": {

@@ -87,7 +87,7 @@ importers:
       '@types/react-dom': 17.0.10
       jotai: '>=1.4.7'
       jotai-query-toolkit: '>=0.1.22'
-      micro-stacks: '>=0.1.15'
+      micro-stacks: '>=0.2.3'
       next: '>=12.0.0'
       nookies: '>=2.5.2'
       react-query: '>=3.34.2'
@@ -97,7 +97,7 @@ importers:
       '@micro-stacks/react': link:../react
       jotai: 1.4.7_d922dd58e2800c8586436edcd4822884
       jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.1.15
+      micro-stacks: 0.2.3
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
     devDependencies:
@@ -119,7 +119,7 @@ importers:
       '@types/react-dom': 17.0.10
       jotai: '>=1.4.7'
       jotai-query-toolkit: '>=0.1.22'
-      micro-stacks: '>=0.1.15'
+      micro-stacks: '>=0.2.3'
       next: '>=12.0.0'
       nookies: '>=2.5.2'
       react-query: '>=3.34.2'
@@ -128,7 +128,7 @@ importers:
       '@micro-stacks/react': link:../react
       jotai: 1.4.7_7f4f4b1220b549555fd6dd6d4aa011e8
       jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.1.15
+      micro-stacks: 0.2.3
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
       react-query: 3.34.2
@@ -153,13 +153,13 @@ importers:
       '@types/react-dom': 17.0.10
       broadcast-channel: '>=4.7.1'
       jotai: '>=1.4.7'
-      micro-stacks: '>=0.1.15'
+      micro-stacks: '>=0.2.3'
       stable-hash: 0.0.2
       tsup: 5.11.6
     dependencies:
       broadcast-channel: 4.7.1
       jotai: 1.4.7_d922dd58e2800c8586436edcd4822884
-      micro-stacks: 0.1.15
+      micro-stacks: 0.2.3
       stable-hash: 0.0.2
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 0.70.0
@@ -1587,7 +1587,7 @@ packages:
     resolution: {integrity: sha512-P7NgTvmOkhm/bWXs6qfJVOlgcxEkC+n96lyy7HanngZ/YnCGD5d1UmX237O4Vx9g9e8AjH9rKM3bn4X4mvWqbg==}
     dependencies:
       '@stacks/prettier-config': 0.0.9
-      '@typescript-eslint/eslint-plugin': 5.0.0-alpha.42_fc34a5d430eb137bff0bf1401198a7af
+      '@typescript-eslint/eslint-plugin': 5.0.0-alpha.42_6f7b3f6a8ec4897bd67436f839b35c54
       '@typescript-eslint/parser': 5.0.0-alpha.42_eslint@8.0.0+typescript@4.4.4
       eslint: 8.0.0
       eslint-config-prettier: 8.3.0_eslint@8.0.0
@@ -1809,12 +1809,12 @@ packages:
     dev: false
     optional: true
 
-  /@noble/hashes/0.4.4:
-    resolution: {integrity: sha512-crq2J2g8nIcczVZjYjIQ73GafloqJ6sSual8I/iC8iacMyHwI/ZVskR8Jn8ZmYBq48VC4G+16d2R0SYWVARYGg==}
+  /@noble/hashes/1.0.0:
+    resolution: {integrity: sha512-DZVbtY62kc3kkBtMHqwCOfXrT/hnoORy5BJ4+HU1IR59X0KWAOqsfzQPcUl/lQLlG7qXbe/fZ3r/emxtAl+sqg==}
     dev: false
 
-  /@noble/secp256k1/1.3.3:
-    resolution: {integrity: sha512-uzKQA9AzoypXGQusSQahpZbNYYnzZblOgr4AjNjI9s3cGy15V+exxmEnjcC6L/slVKMR30NC+srp00Ch6Pm2hg==}
+  /@noble/secp256k1/1.5.2:
+    resolution: {integrity: sha512-5mzA40W2q55VCRuC9XzmkiEnODdY0c5a7qsK2QcOfI5/MuVQyBaWGQyE6YOEF7kDwp+tDVWGsCDVJUME+wsWWw==}
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
@@ -2052,7 +2052,7 @@ packages:
       '@types/yargs-parser': 20.2.1
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.0.0-alpha.42_fc34a5d430eb137bff0bf1401198a7af:
+  /@typescript-eslint/eslint-plugin/5.0.0-alpha.42_6f7b3f6a8ec4897bd67436f839b35c54:
     resolution: {integrity: sha512-uM7sxZByvKMM4p/JmXo7qJ3cBh61Rt4PMkgT05mybJ59h4Di3i0Lwy1iDW2AJ9Y80pavHwEr/M1WpvoFIh6l0g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -4628,9 +4628,9 @@ packages:
         optional: true
     dependencies:
       fast-deep-equal: 3.1.3
-      jotai: 1.4.8_d922dd58e2800c8586436edcd4822884
+      jotai: 1.6.1_db6169ca90199f2e27998531ce6a55e9
       next: 12.0.3_@babel+core@7.15.8
-      react-query: 3.34.5
+      react-query: 3.34.16
       use-memo-one: 1.1.2
     transitivePeerDependencies:
       - '@babel/core'
@@ -4756,6 +4756,45 @@ packages:
     dependencies:
       '@babel/core': 7.15.8
       react-query: 3.34.5
+    dev: true
+
+  /jotai/1.6.1_db6169ca90199f2e27998531ce6a55e9:
+    resolution: {integrity: sha512-iNKHmpKGN31KXDqxGLsplb4HLTroYtiM7oBEQ9leyoXSEGQGUZKK5IOV4kN6fUmkBSJbwb5WnmInYOYzpjIDOw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      react-query: '*'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      react-query:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      '@babel/core': 7.15.8
+      react-query: 3.34.16
+    dev: false
 
   /joycon/3.0.1:
     resolution: {integrity: sha512-SJcJNBg32dGgxhPtM0wQqxqV0ax9k/9TaUskGDSJkSFSQOEWWvQ3zzWdGQRIUry2j1zA5+ReH13t0Mf3StuVZA==}
@@ -5013,12 +5052,12 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micro-stacks/0.1.15:
-    resolution: {integrity: sha512-kAaBrd1C7J4MnOGxGVzHALQyNlsOXujkW0vX+xpfG59y0JkVv/rtyCVA8TwNI0S7kn77YJHT/56Dw2MWu0hOcA==}
+  /micro-stacks/0.2.3:
+    resolution: {integrity: sha512-vPpEebdyJpNrNKYvk1Ytor0cIL3jnW/mtfZfc0sa2/JgABu7nu9niGF3ICrQxKmaRTZhrhZ/ttq18gUwrtb8nA==}
     engines: {node: '>=12'}
     dependencies:
-      '@noble/hashes': 0.4.4
-      '@noble/secp256k1': 1.3.3
+      '@noble/hashes': 1.0.0
+      '@noble/secp256k1': 1.5.2
     dev: false
 
   /micromatch/4.0.4:
@@ -5733,6 +5772,23 @@ packages:
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
+  /react-query/3.34.16:
+    resolution: {integrity: sha512-7FvBvjgEM4YQ8nPfmAr+lJfbW95uyW/TVjFoi2GwCkF33/S8ajx45tuPHPFGWs4qYwPy1mzwxD4IQfpUDrefNQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.16.0
+      broadcast-channel: 3.7.0
+      match-sorter: 6.3.1
+    dev: false
+
   /react-query/3.34.2:
     resolution: {integrity: sha512-Y817mmZa65kysW5YloRiC6/3zj/S7/dphUOfK4ujqVcKtl7/NkiMqJv3hjnLCS9cYeOA4pU8LmYQCSPQALrkcg==}
     peerDependencies:
@@ -5765,6 +5821,7 @@ packages:
       '@babel/runtime': 7.16.0
       broadcast-channel: 3.7.0
       match-sorter: 6.3.1
+    dev: true
 
   /react-refresh/0.8.3:
     resolution: {integrity: sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==}
