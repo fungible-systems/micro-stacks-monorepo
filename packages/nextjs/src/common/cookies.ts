@@ -6,6 +6,7 @@ import { StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/networ
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { ChainID } from 'micro-stacks/common';
+import { privateKeyToBase58Address } from 'micro-stacks/crypto';
 
 export function formatStacksNetworkCookie(payload: StacksNetwork) {
   return [payload.getCoreApiUrl(), payload.chainId];
@@ -18,13 +19,14 @@ export function parseNetworkCookie(payload?: string) {
   return new StacksMainnet({ url: networkUrl });
 }
 
-function formatSessionCookie(payload: StacksSessionState) {
+export function formatSessionCookie(payload: StacksSessionState) {
   return [
     payload.addresses.mainnet,
     payload.addresses.testnet,
     payload.identityAddress,
     payload.profile_url,
     payload.hubUrl,
+    privateKeyToBase58Address(payload.appPrivateKey),
   ];
 }
 
@@ -39,6 +41,7 @@ export function parseSessionCookie(payload?: string): PartialStacksSession | nul
     identityAddress: parsed[2],
     profile_url: parsed[3],
     hubUrl: parsed[4],
+    gaiaHubAddress: parsed?.[5],
   };
 }
 

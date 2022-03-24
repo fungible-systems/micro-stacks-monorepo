@@ -3,7 +3,8 @@ export type SessionCookie = [
   testnet: string,
   identityAddress: string,
   profile_url: string,
-  hubUrl: string
+  hubUrl: string,
+  gaiaHubAddress?: string
 ];
 
 export interface PartialStacksSession {
@@ -14,4 +15,5 @@ export interface PartialStacksSession {
   identityAddress: string;
   profile_url: string;
   hubUrl: string;
+  gaiaHubAddress?: string | null;
 }
