@@ -1,5 +1,17 @@
 # @micro-stacks/nextjs
 
+## 0.1.0
+
+### Minor Changes
+
+- [#35](https://github.com/fungible-systems/micro-stacks-react/pull/35) [`00e5f45`](https://github.com/fungible-systems/micro-stacks-react/commit/00e5f457c2abdccecdb2235dfa8fd0cdb8bbe6c7) Thanks [@aulneau](https://github.com/aulneau)! - This updates the micro-stacks version that is required for all packages, and improves the session cookie that is saved when a user signs in (persists the gaia bucket address).
+
+### Patch Changes
+
+- Updated dependencies [[`00e5f45`](https://github.com/fungible-systems/micro-stacks-react/commit/00e5f457c2abdccecdb2235dfa8fd0cdb8bbe6c7)]:
+  - @micro-stacks/query@0.1.0
+  - @micro-stacks/react@0.2.0
+
 ## 0.0.15
 
 ### Patch Changes
