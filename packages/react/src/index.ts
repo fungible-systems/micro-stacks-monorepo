@@ -11,6 +11,10 @@ export * from './hooks/use-storage';
 export * from './hooks/transaction-signing';
 export * from './hooks/use-user';
 
+export * from './hooks/use-sign-message';
+export * from './hooks/use-sign-structured-data';
+export * from './hooks/use-verify-message';
+
 export * from './store/network';
 export * from './store/common';
 export * from './store/gaia-hub-config';
