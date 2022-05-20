@@ -1,7 +1,7 @@
 {
   "name": "@micro-stacks/react",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Opinionated React integration for micro-stacks.",
   "files": [
     "dist"

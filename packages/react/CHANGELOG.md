@@ -1,5 +1,11 @@
 # @micro-stacks/react
 
+## 0.2.1
+
+### Patch Changes
+
+- [#37](https://github.com/fungible-systems/micro-stacks-react/pull/37) [`aacacb0`](https://github.com/fungible-systems/micro-stacks-react/commit/aacacb0c034a404ace301f3c054b6a73df872050) Thanks [@aulneau](https://github.com/aulneau)! - This update implements signed messages now that the Hiro Web Wallet supports arbitrary message signing! Yay!
+
 ## 0.2.0
 
 ### Minor Changes

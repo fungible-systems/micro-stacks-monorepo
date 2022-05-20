@@ -1,5 +1,12 @@
 # @micro-stacks/query
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`aacacb0`](https://github.com/fungible-systems/micro-stacks-react/commit/aacacb0c034a404ace301f3c054b6a73df872050)]:
+  - @micro-stacks/react@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes
