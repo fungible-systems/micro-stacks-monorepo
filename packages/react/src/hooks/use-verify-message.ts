@@ -1,17 +1,24 @@
+import { useCallback } from 'react';
 import {
   hashMessage as _hashMessage,
-  verifySignedMessage as _verifySignedMessage,
+  verifyMessageSignature as _verifyMessageSignature,
 } from 'micro-stacks/connect';
-import { useCallback } from 'react';
 
 export const useVerifyMessage = () => {
   const hashMessage = useCallback(_hashMessage, []);
-  const verifySignedMessage = useCallback((message: string, signature: string) => {
-    return _verifySignedMessage(hashMessage(message), signature);
-  }, []);
+  const verifyMessageSignature = useCallback(
+    (message: string, signature: string, publicKey?: string) => {
+      return _verifyMessageSignature({
+        message,
+        signature,
+        publicKey,
+      });
+    },
+    []
+  );
 
   return {
     hashMessage,
-    verifySignedMessage,
+    verifyMessageSignature,
   };
 };

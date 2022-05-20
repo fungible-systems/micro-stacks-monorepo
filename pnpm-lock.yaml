@@ -87,7 +87,7 @@ importers:
       '@types/react-dom': 17.0.10
       jotai: '>=1.4.7'
       jotai-query-toolkit: '>=0.1.22'
-      micro-stacks: '>=0.4.0'
+      micro-stacks: '>=0.5.0'
       next: '>=12.0.0'
       nookies: '>=2.5.2'
       react-query: '>=3.34.2'
@@ -97,7 +97,7 @@ importers:
       '@micro-stacks/react': link:../react
       jotai: 1.4.7_d922dd58e2800c8586436edcd4822884
       jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.4.0
+      micro-stacks: 0.5.0
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
     devDependencies:
@@ -119,7 +119,7 @@ importers:
       '@types/react-dom': 17.0.10
       jotai: '>=1.4.7'
       jotai-query-toolkit: '>=0.1.22'
-      micro-stacks: '>=0.4.0'
+      micro-stacks: '>=0.5.0'
       next: '>=12.0.0'
       nookies: '>=2.5.2'
       react-query: '>=3.34.2'
@@ -128,7 +128,7 @@ importers:
       '@micro-stacks/react': link:../react
       jotai: 1.4.7_7f4f4b1220b549555fd6dd6d4aa011e8
       jotai-query-toolkit: 0.1.22_@babel+core@7.15.8+next@12.0.3
-      micro-stacks: 0.4.0
+      micro-stacks: 0.5.0
       next: 12.0.3_@babel+core@7.15.8
       nookies: 2.5.2
       react-query: 3.34.2
@@ -153,13 +153,13 @@ importers:
       '@types/react-dom': 17.0.10
       broadcast-channel: '>=4.7.1'
       jotai: '>=1.4.7'
-      micro-stacks: '>=0.4.0'
+      micro-stacks: '>=0.5.0'
       stable-hash: 0.0.2
       tsup: 5.11.6
     dependencies:
       broadcast-channel: 4.7.1
       jotai: 1.4.7_d922dd58e2800c8586436edcd4822884
-      micro-stacks: 0.4.0
+      micro-stacks: 0.5.0
       stable-hash: 0.0.2
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 0.70.0
@@ -5052,8 +5052,8 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micro-stacks/0.4.0:
-    resolution: {integrity: sha512-vEfpVgPzCnTSzDd4YZCPLRQT+YPGnX7uG7JcAO08l3u/lgqSVnQCaK3Q300AyvFoRUM3al/FDobVTSOKbLtX6w==}
+  /micro-stacks/0.5.0:
+    resolution: {integrity: sha512-d7V2Rx3qZd9b9HrIxIHpj1jPc1bSEr8Di4LGwsYa2cF3ZgOQP+mEWNDV8Xvo9qxz37ph1zoCO8hz153NI7dt6Q==}
     engines: {node: '>=12'}
     peerDependencies:
       '@scure/bip32': 1.0.1

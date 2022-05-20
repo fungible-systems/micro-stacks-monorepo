@@ -16,7 +16,7 @@ export const useSignMessage = () => {
     async ({ message, onFinish, onCancel }: SignedOptionsWithOnHandlers<{ message: string }>) => {
       if (!authOptions?.appDetails || !session?.addresses || !session?.appPrivateKey) return;
       setIsLoading(true);
-      return handleSignMessageRequest({
+      await handleSignMessageRequest({
         message,
         appDetails: authOptions.appDetails,
         stxAddress: (session.addresses as any)?.[chain] as string,
@@ -31,6 +31,7 @@ export const useSignMessage = () => {
         },
         network,
       });
+      if (isLoading) setIsLoading(false);
     },
     [authOptions, session]
   );
