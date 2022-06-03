@@ -39,26 +39,8 @@
       "@micro-stacks/react": [
         "packages/react/src"
       ],
-      "@micro-stacks/nextjs": [
-        "packages/nextjs/src"
-      ],
-      "@micro-stacks/query": [
-        "packages/query/src"
-      ],
-      "react-query": [
-        "packages/query/node_modules/react-query/"
-      ],
-      "micro-stacks/*": [
-        "node_modules/micro-stacks/*"
-      ],
-      "micro-stacks": [
-        "node_modules/micro-stacks"
-      ],
-      "jotai": [
-        "node_modules/jotai"
-      ],
-      "jotai/*": [
-        "node_modules/jotai/*"
+      "@micro-stacks/core": [
+        "packages/core/src"
       ]
     }
   }
