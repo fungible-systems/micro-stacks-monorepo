@@ -8,7 +8,7 @@ import type { StacksNetwork } from 'micro-stacks/network';
 import type { Mutate, StoreApi } from 'zustand/vanilla';
 import type { ClarityValue } from 'micro-stacks/clarity';
 import type { ClientStorage } from '../common/storage';
-import type { AppDetails, ClientConfig, SignTransactionRequest, State } from '../common/types';
+import type { ClientConfig, SignTransactionRequest, State } from '../common/types';
 
 import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
 import { default as create } from 'zustand/vanilla';
@@ -35,7 +35,9 @@ import {
 } from 'micro-stacks/crypto';
 import { SignInWithStacksMessage } from '../siwms';
 import { generateGaiaHubConfigSync, getFile, putFile } from 'micro-stacks/storage';
-import { defaultState, hydrate, serialize, VERSION } from './utils';
+import { defaultState, getDebugState, hydrate, serialize, VERSION } from './utils';
+import { DebugOptions } from '../common/types';
+import { MicroStacksErrors } from '../common/errors';
 
 export class MicroStacksClient {
   config: ClientConfig;
@@ -44,6 +46,7 @@ export class MicroStacksClient {
     StoreApi<State>,
     [['zustand/subscribeWithSelector', never], ['zustand/persist', Partial<State>]]
   >;
+  debug?: DebugOptions;
 
   constructor(initConfig: ClientConfig = {}) {
     const config = {
@@ -76,16 +79,17 @@ export class MicroStacksClient {
         })
       )
     );
+    this.debug = getDebugState();
     this.config = config;
     this.storage = config.storage;
   }
 
-  setState(updater: State | ((state: State) => State)) {
+  private setState(updater: State | ((state: State) => State)) {
     const newState = typeof updater === 'function' ? updater(this.store.getState()) : updater;
     this.store.setState(newState, true);
   }
 
-  resetState() {
+  private resetState() {
     this.setState(defaultState(this.config));
   }
 
@@ -197,8 +201,13 @@ export class MicroStacksClient {
     return this.account.address;
   }
 
-  get appDetails(): AppDetails {
-    return this.store.getState().appDetails as AppDetails;
+  get appDetails(): undefined | { name: string; icon: string } {
+    const state = this.store.getState();
+    if (!state.appName || !state.appIconUrl) return;
+    return {
+      name: state.appName as string,
+      icon: state.appIconUrl as string,
+    };
   }
 
   get identityAddress(): string | undefined {
@@ -253,8 +262,8 @@ export class MicroStacksClient {
     onCancel?: (error?: Error) => void;
   }) => {
     // first we need to make sure these are available
-    invariantWithMessage(!!this.provider, 'No StacksProvider found');
-    invariantWithMessage(this.appDetails, 'No AppDetails defined');
+    invariantWithMessage(!!this.provider, MicroStacksErrors.StacksProviderNotFund);
+    invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
 
     // now we set pending status
     this.setIsRequestPending(StatusKeys.Authentication);
@@ -274,7 +283,7 @@ export class MicroStacksClient {
               ...state,
               accounts: state.accounts.concat({
                 address: session.addresses.mainnet,
-                appPrivateKey: session.appPrivateKey,
+                appPrivateKey: this.debug?.disableAppPrivateKey ? undefined : session.appPrivateKey,
               }),
               currentAccountIndex: state.accounts.length,
             }));
@@ -327,8 +336,9 @@ export class MicroStacksClient {
     nonce: string;
     version?: string;
   }) => {
-    invariantWithMessage(this.appDetails, 'No AppDetails defined');
-    invariantWithMessage(this.stxAddress, 'No stxAddress defined');
+    invariantWithMessage(!!this.provider, MicroStacksErrors.StacksProviderNotFund);
+    invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
+    invariantWithMessage(this.stxAddress, MicroStacksErrors.StxAddressNotAvailable);
 
     return new SignInWithStacksMessage({
       domain: this.appDetails.name,
@@ -347,10 +357,10 @@ export class MicroStacksClient {
    */
 
   signTransaction: SignTransactionRequest = async (type, params) => {
-    invariantWithMessage(!!this.provider, 'No StacksProvider found');
-    invariantWithMessage(this.appDetails, 'No AppDetails defined');
-    invariantWithMessage(this.account, 'No session active');
-    invariantWithMessage(this.stxAddress, 'No session active');
+    invariantWithMessage(!!this.provider, MicroStacksErrors.StacksProviderNotFund);
+    invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
+    invariantWithMessage(this.stxAddress, MicroStacksErrors.StxAddressNotAvailable);
+    invariantWithMessage(this.account, MicroStacksErrors.NoSession);
 
     this.setIsRequestPending(StatusKeys.TransactionSigning);
 
@@ -402,12 +412,11 @@ export class MicroStacksClient {
    */
 
   signMessage = async (params: SignedOptionsWithOnHandlers<{ message: string }>) => {
-    invariantWithMessage(!!this.provider, 'No StacksProvider found');
-    invariantWithMessage(this.appDetails, 'No AppDetails defined');
-    invariantWithMessage(this.account, 'No session active');
-    invariantWithMessage(this.account?.appPrivateKey, 'No private key found');
-    invariantWithMessage(this.stxAddress, 'No session active');
-    invariantWithMessage(params.message, 'Must pass message to sign');
+    invariantWithMessage(!!this.provider, MicroStacksErrors.StacksProviderNotFund);
+    invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
+    invariantWithMessage(this.stxAddress, MicroStacksErrors.StxAddressNotAvailable);
+    invariantWithMessage(this.account, MicroStacksErrors.NoSession);
+    invariantWithMessage(params.message, MicroStacksErrors.NoMessagePassedToSignMessage);
 
     this.setIsRequestPending(StatusKeys.MessageSigning);
     let result: SignatureData | undefined;
@@ -447,12 +456,11 @@ export class MicroStacksClient {
       };
     }>
   ) => {
-    invariantWithMessage(!!this.provider, 'No StacksProvider found');
-    invariantWithMessage(this.appDetails, 'No AppDetails defined');
-    invariantWithMessage(this.account, 'No session active');
-    invariantWithMessage(this.account?.appPrivateKey, 'No private key found');
-    invariantWithMessage(this.stxAddress, 'No stxAddress available');
-    invariantWithMessage(params.message, 'Must pass message to sign');
+    invariantWithMessage(!!this.provider, MicroStacksErrors.StacksProviderNotFund);
+    invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
+    invariantWithMessage(this.stxAddress, MicroStacksErrors.StxAddressNotAvailable);
+    invariantWithMessage(this.account, MicroStacksErrors.NoSession);
+    invariantWithMessage(params.message, MicroStacksErrors.NoMessagePassedToSignMessage);
 
     this.setIsRequestPending(StatusKeys.MessageSigning);
     let result: SignatureData | undefined;

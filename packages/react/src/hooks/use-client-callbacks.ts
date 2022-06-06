@@ -15,7 +15,9 @@ export const useSetOnPersistState = () => {
   return client.setOnPersistState;
 };
 
-export const useSetOnAuthentication = () => {
+export const useSetOnAuthentication = (): ((
+  onAuthentication: ClientConfig['onAuthentication']
+) => void) => {
   const client = useMicroStacksClient();
   return client.setOnAuthentication;
 };

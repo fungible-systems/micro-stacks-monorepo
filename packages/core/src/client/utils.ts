@@ -1,6 +1,7 @@
-import { ClientConfig, State } from '../common/types';
+import { ClientConfig, DebugOptions, State } from '../common/types';
 import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
 import { Status, StatusKeys } from '../common/constants';
+import { getGlobalObject } from 'micro-stacks/common';
 
 export const VERSION = 1;
 
@@ -12,7 +13,7 @@ export function serialize({ state, version }: { state: State; version: number })
   ]);
 }
 
-function deserialize(str: string) {
+export function deserialize(str: string) {
   const data = JSON.parse(str);
   const [chainId, apiUrl] = data[0] as [ChainID, string];
   const [currentAccountIndex, accounts] = data[1];
@@ -33,7 +34,6 @@ function deserialize(str: string) {
 
 export const defaultState = ({
   network = new StacksMainnet(),
-  appDetails,
   ...config
 }: ClientConfig): State => ({
   statuses: {
@@ -43,7 +43,8 @@ export const defaultState = ({
     [StatusKeys.StructuredMessageSigning]: Status.IsIdle,
   },
   network: network,
-  appDetails: appDetails,
+  appName: config.appName,
+  appIconUrl: config.appIconUrl,
   accounts: [],
   currentAccountIndex: 0,
   onPersistState: config.onPersistState,
@@ -56,7 +57,7 @@ export const hydrate = (str: string, config: ClientConfig) => {
     const { version, ...state } = deserialize(str);
     return {
       state: {
-        ...defaultState({ network: config.network, appDetails: config.appDetails }),
+        ...defaultState(config),
         ...state,
       },
       version,
@@ -67,4 +68,12 @@ export const hydrate = (str: string, config: ClientConfig) => {
       version: VERSION,
     };
   }
+};
+
+export const getDebugState = () => {
+  const storage = getGlobalObject('localStorage', { throwIfUnavailable: false });
+  if (!storage) return;
+  const debug = localStorage.getItem('MICRO_STACKS_DEBUG');
+  if (debug) return JSON.parse(debug) as DebugOptions;
+  return;
 };

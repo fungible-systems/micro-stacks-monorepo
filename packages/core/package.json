@@ -2,7 +2,7 @@
   "name": "@micro-stacks/core",
   "private": false,
   "version": "1.0.0-beta.0",
-  "description": "Session for stacks apps",
+  "description": "Session client for Stacks apps using micro-stacks",
   "files": [
     "dist"
   ],
@@ -28,7 +28,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake",
+    "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake --external micro-stacks",
     "typecheck": "tsc --noEmit --target esnext",
     "dev:publish": "yalc publish --push",
     "lint": "pnpm lint:eslint && pnpm lint:prettier",
@@ -41,11 +41,6 @@
     "node": ">=14"
   },
   "prettier": "@stacks/prettier-config",
-  "lint-staged": {
-    "*.{js,ts,tsx,md}": [
-      "prettier --write"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aulneau/micro-stacks-monorepo.git"
@@ -71,9 +66,9 @@
     "type-fest": "^2.13.0"
   },
   "dependencies": {
-    "fast-deep-equal": "^3.1.3",
-    "micro-stacks": ">=0.5.2",
-    "tiny-invariant": "^1.2.0",
-    "zustand": "^4.0.0-rc.1"
+    "fast-deep-equal": "3.1.3",
+    "micro-stacks": "file:.yalc/micro-stacks",
+    "tiny-invariant": "1.2.0",
+    "zustand": "4.0.0-rc.1"
   }
 }

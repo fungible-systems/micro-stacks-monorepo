@@ -8,6 +8,7 @@ import {
 } from '../hooks/use-client-callbacks';
 import { memo } from 'react';
 
+// not to be exported
 const CallbacksProvider: React.FC<
   Pick<ClientConfig, 'onAuthentication' | 'onSignOut' | 'onPersistState'>
 > = memo(({ onPersistState, onAuthentication, onSignOut }) => {
@@ -17,7 +18,7 @@ const CallbacksProvider: React.FC<
   return null;
 });
 
-export const Provider: React.FC<
+export const ClientProvider: React.FC<
   {
     client: ReturnType<typeof getClient>;
   } & Pick<ClientConfig, 'onAuthentication' | 'onSignOut' | 'onPersistState'>

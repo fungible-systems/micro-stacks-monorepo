@@ -48,12 +48,14 @@ export interface SignTransactionRequest {
 
 type getInitialState = (key: string) => string | undefined;
 
+export interface DebugOptions {
+  disableAppPrivateKey?: boolean;
+}
+
 export interface ClientConfig {
   storage?: ClientStorage;
-  appDetails?: {
-    name: string;
-    icon: string;
-  };
+  appName?: string;
+  appIconUrl?: string;
   network?: StacksNetwork;
   dehydratedState?: string | getInitialState;
   onPersistState?: (dehydratedState: string) => void | Promise<void>;
@@ -62,7 +64,8 @@ export interface ClientConfig {
 }
 
 export type State = {
-  appDetails?: ClientConfig['appDetails'];
+  appName?: string;
+  appIconUrl?: string;
   statuses: {
     [StatusKeys.Authentication]: Status;
     [StatusKeys.TransactionSigning]: Status;

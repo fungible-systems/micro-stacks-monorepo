@@ -1,5 +1,5 @@
 export * from './common/context';
-export * from './components/provider';
+export * from './components/client-provider';
 export * from './common/types';
 export * from './hooks/use-client';
 export * from './hooks/use-auth';
