@@ -22,7 +22,7 @@ import {
 import { getGlobalObject } from 'micro-stacks/common';
 import { invariantWithMessage } from '../common/utils';
 import type { ClientStorage } from '../common/storage';
-import { DEFAULT_PREFIX, defaultStorage, noopStorage } from '../common/storage';
+import { defaultStorage, noopStorage } from '../common/storage';
 import { Status, StatusKeys, STORE_KEY, TxType } from '../common/constants';
 import type { AppDetails, ClientConfig, SignTransactionRequest, State } from '../common/types';
 import {
@@ -63,7 +63,11 @@ function deserialize(str: string) {
   };
 }
 
-const defaultState = ({ network = new StacksMainnet(), appDetails }: ClientConfig) => ({
+const defaultState = ({
+  network = new StacksMainnet(),
+  appDetails,
+  ...config
+}: ClientConfig): State => ({
   statuses: {
     [StatusKeys.Authentication]: Status.IsIdle,
     [StatusKeys.TransactionSigning]: Status.IsIdle,
@@ -74,7 +78,28 @@ const defaultState = ({ network = new StacksMainnet(), appDetails }: ClientConfi
   appDetails: appDetails,
   accounts: [],
   currentAccountIndex: 0,
+  onPersistState: config.onPersistState,
+  onAuthentication: config.onAuthentication,
+  onSignOut: config.onSignOut,
 });
+
+const hydrate = (str: string, config: ClientConfig) => {
+  try {
+    const { version, ...state } = deserialize(str);
+    return {
+      state: {
+        ...defaultState({ network: config.network, appDetails: config.appDetails }),
+        ...state,
+      },
+      version,
+    };
+  } catch (e) {
+    return {
+      state: defaultState(config),
+      version: VERSION,
+    };
+  }
+};
 
 export class MicroStacksClient {
   config: ClientConfig;
@@ -84,61 +109,39 @@ export class MicroStacksClient {
     [['zustand/subscribeWithSelector', never], ['zustand/persist', Partial<State>]]
   >;
 
-  constructor({
-    storage = defaultStorage,
-    network = new StacksMainnet(),
-    appDetails,
-    dehydratedState,
-    ...config
-  }: ClientConfig = {}) {
+  constructor(initConfig: ClientConfig = {}) {
+    const config = {
+      storage: initConfig?.storage ?? defaultStorage,
+      network: initConfig?.network ?? new StacksMainnet(),
+      ...initConfig,
+    };
+
     const fallbackStore = {
-      state: defaultState({ network, appDetails }),
+      state: defaultState(config),
       version: VERSION,
     };
 
-    const hydrate = (str: string) => {
-      try {
-        const { version, ...state } = deserialize(str);
-        return {
-          state: {
-            ...defaultState({ network, appDetails }),
-            ...state,
-          },
-          version,
-        };
-      } catch (e) {
-        return fallbackStore;
-      }
-    };
+    const dehydratedState =
+      typeof config.dehydratedState === 'function'
+        ? config.dehydratedState(this.storeKey)
+        : config.dehydratedState;
 
-    dehydratedState =
-      typeof dehydratedState === 'function' ? dehydratedState(this.storeKey) : dehydratedState;
-
-    const defaultStore = dehydratedState ? hydrate(dehydratedState) : fallbackStore;
+    const defaultStore = dehydratedState ? hydrate(dehydratedState, config) : fallbackStore;
 
     // Create store
     this.store = create(
       subscribeWithSelector(
         persist<State, [['zustand/subscribeWithSelector', never]]>(() => defaultStore.state, {
           name: STORE_KEY,
-          getStorage: () => storage,
+          getStorage: () => config.storage,
           version: defaultStore.version,
           serialize: ({ state, version }) => serialize({ state, version: version ?? VERSION }),
-          deserialize: hydrate,
+          deserialize: str => hydrate(str, config),
         })
       )
     );
-    this.config = {
-      network,
-      appDetails,
-      onSignOut: config.onSignOut,
-      onAuthenticate: config.onAuthenticate,
-    };
-    this.storage = storage;
-  }
-
-  dehydrate() {
-    return serialize({ state: this.store.getState(), version: VERSION });
+    this.config = config;
+    this.storage = config.storage;
   }
 
   setState(updater: State | ((state: State) => State)) {
@@ -147,21 +150,69 @@ export class MicroStacksClient {
   }
 
   resetState() {
-    this.setState(
-      defaultState({ network: this.config.network, appDetails: this.config.appDetails })
-    );
+    this.setState(defaultState(this.config));
   }
 
   get subscribe() {
     return this.store.subscribe;
   }
 
-  get provider() {
+  private get provider() {
     return getGlobalObject('StacksProvider');
   }
 
-  get storeKey() {
-    return DEFAULT_PREFIX + '.' + STORE_KEY;
+  private get storeKey() {
+    return STORE_KEY;
+  }
+
+  private onPersistState = (str: string) => {
+    return this.store.getState()?.onPersistState?.(str);
+  };
+
+  private get onAuthentication() {
+    return this.store.getState()?.onAuthentication;
+  }
+
+  private get onSignOut() {
+    return this.store.getState()?.onSignOut;
+  }
+
+  setOnPersistState = (onPersistState: (dehydratedState: string) => void | Promise<void>) => {
+    this.setState(s => ({
+      ...s,
+      onPersistState,
+    }));
+    this.config.onPersistState = onPersistState;
+  };
+
+  setOnSignOut = (onSignOut: ClientConfig['onSignOut']) => {
+    this.setState(s => ({
+      ...s,
+      onSignOut,
+    }));
+    this.config.onSignOut = onSignOut;
+  };
+
+  setOnAuthentication = (onAuthentication: ClientConfig['onAuthentication']) => {
+    this.setState(s => ({
+      ...s,
+      onAuthentication,
+    }));
+    this.config.onAuthentication = onAuthentication;
+  };
+
+  private handleOnPersistState = () => {
+    // persist state on changes
+    if (this.onPersistState) this.onPersistState(this.dehydrate(this.store.getState()));
+  };
+
+  dehydrate(state?: State) {
+    return serialize({ state: state ?? this.store.getState(), version: VERSION });
+  }
+
+  hydrate(dehydratedState: string) {
+    const store = hydrate(dehydratedState, this.config);
+    this.setState(store.state);
   }
 
   /** ------------------------------------------------------------------------------------------------------------------
@@ -185,8 +236,8 @@ export class MicroStacksClient {
     return this.accounts[this.currentAccountIndex];
   }
 
-  get network() {
-    return this.store.getState().network;
+  get network(): StacksNetwork {
+    return this.store.getState().network ?? new StacksMainnet();
   }
 
   get networkChain(): 'testnet' | 'mainnet' {
@@ -234,7 +285,7 @@ export class MicroStacksClient {
     }));
   }
 
-  setIsLoading(key: StatusKeys) {
+  setIsRequestPending(key: StatusKeys) {
     this.setStatus(key, Status.IsLoading);
   }
 
@@ -248,6 +299,16 @@ export class MicroStacksClient {
 
   /** ------------------------------------------------------------------------------------------------------------------
    *   Authenticate
+   *
+   *   This is the main method for authenticating users from a StacksProvider. Providers are injected via a web ext
+   *   or in the case of something like Xverse, polyfilled to mirror the way the Hiro Web Wallet injects the provider.
+   *
+   *   This method can take two callbacks as direct params: onFinish and onCancel. These will run in addition to the
+   *   following callbacks (if they have been set prior to authentication): client.onAuthentication and
+   *   client.onPersistState.
+   *
+   *   Requires: `StacksProvider` and `config.appDetails`
+   *
    *  ------------------------------------------------------------------------------------------------------------------
    */
 
@@ -255,27 +316,53 @@ export class MicroStacksClient {
     onFinish?: (session: Omit<StacksSessionState, 'profile'>) => void;
     onCancel?: (error?: Error) => void;
   }) => {
+    // first we need to make sure these are available
     invariantWithMessage(!!this.provider, 'No StacksProvider found');
     invariantWithMessage(this.appDetails, 'No AppDetails defined');
 
-    this.setIsLoading(StatusKeys.Authentication);
+    // now we set pending status
+    this.setIsRequestPending(StatusKeys.Authentication);
+
+    // authenticate request to the provider
     await authenticate(
       {
         appDetails: this.appDetails,
+        // this is the on success callback
         onFinish: ({ profile, ...session }) => {
-          this.setState(state => ({
-            ...state,
-            accounts: state.accounts.concat({
-              address: session.addresses.mainnet,
-              appPrivateKey: session.appPrivateKey,
-            }),
-          }));
+          const hasAccount = this.accounts.find(
+            account => account.address === session.addresses.mainnet
+          );
+          // if this is not currently saved, we should save it
+          if (!hasAccount) {
+            this.setState(state => ({
+              ...state,
+              accounts: state.accounts.concat({
+                address: session.addresses.mainnet,
+                appPrivateKey: session.appPrivateKey,
+              }),
+              currentAccountIndex: state.accounts.length,
+            }));
+          } else {
+            // else just switch to the index
+            this.setState(s => ({
+              ...s,
+              currentAccountIndex: this.accounts.findIndex(
+                account => account.address === session.addresses.mainnet
+              ),
+            }));
+          }
+          // fire any of our callbacks
           params?.onFinish?.(session);
-          this.config?.onAuthenticate?.({ profile, ...session });
+          this.onAuthentication?.({ profile, ...session });
+          this.handleOnPersistState();
+
+          // set pending to idle
           this.setIsIdle(StatusKeys.Authentication);
         },
         onCancel: error => {
+          // set pending to idle
           this.setIsIdle(StatusKeys.Authentication);
+          // fire the onCancel if exists
           params?.onCancel?.(error);
         },
       },
@@ -285,7 +372,7 @@ export class MicroStacksClient {
 
   signOut = async (onSignOut?: (() => void) | (() => Promise<void>)) => {
     this.store.persist.clearStorage();
-    this.config?.onSignOut?.();
+    this.onSignOut?.();
     this.resetState();
     return onSignOut?.();
   };
@@ -329,7 +416,7 @@ export class MicroStacksClient {
     invariantWithMessage(this.account, 'No session active');
     invariantWithMessage(this.stxAddress, 'No session active');
 
-    this.setIsLoading(StatusKeys.TransactionSigning);
+    this.setIsRequestPending(StatusKeys.TransactionSigning);
 
     let result: FinishedTxData | undefined;
 
@@ -386,7 +473,7 @@ export class MicroStacksClient {
     invariantWithMessage(this.stxAddress, 'No session active');
     invariantWithMessage(params.message, 'Must pass message to sign');
 
-    this.setIsLoading(StatusKeys.MessageSigning);
+    this.setIsRequestPending(StatusKeys.MessageSigning);
     let result: SignatureData | undefined;
 
     await handleSignMessageRequest({
@@ -431,7 +518,7 @@ export class MicroStacksClient {
     invariantWithMessage(this.stxAddress, 'No stxAddress available');
     invariantWithMessage(params.message, 'Must pass message to sign');
 
-    this.setIsLoading(StatusKeys.MessageSigning);
+    this.setIsRequestPending(StatusKeys.MessageSigning);
     let result: SignatureData | undefined;
 
     await handleSignStructuredDataRequest({
@@ -468,6 +555,7 @@ export class MicroStacksClient {
         network: network === 'mainnet' ? new StacksMainnet() : new StacksTestnet(),
       }));
     else this.setState(s => ({ ...s, network }));
+    this.handleOnPersistState();
   };
 
   /** ------------------------------------------------------------------------------------------------------------------

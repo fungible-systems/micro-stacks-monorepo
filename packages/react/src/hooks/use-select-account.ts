@@ -5,19 +5,24 @@ import {
   watchCurrentAccount,
   watchStxAddress,
 } from '@micro-stacks/core';
+import { useMicroStacksClient } from './use-client';
 
 export function useAccount(): ReturnType<typeof getCurrentAccount> {
-  const [state, setState] = useState(getCurrentAccount());
+  const client = useMicroStacksClient();
+  const [state, setState] = useState(getCurrentAccount(client));
   useEffect(() => {
-    return watchCurrentAccount(setState);
-  }, []);
+    return watchCurrentAccount(setState, client);
+  }, [client]);
+
   return state;
 }
 
 export function useStxAddress() {
-  const [state, setState] = useState(getStxAddress());
+  const client = useMicroStacksClient();
+  const [state, setState] = useState(getStxAddress(client));
   useEffect(() => {
-    return watchStxAddress(setState);
-  }, []);
+    return watchStxAddress(setState, client);
+  }, [client]);
+
   return state;
 }

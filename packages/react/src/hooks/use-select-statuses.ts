@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getStatus, watchStatus } from '@micro-stacks/core';
+import { useMicroStacksClient } from './use-client';
 
 export function useStatuses() {
-  const [state, setState] = useState(getStatus());
+  const client = useMicroStacksClient();
+  const [state, setState] = useState(getStatus(client));
   useEffect(() => {
-    return watchStatus(setState);
-  }, []);
+    return watchStatus(setState, client);
+  }, [client]);
   return state;
 }

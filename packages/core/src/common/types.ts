@@ -54,12 +54,13 @@ export interface ClientConfig {
   appDetails?: AuthOptions['appDetails'];
   network?: StacksNetwork;
   dehydratedState?: string | getInitialState;
+  onPersistState?: (dehydratedState: string) => void | Promise<void>;
   onSignOut?: () => void;
-  onAuthenticate?: (payload: StacksSessionState) => void;
+  onAuthentication?: (payload: StacksSessionState) => void;
 }
 
 export type State = {
-  appDetails?: AuthOptions['appDetails'];
+  appDetails?: ClientConfig['appDetails'];
   statuses: {
     [StatusKeys.Authentication]: Status;
     [StatusKeys.TransactionSigning]: Status;
@@ -69,4 +70,8 @@ export type State = {
   network: StacksNetwork;
   currentAccountIndex: number;
   accounts: { appPrivateKey?: string; address: string }[];
+  // actions
+  onPersistState?: ClientConfig['onPersistState'];
+  onSignOut?: ClientConfig['onSignOut'];
+  onAuthentication?: ClientConfig['onAuthentication'];
 };

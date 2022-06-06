@@ -11,11 +11,11 @@ interface UseNetwork {
 
 export function useNetwork(): UseNetwork {
   const client = useMicroStacksClient();
-  const [network, setState] = useState(getNetwork());
+  const [network, setState] = useState(getNetwork(client));
 
   useEffect(() => {
-    return watchNetwork(setState);
-  }, []);
+    return watchNetwork(setState, client);
+  }, [client]);
 
   network.isMainnet = useCallback(() => network.chainId === ChainID.Mainnet, [network.chainId]);
 

@@ -3,13 +3,15 @@ import equalityFn from 'fast-deep-equal/es6';
 import { State } from '../common/types';
 import { getClient } from '../client/create-client';
 
-export function getAccounts() {
-  const { accounts } = getClient();
+export function getAccounts(client: MicroStacksClient = getClient()) {
+  const { accounts } = client;
   return accounts;
 }
 
-export function watchAccounts(callback: (payload: State['accounts']) => void) {
-  const client = getClient();
+export function watchAccounts(
+  callback: (payload: State['accounts']) => void,
+  client: MicroStacksClient = getClient()
+) {
   const handleChange = () => callback(getAccounts());
 
   // unsubscribe
@@ -22,18 +24,20 @@ export function watchAccounts(callback: (payload: State['accounts']) => void) {
   );
 }
 
-export function getCurrentAccount() {
-  const { accounts, currentAccountIndex } = getClient();
+export function getCurrentAccount(client: MicroStacksClient = getClient()) {
+  const { accounts, currentAccountIndex } = client;
   return accounts[currentAccountIndex] ?? null;
 }
 
-export function getStxAddress() {
-  const { stxAddress } = getClient();
+export function getStxAddress(client: MicroStacksClient = getClient()) {
+  const { stxAddress } = client;
   return stxAddress ?? null;
 }
 
-export function watchStxAddress(callback: (payload: MicroStacksClient['stxAddress']) => void) {
-  const client = getClient();
+export function watchStxAddress(
+  callback: (payload: MicroStacksClient['stxAddress']) => void,
+  client: MicroStacksClient = getClient()
+) {
   const handleChange = () => callback(getStxAddress());
 
   // unsubscribe
@@ -47,10 +51,10 @@ export function watchStxAddress(callback: (payload: MicroStacksClient['stxAddres
 }
 
 export function watchCurrentAccount(
-  callback: (payload: MicroStacksClient['accounts'][number]) => void
+  callback: (payload: MicroStacksClient['accounts'][number]) => void,
+  client: MicroStacksClient = getClient()
 ) {
-  const client = getClient();
-  const handleChange = () => callback(getCurrentAccount());
+  const handleChange = () => callback(getCurrentAccount(client));
 
   // unsubscribe
   return client.subscribe(

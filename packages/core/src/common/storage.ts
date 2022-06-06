@@ -16,34 +16,44 @@ export const noopStorage: BaseStorage = {
 
 export const defaultStorage = createStorage({
   storage: typeof window !== 'undefined' ? window.localStorage : noopStorage,
+  serialize: JSON.stringify,
+  deserialize: JSON.parse,
 });
 
 export function createStorage<V = unknown>({
   storage,
   key: prefix = DEFAULT_PREFIX,
+  serialize,
+  deserialize,
 }: {
   storage: BaseStorage;
+  serialize?: any;
+  deserialize?: any;
   key?: string;
 }): ClientStorage<V> {
   return {
     ...storage,
     getItem: (key, defaultState = null) => {
-      const value = storage.getItem(`${prefix}.${key}`);
+      const _key = `${prefix}.${key.replace(`${prefix}.`, '')}`;
+      const value = storage.getItem(_key);
+      if (!deserialize) return value ?? defaultState;
       try {
-        return value ? JSON.parse(value) : defaultState;
+        return value ? deserialize(value) : defaultState;
       } catch (error) {
         console.warn(error);
         return defaultState;
       }
     },
     setItem: (key, value) => {
+      const _key = `${prefix}.${key.replace(`${prefix}.`, '')}`;
       if (value === null) {
-        storage.removeItem(`${prefix}.${key}`);
+        storage.removeItem(_key);
       } else {
         try {
-          storage.setItem(`${prefix}.${key}`, JSON.stringify(value));
-        } catch (err) {
-          console.error(err);
+          const v = serialize ? serialize(value) : value;
+          storage.setItem(_key, v);
+        } catch (error) {
+          console.error(error);
         }
       }
     },
