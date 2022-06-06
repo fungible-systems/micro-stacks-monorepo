@@ -1,7 +1,7 @@
 {
   "name": "@micro-stacks/core",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "description": "Session for stacks apps",
   "files": [
     "dist"

@@ -1,5 +1,4 @@
 import type {
-  AuthOptions,
   ContractCallTxOptions,
   ContractDeployTxOptions,
   FinishedTxData,
@@ -51,7 +50,10 @@ type getInitialState = (key: string) => string | undefined;
 
 export interface ClientConfig {
   storage?: ClientStorage;
-  appDetails?: AuthOptions['appDetails'];
+  appDetails?: {
+    name: string;
+    icon: string;
+  };
   network?: StacksNetwork;
   dehydratedState?: string | getInitialState;
   onPersistState?: (dehydratedState: string) => void | Promise<void>;

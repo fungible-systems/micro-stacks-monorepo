@@ -1,15 +1,19 @@
-import type { StacksNetwork } from 'micro-stacks/network';
-import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
-import type { Mutate, StoreApi } from 'zustand/vanilla';
-import { default as create } from 'zustand/vanilla';
-import type { ClarityValue } from 'micro-stacks/clarity';
-import { persist, subscribeWithSelector } from 'zustand/middleware';
 import type {
   FinishedTxData,
   SignatureData,
   SignedOptionsWithOnHandlers,
   StacksSessionState,
 } from 'micro-stacks/connect';
+import type { StacksNetwork } from 'micro-stacks/network';
+import type { Mutate, StoreApi } from 'zustand/vanilla';
+import type { ClarityValue } from 'micro-stacks/clarity';
+import type { ClientStorage } from '../common/storage';
+import type { AppDetails, ClientConfig, SignTransactionRequest, State } from '../common/types';
+
+import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
+import { default as create } from 'zustand/vanilla';
+import { persist, subscribeWithSelector } from 'zustand/middleware';
+
 import {
   authenticate,
   handleSignMessageRequest,
@@ -21,10 +25,8 @@ import {
 } from 'micro-stacks/connect';
 import { getGlobalObject } from 'micro-stacks/common';
 import { invariantWithMessage } from '../common/utils';
-import type { ClientStorage } from '../common/storage';
 import { defaultStorage, noopStorage } from '../common/storage';
 import { Status, StatusKeys, STORE_KEY, TxType } from '../common/constants';
-import type { AppDetails, ClientConfig, SignTransactionRequest, State } from '../common/types';
 import {
   c32address,
   c32addressDecode,
@@ -33,73 +35,7 @@ import {
 } from 'micro-stacks/crypto';
 import { SignInWithStacksMessage } from '../siwms';
 import { generateGaiaHubConfigSync, getFile, putFile } from 'micro-stacks/storage';
-
-const VERSION = 1;
-
-function serialize({ state, version }: { state: State; version: number }) {
-  return JSON.stringify([
-    [state.network?.chainId, state.network?.getCoreApiUrl?.()],
-    [state.currentAccountIndex, state.accounts],
-    version,
-  ]);
-}
-
-function deserialize(str: string) {
-  const data = JSON.parse(str);
-  const [chainId, apiUrl] = data[0] as [ChainID, string];
-  const [currentAccountIndex, accounts] = data[1];
-  const version = data[2] ?? VERSION;
-
-  const network =
-    chainId === ChainID.Mainnet
-      ? new StacksMainnet({ url: apiUrl })
-      : new StacksTestnet({ url: apiUrl });
-
-  return {
-    network,
-    currentAccountIndex,
-    accounts,
-    version,
-  };
-}
-
-const defaultState = ({
-  network = new StacksMainnet(),
-  appDetails,
-  ...config
-}: ClientConfig): State => ({
-  statuses: {
-    [StatusKeys.Authentication]: Status.IsIdle,
-    [StatusKeys.TransactionSigning]: Status.IsIdle,
-    [StatusKeys.MessageSigning]: Status.IsIdle,
-    [StatusKeys.StructuredMessageSigning]: Status.IsIdle,
-  },
-  network: network,
-  appDetails: appDetails,
-  accounts: [],
-  currentAccountIndex: 0,
-  onPersistState: config.onPersistState,
-  onAuthentication: config.onAuthentication,
-  onSignOut: config.onSignOut,
-});
-
-const hydrate = (str: string, config: ClientConfig) => {
-  try {
-    const { version, ...state } = deserialize(str);
-    return {
-      state: {
-        ...defaultState({ network: config.network, appDetails: config.appDetails }),
-        ...state,
-      },
-      version,
-    };
-  } catch (e) {
-    return {
-      state: defaultState(config),
-      version: VERSION,
-    };
-  }
-};
+import { defaultState, hydrate, serialize, VERSION } from './utils';
 
 export class MicroStacksClient {
   config: ClientConfig;
@@ -116,17 +52,17 @@ export class MicroStacksClient {
       ...initConfig,
     };
 
-    const fallbackStore = {
-      state: defaultState(config),
-      version: VERSION,
-    };
-
     const dehydratedState =
       typeof config.dehydratedState === 'function'
         ? config.dehydratedState(this.storeKey)
         : config.dehydratedState;
 
-    const defaultStore = dehydratedState ? hydrate(dehydratedState, config) : fallbackStore;
+    const defaultStore = dehydratedState
+      ? hydrate(dehydratedState, config)
+      : {
+          state: defaultState(config),
+          version: VERSION,
+        };
 
     // Create store
     this.store = create(
