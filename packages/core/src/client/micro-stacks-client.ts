@@ -4,16 +4,6 @@ import type {
   SignedOptionsWithOnHandlers,
   StacksSessionState,
 } from 'micro-stacks/connect';
-import type { StacksNetwork } from 'micro-stacks/network';
-import type { Mutate, StoreApi } from 'zustand/vanilla';
-import type { ClarityValue } from 'micro-stacks/clarity';
-import type { ClientStorage } from '../common/storage';
-import type { ClientConfig, SignTransactionRequest, State } from '../common/types';
-
-import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
-import { default as create } from 'zustand/vanilla';
-import { persist, subscribeWithSelector } from 'zustand/middleware';
-
 import {
   authenticate,
   handleSignMessageRequest,
@@ -23,9 +13,18 @@ import {
   makeStxTransferToken,
   openTransactionPopup,
 } from 'micro-stacks/connect';
+import type { StacksNetwork } from 'micro-stacks/network';
+import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
+import type { Mutate, StoreApi } from 'zustand/vanilla';
+import { default as create } from 'zustand/vanilla';
+import type { ClarityValue } from 'micro-stacks/clarity';
+import type { ClientStorage } from '../common/storage';
+import { defaultStorage, noopStorage } from '../common/storage';
+import type { ClientConfig, SignTransactionRequest, State } from '../common/types';
+import { DebugOptions } from '../common/types';
+import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { getGlobalObject } from 'micro-stacks/common';
 import { invariantWithMessage } from '../common/utils';
-import { defaultStorage, noopStorage } from '../common/storage';
 import { Status, StatusKeys, STORE_KEY, TxType } from '../common/constants';
 import {
   c32address,
@@ -36,7 +35,6 @@ import {
 import { SignInWithStacksMessage } from '../siwms';
 import { generateGaiaHubConfigSync, getFile, putFile } from 'micro-stacks/storage';
 import { defaultState, getDebugState, hydrate, serialize, VERSION } from './utils';
-import { DebugOptions } from '../common/types';
 import { MicroStacksErrors } from '../common/errors';
 
 export class MicroStacksClient {
@@ -316,7 +314,7 @@ export class MicroStacksClient {
   };
 
   signOut = async (onSignOut?: (() => void) | (() => Promise<void>)) => {
-    this.store.persist.clearStorage();
+    this.store?.persist?.clearStorage?.();
     this.onSignOut?.();
     this.resetState();
     return onSignOut?.();
@@ -388,7 +386,7 @@ export class MicroStacksClient {
     // Jenna help?
     const token = await fn({ ...sharedParams, ...params } as any);
 
-    invariantWithMessage(token, 'Transaction token could not be created');
+    invariantWithMessage(token, MicroStacksErrors.JWTCouldNotBeMade);
 
     await openTransactionPopup({
       token,

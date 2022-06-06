@@ -15,13 +15,7 @@ export function watchAccounts(
   const handleChange = () => callback(getAccounts());
 
   // unsubscribe
-  return client.subscribe(
-    ({ accounts }) => {
-      return accounts;
-    },
-    handleChange,
-    { equalityFn }
-  );
+  return client.subscribe(({ accounts }) => accounts, handleChange, { equalityFn });
 }
 
 export function getCurrentAccount(client: MicroStacksClient = getClient()) {

@@ -1,4 +1,5 @@
-import invariant from "tiny-invariant";
+import invariant from 'tiny-invariant';
+import { MicroStacksErrors } from './errors';
 
 function makeMicroStacksMsg(msg: string) {
   return `[@micro-stacks/client] ${msg}`;
@@ -6,7 +7,7 @@ function makeMicroStacksMsg(msg: string) {
 
 export function invariantWithMessage(
   condition: any,
-  message: string
+  message: MicroStacksErrors
 ): asserts condition {
   invariant(condition, makeMicroStacksMsg(message));
 }
