@@ -1,7 +1,7 @@
 import equalityFn from 'fast-deep-equal/es6';
 import { State } from '../common/types';
-import { getClient } from '../client/create-client';
-import { MicroStacksClient } from '../client/micro-stacks-client';
+import { getClient } from '../create-client';
+import { MicroStacksClient } from '../micro-stacks-client';
 
 export function getNetwork(client: MicroStacksClient = getClient()) {
   const { network } = client;

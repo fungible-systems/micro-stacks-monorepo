@@ -1,5 +1,5 @@
 {
-  "name": "@micro-stacks/core",
+  "name": "@micro-stacks/client",
   "private": false,
   "version": "1.0.0-beta.0",
   "description": "Session client for Stacks apps using micro-stacks",

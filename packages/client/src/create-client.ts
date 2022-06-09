@@ -1,4 +1,4 @@
-import { ClientConfig } from '../common/types';
+import { ClientConfig } from './common/types';
 import { MicroStacksClient } from './micro-stacks-client';
 
 export let client: MicroStacksClient;

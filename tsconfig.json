@@ -39,8 +39,8 @@
       "@micro-stacks/react": [
         "packages/react/src"
       ],
-      "@micro-stacks/core": [
-        "packages/core/src"
+      "@micro-stacks/client": [
+        "packages/client/src"
       ]
     }
   }

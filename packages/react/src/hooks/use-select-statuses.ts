@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getStatus, watchStatus } from '@micro-stacks/core';
+import { getStatus, watchStatus } from '@micro-stacks/client';
 import { useMicroStacksClient } from './use-client';
 
 export function useStatuses() {

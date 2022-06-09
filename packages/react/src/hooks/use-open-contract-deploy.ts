@@ -1,5 +1,5 @@
 import { OptionalParams } from '../common/types';
-import { ContractDeployParams, Status, StatusKeys, TxType } from '@micro-stacks/core';
+import { ContractDeployParams, Status, StatusKeys, TxType } from '@micro-stacks/client';
 import { FinishedTxData } from 'micro-stacks/connect';
 import { useMicroStacksClient } from './use-client';
 import { useStatuses } from './use-select-statuses';

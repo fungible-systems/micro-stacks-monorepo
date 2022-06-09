@@ -1,7 +1,7 @@
 import { useAccount } from './use-select-account';
 import { useStatuses } from './use-select-statuses';
 import { useMicroStacksClient } from './use-client';
-import { Client, Status, StatusKeys } from '@micro-stacks/core';
+import { Client, Status, StatusKeys } from '@micro-stacks/client';
 
 interface UseAuth {
   authenticate: Client['authenticate'];

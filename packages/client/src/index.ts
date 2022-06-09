@@ -1,5 +1,5 @@
-export * from './client/create-client';
-export * from './client/micro-stacks-client';
+export * from './create-client';
+export * from './micro-stacks-client';
 export * from './common/types';
 export * from './common/constants';
 export * from './common/storage';

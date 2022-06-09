@@ -1,4 +1,4 @@
-import type { ClientConfig } from '@micro-stacks/core';
+import type { ClientConfig } from '@micro-stacks/client';
 import { useMicroStacksClient } from '@micro-stacks/react';
 import { useEffect } from 'react';
 import { useEvent } from '../common/use-event';

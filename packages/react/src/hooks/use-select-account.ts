@@ -4,7 +4,7 @@ import {
   getStxAddress,
   watchCurrentAccount,
   watchStxAddress,
-} from '@micro-stacks/core';
+} from '@micro-stacks/client';
 import { useMicroStacksClient } from './use-client';
 
 export function useAccount(): ReturnType<typeof getCurrentAccount> {

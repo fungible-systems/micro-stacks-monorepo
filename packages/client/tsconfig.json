@@ -6,18 +6,12 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@micro-stacks/react": [
-        "../react/src"
+      "@micro-stacks/client": [
+        "../client/src"
       ]
     }
   },
-  "references": [
-    {
-      "path": "../core/tsconfig.json"
-    }
-  ],
   "include": [
-    "src/**/*",
-    "tests/**/*"
+    "./src/**/*",
   ]
 }

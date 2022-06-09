@@ -1,6 +1,6 @@
-import { ClientConfig, DebugOptions, State } from '../common/types';
+import { ClientConfig, DebugOptions, State } from './common/types';
 import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
-import { Status, StatusKeys } from '../common/constants';
+import { Status, StatusKeys } from './common/constants';
 import { getGlobalObject } from 'micro-stacks/common';
 
 export const VERSION = 1;

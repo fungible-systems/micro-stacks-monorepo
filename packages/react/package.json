@@ -78,7 +78,7 @@
     "tsup": "6.0.1"
   },
   "dependencies": {
-    "@micro-stacks/core": "workspace:*",
+    "@micro-stacks/client": "workspace:*",
     "micro-stacks": ">=0.5.2",
     "react-async-hook": "^4.0.0"
   },

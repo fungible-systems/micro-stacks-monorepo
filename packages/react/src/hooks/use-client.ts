@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { MicroStacksClientContext } from '../common/context';
-import type { Client } from '@micro-stacks/core';
+import type { Client } from '@micro-stacks/client';
 
 export const useMicroStacksClient = () => {
   const client = useContext<Client | null>(MicroStacksClientContext);

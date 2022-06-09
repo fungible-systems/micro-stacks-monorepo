@@ -1,7 +1,7 @@
 import { useMicroStacksClient } from './use-client';
 import { ChainID, StacksNetwork } from 'micro-stacks/network';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { getNetwork, watchNetwork } from '@micro-stacks/core';
+import { getNetwork, watchNetwork } from '@micro-stacks/client';
 
 interface UseNetwork {
   network: StacksNetwork;

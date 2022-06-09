@@ -18,24 +18,24 @@ import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
 import type { Mutate, StoreApi } from 'zustand/vanilla';
 import { default as create } from 'zustand/vanilla';
 import type { ClarityValue } from 'micro-stacks/clarity';
-import type { ClientStorage } from '../common/storage';
-import { defaultStorage, noopStorage } from '../common/storage';
-import type { ClientConfig, SignTransactionRequest, State } from '../common/types';
-import { DebugOptions } from '../common/types';
+import type { ClientStorage } from './common/storage';
+import { defaultStorage, noopStorage } from './common/storage';
+import type { ClientConfig, SignTransactionRequest, State } from './common/types';
+import { DebugOptions } from './common/types';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
 import { getGlobalObject } from 'micro-stacks/common';
-import { invariantWithMessage } from '../common/utils';
-import { Status, StatusKeys, STORE_KEY, TxType } from '../common/constants';
+import { invariantWithMessage } from './common/utils';
+import { Status, StatusKeys, STORE_KEY, TxType } from './common/constants';
 import {
   c32address,
   c32addressDecode,
   privateKeyToBase58Address,
   StacksNetworkVersion,
 } from 'micro-stacks/crypto';
-import { SignInWithStacksMessage } from '../siwms';
+import { SignInWithStacksMessage } from './siwms';
 import { generateGaiaHubConfigSync, getFile, putFile } from 'micro-stacks/storage';
 import { defaultState, getDebugState, hydrate, serialize, VERSION } from './utils';
-import { MicroStacksErrors } from '../common/errors';
+import { MicroStacksErrors } from './common/errors';
 
 export class MicroStacksClient {
   config: ClientConfig;

@@ -1,7 +1,7 @@
-import { MicroStacksClient } from '../client/micro-stacks-client';
+import { MicroStacksClient } from '../micro-stacks-client';
 import equalityFn from 'fast-deep-equal/es6';
 import { State } from '../common/types';
-import { getClient } from '../client/create-client';
+import { getClient } from '../create-client';
 
 export function getAccounts(client: MicroStacksClient = getClient()) {
   const { accounts } = client;

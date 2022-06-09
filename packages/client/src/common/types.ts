@@ -53,13 +53,52 @@ export interface DebugOptions {
 }
 
 export interface ClientConfig {
-  storage?: ClientStorage;
+  /**
+   * appName
+   * The name of the application. Required if interacting with a wallet.
+   */
   appName?: string;
+  /**
+   * appIconUrl
+   * A URL pointing to an icon for the application. Required if interacting with a wallet.
+   */
   appIconUrl?: string;
-  network?: StacksNetwork;
+  /**
+   * storage
+   * getItem: <Value = V>(key: string, defaultValue?: Value | null) => Value | null;
+   * setItem: <Value>(key: string, value: Value | null) => void;
+   * removeItem: (key: string) => void;
+   */
+  storage?: ClientStorage;
+  /**
+   * network
+   * `testnet`, `mainnnet` or instance StacksNetwork
+   */
+  network?: 'testnet' | 'mainnet' | StacksNetwork;
+  /**
+   * dehydratedState
+   * A string value of dehydrated state (via client.dehydrate())
+   * OR a getter function: (key: string) => string | undefined
+   */
   dehydratedState?: string | getInitialState;
+  /**
+   * onPersistState
+   * Function that consumes dehydrated client state when state changes
+   * Useful if you need to sync external storage to state changes e.g.: cookie session storage
+   * @param dehydratedState - string serialized state
+   */
   onPersistState?: (dehydratedState: string) => void | Promise<void>;
+  /**
+   * onSignOut
+   * Fires when a session is signed out
+   * Useful if you need to destroy some synced session e.g.: cookie session storage
+   */
   onSignOut?: () => void;
+  /**
+   * onAuthentication
+   * Function that fires on a successful authentication.
+   * @param payload - StacksSessionState returned from the wallet
+   */
   onAuthentication?: (payload: StacksSessionState) => void;
 }
 

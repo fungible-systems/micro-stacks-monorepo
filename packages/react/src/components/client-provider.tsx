@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ClientConfig, createClient, getClient } from '@micro-stacks/core';
+import { ClientConfig, defaultStorage, getClient } from '@micro-stacks/client';
 import { MicroStacksClientContext } from '../common/context';
 import {
   useOnAuthenticationEffect,
   useOnPersistEffect,
   useOnSignOutEffect,
 } from '../hooks/use-client-callbacks';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 // not to be exported
 const CallbacksProvider: React.FC<
@@ -30,26 +30,23 @@ export const ClientProvider: React.FC<
     appIconUrl,
     appName,
     network,
-    storage,
+    storage = defaultStorage,
     onPersistState,
     onAuthentication,
     onSignOut,
   }) => {
-    const client = useMemo(
-      () =>
-        client_ ??
-        createClient({
-          appName,
-          appIconUrl,
-          dehydratedState,
-          network,
-          storage,
-          onPersistState,
-          onAuthentication,
-          onSignOut,
-        }),
-      [client_, appName, appIconUrl, dehydratedState, network, storage]
-    );
+    const client =
+      client_ ??
+      getClient({
+        appName,
+        appIconUrl,
+        dehydratedState,
+        network,
+        storage,
+        onPersistState,
+        onAuthentication,
+        onSignOut,
+      });
     return (
       <MicroStacksClientContext.Provider value={client}>
         {!client_ ? (

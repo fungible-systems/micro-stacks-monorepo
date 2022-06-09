@@ -4,7 +4,7 @@ import { useStatuses } from './use-select-statuses';
 import { useCallback, useMemo } from 'react';
 import { ClarityValue } from 'micro-stacks/clarity';
 import { ChainID } from 'micro-stacks/network';
-import { Status, StatusKeys } from '@micro-stacks/core';
+import { Status, StatusKeys } from '@micro-stacks/client';
 
 interface UseOpenSignStructuredMessage {
   openSignStructuredMessage: (

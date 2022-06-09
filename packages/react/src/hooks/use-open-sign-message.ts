@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import { useStatuses } from './use-select-statuses';
 import { useMicroStacksClient } from './use-client';
-import { Status, StatusKeys } from '@micro-stacks/core';
+import { Status, StatusKeys } from '@micro-stacks/client';
 import type { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect';
 
 interface UseOpenSignMessage {
