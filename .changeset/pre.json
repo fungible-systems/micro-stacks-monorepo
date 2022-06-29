@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@micro-stacks/client": "0.0.1",
+    "@micro-stacks/react": "0.0.1"
+  },
+  "changesets": [
+    "blue-eyes-tap"
+  ]
+}
