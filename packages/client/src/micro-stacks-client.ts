@@ -338,11 +338,15 @@ export class MicroStacksClient {
     invariantWithMessage(this.appDetails, MicroStacksErrors.AppDetailsNotDefined);
     invariantWithMessage(this.stxAddress, MicroStacksErrors.StxAddressNotAvailable);
 
+    const fallbackUri = getGlobalObject('document', { throwIfUnavailable: false })
+      ? window.location.origin
+      : '';
+
     return new SignInWithStacksMessage({
       domain: this.appDetails.name,
       address: this.stxAddress,
       statement: 'Sign in with Stacks',
-      uri: domain ?? typeof document !== 'undefined' ? window.location.origin : '',
+      uri: domain ?? fallbackUri,
       version,
       chainId: ChainID.Mainnet,
       nonce,
@@ -383,7 +387,6 @@ export class MicroStacksClient {
         : makeContractDeployToken;
 
     // todo: types would be great
-    // Jenna help?
     const token = await fn({ ...sharedParams, ...params } as any);
 
     invariantWithMessage(token, MicroStacksErrors.JWTCouldNotBeMade);

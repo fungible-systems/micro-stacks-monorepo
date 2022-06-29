@@ -1,5 +1,5 @@
 import { ClientConfig, DebugOptions, State } from './common/types';
-import { ChainID, StacksMainnet, StacksTestnet } from 'micro-stacks/network';
+import { ChainID, StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
 import { Status, StatusKeys } from './common/constants';
 import { getGlobalObject } from 'micro-stacks/common';
 
@@ -32,6 +32,12 @@ export function deserialize(str: string) {
   };
 }
 
+const getNetwork = (network: StacksNetwork | 'testnet' | 'mainnet'): StacksNetwork => {
+  if (typeof network !== 'string') return network;
+  if (network === 'testnet') return new StacksTestnet();
+  return new StacksMainnet();
+};
+
 export const defaultState = ({
   network = new StacksMainnet(),
   ...config
@@ -42,7 +48,7 @@ export const defaultState = ({
     [StatusKeys.MessageSigning]: Status.IsIdle,
     [StatusKeys.StructuredMessageSigning]: Status.IsIdle,
   },
-  network: network,
+  network: getNetwork(network),
   appName: config.appName,
   appIconUrl: config.appIconUrl,
   accounts: [],
