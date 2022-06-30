@@ -1,0 +1,51 @@
+{
+  "name": "@micro-stacks/svelte",
+  "version": "1.2.3",
+  "description": "Opinionated svelte integration for micro-stacks.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "globals.d.ts"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "module": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "test": "vitest run test",
+    "test:watch": "vitest test",
+    "dev": "rollup -cw",
+    "build": "rollup -c ",
+    "pub": "pnpm build && pnpm publish --no-git-checks --access public",
+    "pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public",
+    "size": "echo 'Svelte size:' && brotli-size dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fungible-systems/micro-stacks-monorepo.git"
+  },
+  "keywords": [
+    "stacks",
+    "web3",
+    "small-bundle"
+  ],
+  "author": "Mohammad Bagher Abiat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fungible-systems/micro-stacks-monorepo/issues"
+  },
+  "homepage": "https://github.com/fungible-systems/micro-stacks-monorepo",
+  "devDependencies": {
+    "svelte": "^3.48.0"
+  },
+  "dependencies": {
+    "@micro-stacks/client": "workspace:*"
+  }
+}
