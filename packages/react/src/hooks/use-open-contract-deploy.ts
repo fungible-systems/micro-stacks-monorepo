@@ -2,7 +2,7 @@ import { OptionalParams } from '../common/types';
 import { ContractDeployParams, Status, StatusKeys, TxType } from '@micro-stacks/client';
 import { FinishedTxData } from 'micro-stacks/connect';
 import { useMicroStacksClient } from './use-client';
-import { useStatuses } from './use-select-statuses';
+import { useStatuses } from './use-statuses';
 import { useCallback, useMemo } from 'react';
 
 interface UseOpenContractDeploy {

@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "@micro-stacks/client": "workspace:*",
-    "micro-stacks": ">=0.5.2",
+    "micro-stacks": ">=0.5.3",
     "react-async-hook": "^4.0.0"
   },
   "peerDependencies": {

@@ -1,5 +1,5 @@
-import { useAccount } from './use-select-account';
-import { useStatuses } from './use-select-statuses';
+import { useAccount } from './use-account';
+import { useStatuses } from './use-statuses';
 import { useMicroStacksClient } from './use-client';
 import { Client, Status, StatusKeys } from '@micro-stacks/client';
 
@@ -7,7 +7,7 @@ interface UseAuth {
   authenticate: Client['authenticate'];
   signOut: Client['signOut'];
   isSignedIn: boolean;
-  isLoading: boolean;
+  isRequestPending: boolean;
 }
 
 export const useAuth = (): UseAuth => {
@@ -24,6 +24,6 @@ export const useAuth = (): UseAuth => {
      * state
      */
     isSignedIn: !!account,
-    isLoading: status[StatusKeys.Authentication] === Status.IsLoading,
+    isRequestPending: status[StatusKeys.Authentication] === Status.IsLoading,
   };
 };

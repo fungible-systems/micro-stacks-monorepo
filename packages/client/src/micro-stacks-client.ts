@@ -184,7 +184,7 @@ export class MicroStacksClient {
 
   get testnetStxAddress() {
     if (!this.account) return null;
-    const [version, hash] = c32addressDecode(this.account.address);
+    const [version, hash] = this.account.address;
     return c32address(
       version === StacksNetworkVersion.mainnetP2SH
         ? StacksNetworkVersion.testnetP2SH
@@ -193,10 +193,21 @@ export class MicroStacksClient {
     );
   }
 
+  get mainnetStxAddress() {
+    if (!this.account) return null;
+    const [version, hash] = this.account.address;
+    return c32address(
+      version === StacksNetworkVersion.mainnetP2SH
+        ? StacksNetworkVersion.mainnetP2SH
+        : StacksNetworkVersion.mainnetP2PKH,
+      hash
+    );
+  }
+
   get stxAddress(): string | null {
     if (!this.account) return null;
     if (this.networkChain === 'testnet') return this.testnetStxAddress;
-    return this.account.address;
+    return this.mainnetStxAddress;
   }
 
   get appDetails(): undefined | { name: string; icon: string } {
@@ -272,15 +283,15 @@ export class MicroStacksClient {
         appDetails: this.appDetails,
         // this is the on success callback
         onFinish: ({ profile, ...session }) => {
-          const hasAccount = this.accounts.find(
-            account => account.address === session.addresses.mainnet
-          );
+          const address = c32addressDecode(session.addresses.mainnet);
+
+          const hasAccount = this.accounts.find(account => account.address === address);
           // if this is not currently saved, we should save it
           if (!hasAccount) {
             this.setState(state => ({
               ...state,
               accounts: state.accounts.concat({
-                address: session.addresses.mainnet,
+                address,
                 appPrivateKey: this.debug?.disableAppPrivateKey ? undefined : session.appPrivateKey,
               }),
               currentAccountIndex: state.accounts.length,
@@ -289,9 +300,7 @@ export class MicroStacksClient {
             // else just switch to the index
             this.setState(s => ({
               ...s,
-              currentAccountIndex: this.accounts.findIndex(
-                account => account.address === session.addresses.mainnet
-              ),
+              currentAccountIndex: this.accounts.findIndex(account => account.address === address),
             }));
           }
           // fire any of our callbacks

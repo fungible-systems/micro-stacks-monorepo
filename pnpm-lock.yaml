@@ -85,14 +85,14 @@ importers:
       '@types/jest': 27.0.2
       '@types/jsdom': 16.2.13
       fast-deep-equal: 3.1.3
-      micro-stacks: file:.yalc/micro-stacks
-      tiny-invariant: 1.2.0
+      micro-stacks: '>=0.5.3'
+      tiny-invariant: '>=1.2.0'
       tsup: 6.0.1
       type-fest: ^2.13.0
       zustand: 4.0.0-rc.1
     dependencies:
       fast-deep-equal: 3.1.3
-      micro-stacks: link:.yalc/micro-stacks
+      micro-stacks: 0.5.3
       tiny-invariant: 1.2.0
       zustand: 4.0.0-rc.1
     devDependencies:
@@ -113,12 +113,12 @@ importers:
       '@types/randombytes': 2.0.0
       '@types/react': 17.0.31
       '@types/react-dom': 17.0.10
-      micro-stacks: '>=0.5.2'
+      micro-stacks: '>=0.5.3'
       react-async-hook: ^4.0.0
       tsup: 6.0.1
     dependencies:
       '@micro-stacks/client': link:../client
-      micro-stacks: 0.5.2
+      micro-stacks: 0.5.3
       react-async-hook: 4.0.0
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 1.0.7
@@ -4320,8 +4320,8 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /micro-stacks/0.5.2:
-    resolution: {integrity: sha512-JAfnjTw8B71LqeF77kSPNxV/eDwgtii653AjBtPstKOM6fmKOMTiKXc4IOCq6qEXLyS08aNnnQ+U9VutTB8tNw==}
+  /micro-stacks/0.5.3:
+    resolution: {integrity: sha512-dDXROJgXCOzeNnnCs7Nu6UcwyEgg/xV8DK/ENzm5TwIqirWyGarDhtVSJPK/NknGgCbQSg+OxNUqfexQQvNigg==}
     engines: {node: '>=12'}
     peerDependencies:
       '@scure/bip32': 1.0.1

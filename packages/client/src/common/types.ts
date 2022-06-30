@@ -113,7 +113,7 @@ export type State = {
   };
   network: StacksNetwork;
   currentAccountIndex: number;
-  accounts: { appPrivateKey?: string; address: string }[];
+  accounts: { appPrivateKey?: string; address: [version: number, hash: Uint8Array] }[];
   // actions
   onPersistState?: ClientConfig['onPersistState'];
   onSignOut?: ClientConfig['onSignOut'];

@@ -20,7 +20,7 @@ export function watchAccounts(
 
 export function getCurrentAccount(client: MicroStacksClient = getClient()) {
   const { accounts, currentAccountIndex } = client;
-  return accounts[currentAccountIndex] ?? null;
+  return accounts[currentAccountIndex] ?? { appPrivateKey: null, address: null };
 }
 
 export function getStxAddress(client: MicroStacksClient = getClient()) {
@@ -53,7 +53,7 @@ export function watchCurrentAccount(
   // unsubscribe
   return client.subscribe(
     ({ accounts, currentAccountIndex }) => {
-      return accounts[currentAccountIndex] ?? null;
+      return accounts[currentAccountIndex] ?? { appPrivateKey: null, address: null };
     },
     handleChange,
     { equalityFn }

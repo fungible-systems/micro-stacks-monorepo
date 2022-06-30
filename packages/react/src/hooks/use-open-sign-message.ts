@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useStatuses } from './use-select-statuses';
+import { useStatuses } from './use-statuses';
 import { useMicroStacksClient } from './use-client';
 import { Status, StatusKeys } from '@micro-stacks/client';
 import type { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect';

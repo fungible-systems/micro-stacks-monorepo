@@ -67,8 +67,8 @@
   },
   "dependencies": {
     "fast-deep-equal": "3.1.3",
-    "micro-stacks": "file:.yalc/micro-stacks",
-    "tiny-invariant": "1.2.0",
+    "micro-stacks": ">=0.5.3",
+    "tiny-invariant": ">=1.2.0",
     "zustand": "4.0.0-rc.1"
   }
 }

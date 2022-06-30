@@ -1,6 +1,6 @@
 import { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect';
 import { useMicroStacksClient } from './use-client';
-import { useStatuses } from './use-select-statuses';
+import { useStatuses } from './use-statuses';
 import { useCallback, useMemo } from 'react';
 import { ClarityValue } from 'micro-stacks/clarity';
 import { ChainID } from 'micro-stacks/network';
