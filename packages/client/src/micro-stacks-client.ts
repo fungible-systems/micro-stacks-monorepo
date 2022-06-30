@@ -196,12 +196,7 @@ export class MicroStacksClient {
   get mainnetStxAddress() {
     if (!this.account) return null;
     const [version, hash] = this.account.address;
-    return c32address(
-      version === StacksNetworkVersion.mainnetP2SH
-        ? StacksNetworkVersion.mainnetP2SH
-        : StacksNetworkVersion.mainnetP2PKH,
-      hash
-    );
+    return c32address(version, hash);
   }
 
   get stxAddress(): string | null {
