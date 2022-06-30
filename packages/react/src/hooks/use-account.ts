@@ -45,8 +45,9 @@ export function useAccount() {
 
   return {
     appPrivateKey: account?.appPrivateKey ?? null,
+    rawAddress: account.address,
     stxAddress,
   };
 }
 
-export { useWatchStxAddress as useCurrentStxAccount };
+export { useWatchStxAddress as useCurrentStxAddress };

@@ -12,7 +12,7 @@ interface UseAuth {
 
 export const useAuth = (): UseAuth => {
   const client = useMicroStacksClient();
-  const account = useAccount();
+  const { stxAddress } = useAccount();
   const status = useStatuses();
   return {
     /**
@@ -23,7 +23,7 @@ export const useAuth = (): UseAuth => {
     /**
      * state
      */
-    isSignedIn: !!account,
+    isSignedIn: !!stxAddress,
     isRequestPending: status[StatusKeys.Authentication] === Status.IsLoading,
   };
 };
