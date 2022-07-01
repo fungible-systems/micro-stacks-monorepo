@@ -9,7 +9,7 @@ import {
 } from '@micro-stacks/client';
 import { useMicroStacksClient } from './use-client';
 
-export function useWatchAccounts(): ReturnType<typeof getAccounts> {
+function useWatchAccounts(): ReturnType<typeof getAccounts> {
   const client = useMicroStacksClient();
   const [state, setState] = useState(getAccounts(client));
   useEffect(() => {
@@ -19,7 +19,7 @@ export function useWatchAccounts(): ReturnType<typeof getAccounts> {
   return state;
 }
 
-export function useWatchAccount(): ReturnType<typeof getCurrentAccount> {
+function useWatchAccount(): ReturnType<typeof getCurrentAccount> {
   const client = useMicroStacksClient();
   const [state, setState] = useState(getCurrentAccount(client));
   useEffect(() => {
@@ -29,7 +29,7 @@ export function useWatchAccount(): ReturnType<typeof getCurrentAccount> {
   return state;
 }
 
-export function useWatchStxAddress() {
+function useWatchStxAddress() {
   const client = useMicroStacksClient();
   const [state, setState] = useState(getStxAddress(client));
   useEffect(() => {
@@ -39,7 +39,7 @@ export function useWatchStxAddress() {
   return state;
 }
 
-export function useAccount() {
+function useAccount() {
   const account = useWatchAccount();
   const stxAddress = useWatchStxAddress();
 
@@ -50,4 +50,13 @@ export function useAccount() {
   };
 }
 
-export { useWatchStxAddress as useCurrentStxAddress };
+function useIsGaiaAvailable() {
+  return !!useAccount().appPrivateKey;
+}
+
+export {
+  useAccount,
+  useWatchStxAddress as useCurrentStxAddress,
+  useWatchAccounts as useAccountsRaw,
+  useIsGaiaAvailable,
+};

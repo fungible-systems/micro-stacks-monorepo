@@ -6,14 +6,14 @@ import { ClarityValue } from 'micro-stacks/clarity';
 import { ChainID } from 'micro-stacks/network';
 import { Status, StatusKeys } from '@micro-stacks/client';
 
-interface UseOpenSignStructuredMessage {
+export interface UseOpenSignStructuredMessage {
   openSignStructuredMessage: (
-    params: SignedOptionsWithOnHandlers<{ message: string }>
+    params: OpenSignStructuredMessageParams
   ) => Promise<SignatureData | undefined>;
   isRequestPending: boolean;
 }
 
-type OpenSignStructuredMessageParams = SignedOptionsWithOnHandlers<{
+export type OpenSignStructuredMessageParams = SignedOptionsWithOnHandlers<{
   message: string | ClarityValue;
   domain?: {
     name?: string;
