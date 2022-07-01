@@ -1,14 +1,20 @@
 {
-	"compilerOptions": {
-		"module": "ES2020",
-		"target": "ESNext",
-		"declaration": true,
-		"emitDeclarationOnly": true,
-		"declarationDir": "dist/",
-		"strict": true,
-		"esModuleInterop": true,
-		"moduleResolution": "Node",
-		"types": ["vitest/globals"]
-	},
-	"files": ["./src/index.ts"]
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "@micro-stacks/client": [
+        "../client/src"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "../client/tsconfig.json"
+    }
+  ],
+  "include": ["src/**/*", "tests/**/*"]
 }
