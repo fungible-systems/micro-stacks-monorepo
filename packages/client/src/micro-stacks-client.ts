@@ -467,7 +467,7 @@ export class MicroStacksClient {
     invariantWithMessage(this.account, MicroStacksErrors.NoSession);
     invariantWithMessage(params.message, MicroStacksErrors.NoMessagePassedToSignMessage);
 
-    this.setIsRequestPending(StatusKeys.MessageSigning);
+    this.setIsRequestPending(StatusKeys.StructuredMessageSigning);
     let result: SignatureData | undefined;
 
     await handleSignStructuredDataRequest({
@@ -484,11 +484,11 @@ export class MicroStacksClient {
       onFinish: payload => {
         result = payload;
         params?.onFinish?.(payload);
-        this.setIsIdle(StatusKeys.MessageSigning);
+        this.setIsIdle(StatusKeys.StructuredMessageSigning);
       },
       onCancel: errorMessage => {
         params?.onCancel?.(errorMessage);
-        this.setIsIdle(StatusKeys.MessageSigning);
+        this.setIsIdle(StatusKeys.StructuredMessageSigning);
       },
     });
 
