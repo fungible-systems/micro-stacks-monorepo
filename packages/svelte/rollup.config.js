@@ -8,6 +8,7 @@ import { terser } from 'rollup-plugin-terser';
 export default defineConfig([
 	{
 		input: './src/index.ts',
+    external: ['@micro-stacks/client'],
 		plugins: [esbuild(), resolve(), terser()],
 		output: {
 			file: './dist/index.js',
