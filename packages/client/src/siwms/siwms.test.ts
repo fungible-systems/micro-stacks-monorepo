@@ -5,6 +5,10 @@ import { bytesToHex, ChainID } from 'micro-stacks/common';
 import { createStacksPrivateKey, signWithKey } from 'micro-stacks/transactions';
 import { hashMessage } from 'micro-stacks/connect';
 
+export function signatureVrsToRsv(signature: string) {
+  return signature.slice(2) + signature.slice(0, 2);
+}
+
 const privateKey = '82db81f7710be42e5bbbab151801d41101c0af55f3b772cbaeae80cab7bd5b8f';
 const stxAddress = privateKeyToStxAddress(privateKey, StacksNetworkVersion.mainnetP2PKH, true);
 
@@ -35,7 +39,7 @@ describe('SignInWithStacksMessage', () => {
       const isValid = await stacksMessage.verify({
         domain,
         nonce,
-        signature: signed.data,
+        signature: signatureVrsToRsv(signed.data),
       });
 
       expect(isValid.success).toBe(true);

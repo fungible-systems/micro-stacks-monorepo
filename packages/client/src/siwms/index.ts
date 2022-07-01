@@ -13,9 +13,18 @@ import {
   VerifyParamsKeys,
 } from './types';
 
-import { extractSignatureParts, hashMessage, verifyMessageSignature } from 'micro-stacks/connect';
+import {
+  recoverSignature,
+  hashMessage,
+  verifyMessageSignature,
+  getPublicKeyFromSignature,
+} from 'micro-stacks/connect';
 
-import { publicKeyToStxAddress, validateStacksAddress } from 'micro-stacks/crypto';
+import {
+  c32addressDecode,
+  publicKeyToStxAddress,
+  validateStacksAddress,
+} from 'micro-stacks/crypto';
 
 export class SignInWithStacksMessage {
   /**
@@ -264,17 +273,21 @@ export class SignInWithStacksMessage {
       let addr;
       try {
         const hash = hashMessage(message);
-        const { publicKey } = extractSignatureParts({
+        const recovered = recoverSignature({
           signature,
-          hash,
         });
 
+        const publicKey = getPublicKeyFromSignature({
+          hash,
+          signature: recovered.signature,
+          recoveryBytes: recovered.recoveryBytes,
+        });
         const isValid = verifyMessageSignature({
           signature,
           message: hash,
         });
         if (isValid) {
-          addr = publicKeyToStxAddress(publicKey);
+          addr = publicKeyToStxAddress(publicKey, c32addressDecode(this.address)[0]);
         }
       } catch (_) {
       } finally {
