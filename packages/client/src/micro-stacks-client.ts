@@ -483,9 +483,11 @@ export class MicroStacksClient {
       message: params.message,
       onFinish: payload => {
         result = payload;
+        params?.onFinish?.(payload);
         this.setIsIdle(StatusKeys.MessageSigning);
       },
-      onCancel: () => {
+      onCancel: errorMessage => {
+        params?.onCancel?.(errorMessage);
         this.setIsIdle(StatusKeys.MessageSigning);
       },
     });

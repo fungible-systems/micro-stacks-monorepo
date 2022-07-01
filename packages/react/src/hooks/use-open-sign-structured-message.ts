@@ -45,7 +45,7 @@ export const useOpenSignStructuredMessage = (
       [client, callbacks]
     ),
     isRequestPending = useMemo(
-      () => status[StatusKeys.MessageSigning] === Status.IsLoading,
+      () => status[StatusKeys.StructuredMessageSigning] === Status.IsLoading,
       [status]
     );
 
