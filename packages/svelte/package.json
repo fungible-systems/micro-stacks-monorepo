@@ -2,22 +2,30 @@
   "name": "@micro-stacks/svelte",
   "version": "1.2.3",
   "description": "Opinionated svelte integration for micro-stacks.",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "type": "module",
-  "types": "./dist/index.d.ts",
   "files": [
-    "dist/*",
-    "globals.d.ts"
+    "dist"
   ],
-  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "import": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "module": "./dist/index.js"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "main": "./dist/index.js",
+      "module": "./dist/index.mjs",
+      "import": "./dist/index.mjs"
     },
-    "./package.json": "./package.json"
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "require": "./dist/*.js",
+      "main": "./dist/*.js",
+      "module": "./dist/*.mjs",
+      "import": "./dist/*.mjs"
+    }
   },
+  "sideEffects": false,
   "scripts": {
     "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake",
     "dev": "tsup-node src/index.ts --format esm,cjs --dts --splitting --treeshake --watch",

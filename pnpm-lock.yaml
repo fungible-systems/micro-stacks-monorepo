@@ -174,17 +174,28 @@ importers:
       rollup-plugin-terser: 7.0.2_rollup@2.58.0
       svelte: 3.48.0
 
-  packages/svelte/demo:
+  packages/svelte-demo:
     specifiers:
+      '@micro-stacks/client': workspace:*
+      '@micro-stacks/svelte': workspace:*
       '@sveltejs/adapter-static': ^1.0.0-next.34
       '@sveltejs/kit': ^1.0.0-next.350
+      micro-stacks: ^0.6.1
+      prettier: 2.4.1
+      prettier-plugin-svelte: ^2.7.0
       svelte: ^3.48.0
       svelte-preprocess: ^4.10.7
       svelte2tsx: ^0.5.10
       typescript: ^4.7.3
+    dependencies:
+      '@micro-stacks/client': link:../client
+      '@micro-stacks/svelte': link:../svelte
+      micro-stacks: 0.6.1
     devDependencies:
       '@sveltejs/adapter-static': 1.0.0-next.34
       '@sveltejs/kit': 1.0.0-next.357_svelte@3.48.0
+      prettier: 2.4.1
+      prettier-plugin-svelte: 2.7.0_prettier@2.4.1+svelte@3.48.0
       svelte: 3.48.0
       svelte-preprocess: 4.10.7_dd0799da1868ddd35eed79b57a91857a
       svelte2tsx: 0.5.11_svelte@3.48.0+typescript@4.7.4
@@ -4579,10 +4590,6 @@ packages:
       kind-of: 6.0.3
     dev: true
 
-  /minimist/1.2.5:
-    resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
-    dev: true
-
   /minimist/1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
     dev: true
@@ -5013,6 +5020,16 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       fast-diff: 1.2.0
+    dev: true
+
+  /prettier-plugin-svelte/2.7.0_prettier@2.4.1+svelte@3.48.0:
+    resolution: {integrity: sha512-fQhhZICprZot2IqEyoiUYLTRdumULGRvw0o4dzl5jt0jfzVWdGqeYW27QTWAeXhoupEZJULmNoH3ueJwUWFLIA==}
+    peerDependencies:
+      prettier: ^1.16.4 || ^2.0.0
+      svelte: ^3.2.0
+    dependencies:
+      prettier: 2.4.1
+      svelte: 3.48.0
     dev: true
 
   /prettier/1.19.1:
@@ -5491,7 +5508,7 @@ packages:
     hasBin: true
     dependencies:
       buffer-crc32: 0.2.13
-      minimist: 1.2.5
+      minimist: 1.2.6
       sander: 0.5.1
       sourcemap-codec: 1.4.8
     dev: true

@@ -1,5 +1,5 @@
 {
-  "name": "svelte-micro-stacks-demo",
+  "name": "@micro-stacks/svelte-micro-stacks-demo",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -19,6 +19,8 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "@micro-stacks/svelte": "workspace:*"
+    "@micro-stacks/svelte": "workspace:*",
+    "@micro-stacks/client": "workspace:*",
+    "micro-stacks": "^0.6.1"
   }
 }
