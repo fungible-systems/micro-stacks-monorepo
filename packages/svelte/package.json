@@ -6,23 +6,23 @@
     "dist"
   ],
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "import": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "import": "./dist/index.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "main": "./dist/index.js",
-      "module": "./dist/index.mjs",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "main": "./dist/index.cjs",
+      "module": "./dist/index.js",
+      "import": "./dist/index.js"
     },
     "./*": {
       "types": "./dist/*.d.ts",
-      "require": "./dist/*.js",
-      "main": "./dist/*.js",
-      "module": "./dist/*.mjs",
-      "import": "./dist/*.mjs"
+      "require": "./dist/*.cjs",
+      "main": "./dist/*.cjs",
+      "module": "./dist/*.js",
+      "import": "./dist/*.js"
     }
   },
   "sideEffects": false,
@@ -57,6 +57,7 @@
     "svelte": "^3.48.0"
   },
   "dependencies": {
-    "@micro-stacks/client": "workspace:*"
+    "@micro-stacks/client": "*",
+    "micro-stacks": "*"
   }
 }
