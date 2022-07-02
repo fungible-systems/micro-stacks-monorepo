@@ -1,5 +1,5 @@
 import { MicroStacksClient } from '../micro-stacks-client';
-import equalityFn from 'fast-deep-equal/es6';
+import equalityFn from 'fast-deep-equal/es6/index.js';
 import { State } from '../common/types';
 import { getClient } from '../create-client';
 
