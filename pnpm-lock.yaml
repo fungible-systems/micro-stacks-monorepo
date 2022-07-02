@@ -38,6 +38,7 @@ importers:
       rollup-plugin-dts: 4.0.0
       rollup-plugin-esbuild: 4.5.0
       shx: ^0.3.3
+      tsup: 6.0.1
       turbo: ^1.0.19
       typescript: 4.4.4
     devDependencies:
@@ -75,6 +76,7 @@ importers:
       rollup-plugin-dts: 4.0.0_klnc7quwpgfutyz7jq4yq4zpjq
       rollup-plugin-esbuild: 4.5.0_zwhxh34wsrovgbsg6bxcqvcy74
       shx: 0.3.3
+      tsup: 6.0.1_typescript@4.4.4
       turbo: 1.0.19
       typescript: 4.4.4
 
@@ -6068,6 +6070,42 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.20.3
       tree-kill: 1.2.2
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
+  /tsup/6.0.1_typescript@4.4.4:
+    resolution: {integrity: sha512-2Pl1YkEEvzfg4aYgwUILaHV0wwZQKO7mNHMQChyzdCNlQqf11eug7gWk86XCb3CvRofCXBX87x73BTGjyS3cOQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 3.0.4_esbuild@0.14.42
+      cac: 6.7.12
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.14.42
+      execa: 5.1.1
+      globby: 11.0.4
+      joycon: 3.0.1
+      postcss-load-config: 3.1.0
+      resolve-from: 5.0.0
+      rollup: 2.75.3
+      source-map: 0.8.0-beta.0
+      sucrase: 3.20.3
+      tree-kill: 1.2.2
+      typescript: 4.4.4
     transitivePeerDependencies:
       - supports-color
       - ts-node
