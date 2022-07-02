@@ -17,7 +17,7 @@ export function getAuth() {
       /**
        * state
        */
-      isSignedIn: !!$account,
+      isSignedIn: !!$account.stxAddress,
       isRequestPending: $status[StatusKeys.Authentication] === Status.IsLoading,
     };
   });
