@@ -19,13 +19,15 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "vitest run test",
-    "test:watch": "vitest test",
-    "dev": "rollup -cw",
-    "build": "rollup -c ",
-    "pub": "pnpm build && pnpm publish --no-git-checks --access public",
-    "pub:dry": "pnpm build && pnpm publish --dry-run --no-git-checks --access public",
-    "size": "echo 'Svelte size:' && brotli-size dist/index.js"
+    "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake",
+    "dev": "tsup-node src/index.ts --format esm,cjs --dts --splitting --treeshake --watch",
+    "typecheck": "tsc --noEmit --target esnext",
+    "dev:publish": "yalc publish --push",
+    "lint": "pnpm lint:eslint && pnpm lint:prettier",
+    "lint:eslint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "lint:prettier": "prettier --check \"src/**/*.{ts,tsx}\" *.js",
+    "lint:prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "repository": {
     "type": "git",
