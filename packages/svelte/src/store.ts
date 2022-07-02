@@ -1,4 +1,4 @@
-import { ClientConfig, defaultStorage, getClient as _getClient } from '@micro-stacks/client';
+import { ClientConfig, defaultStorage, getClient as _getClient, MicroStacksClient } from '@micro-stacks/client';
 import { get, writable } from 'svelte/store';
 import { onAuthentication, onPersistState, onSignOut } from './events';
 
@@ -37,7 +37,7 @@ export const mountClient = ({
   }
 };
 
-export const getClient = () => {
+export const getClient = (): MicroStacksClient => {
   const client = get(microStacksClientStore);
   if (!client) {
     throw new Error('No MicroStacksClient set, mount the client in your app with `mountClient`');
