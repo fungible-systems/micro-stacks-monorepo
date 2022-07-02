@@ -45,7 +45,7 @@ export const usePutFile = <T = unknown>(
 ) => {
   const client = useMicroStacksClient();
 
-  const serialize = options?.serialize ?? JSON.stringify;
+  const serialize = useCallback(options?.serialize ?? JSON.stringify, [options?.serialize]);
 
   const putFileCallback = useCallback(async (): Promise<string | null> => {
     const path = await client.putFile(filename, serialize(contents), {
@@ -53,7 +53,7 @@ export const usePutFile = <T = unknown>(
       sign: options?.sign,
     });
     return path ?? null;
-  }, [client, options]);
+  }, [filename, contents, client, serialize, options?.encrypt, options?.sign]);
 
   const {
     loading: isLoading,
