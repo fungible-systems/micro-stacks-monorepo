@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import {
   getAccounts,
   getCurrentAccount,
+  getDecentralizedID,
+  getIdentityAddress,
   getStxAddress,
   watchAccounts,
   watchCurrentAccount,
+  watchDecentralizedID,
+  watchIdentityAddress,
   watchStxAddress,
 } from '@micro-stacks/client';
 import { useMicroStacksClient } from './use-client';
@@ -29,6 +33,26 @@ function useWatchAccount(): ReturnType<typeof getCurrentAccount> {
   return state;
 }
 
+function useIdentityAddress(): ReturnType<typeof getIdentityAddress> {
+  const client = useMicroStacksClient();
+  const [state, setState] = useState(getIdentityAddress(client));
+  useEffect(() => {
+    return watchIdentityAddress(setState, client);
+  }, [client]);
+
+  return state;
+}
+
+function useDecentralizedID(): ReturnType<typeof getIdentityAddress> {
+  const client = useMicroStacksClient();
+  const [state, setState] = useState(getDecentralizedID(client));
+  useEffect(() => {
+    return watchDecentralizedID(setState, client);
+  }, [client]);
+
+  return state;
+}
+
 function useWatchStxAddress() {
   const client = useMicroStacksClient();
   const [state, setState] = useState(getStxAddress(client));
@@ -42,10 +66,14 @@ function useWatchStxAddress() {
 function useAccount() {
   const account = useWatchAccount();
   const stxAddress = useWatchStxAddress();
+  const identityAddress = useIdentityAddress();
+  const decentralizedID = useDecentralizedID();
 
   return {
     appPrivateKey: account?.appPrivateKey ?? null,
     rawAddress: account.address,
+    identityAddress,
+    decentralizedID,
     stxAddress,
   };
 }

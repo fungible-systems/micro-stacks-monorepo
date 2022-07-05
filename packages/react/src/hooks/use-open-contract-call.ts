@@ -10,7 +10,7 @@ interface UseOpenContractCall {
   isRequestPending: boolean;
 }
 
-export const useOpenContractCallRequest = (callbacks?: OptionalParams): UseOpenContractCall => {
+export const useOpenContractCall = (callbacks?: OptionalParams): UseOpenContractCall => {
   const client = useMicroStacksClient();
   const status = useStatuses();
 

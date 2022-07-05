@@ -59,3 +59,45 @@ export function watchCurrentAccount(
     { equalityFn }
   );
 }
+
+export function getIdentityAddress(client: MicroStacksClient = getClient()) {
+  const { identityAddress } = client;
+  return identityAddress ?? null;
+}
+
+export function watchIdentityAddress(
+  callback: (payload: MicroStacksClient['stxAddress']) => void,
+  client: MicroStacksClient = getClient()
+) {
+  const handleChange = () => callback(getStxAddress());
+
+  // unsubscribe
+  return client.subscribe(
+    () => {
+      return client.identityAddress;
+    },
+    handleChange,
+    { equalityFn }
+  );
+}
+
+export function getDecentralizedID(client: MicroStacksClient = getClient()) {
+  const { decentralizedID } = client;
+  return decentralizedID ?? null;
+}
+
+export function watchDecentralizedID(
+  callback: (payload: MicroStacksClient['stxAddress']) => void,
+  client: MicroStacksClient = getClient()
+) {
+  const handleChange = () => callback(getStxAddress());
+
+  // unsubscribe
+  return client.subscribe(
+    () => {
+      return client.decentralizedID;
+    },
+    handleChange,
+    { equalityFn }
+  );
+}

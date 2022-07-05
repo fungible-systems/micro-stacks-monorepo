@@ -1,5 +1,6 @@
 import type {
   FinishedTxData,
+  Profile,
   SignatureData,
   SignedOptionsWithOnHandlers,
   StacksSessionState,
@@ -23,7 +24,7 @@ import { defaultStorage, noopStorage } from './common/storage';
 import type { ClientConfig, SignTransactionRequest, State } from './common/types';
 import { DebugOptions } from './common/types';
 import { persist, subscribeWithSelector } from 'zustand/middleware';
-import { getGlobalObject } from 'micro-stacks/common';
+import { fetchPrivate, getGlobalObject } from 'micro-stacks/common';
 import { invariantWithMessage } from './common/utils';
 import { Status, StatusKeys, STORE_KEY, TxType } from './common/constants';
 import {
@@ -219,6 +220,23 @@ export class MicroStacksClient {
     return privateKeyToBase58Address(this.account.appPrivateKey);
   }
 
+  get decentralizedID(): string | undefined {
+    if (!this.identityAddress) return undefined;
+    return `did:btc-addr:${this.identityAddress}`;
+  }
+
+  async getProfile(): Promise<Profile | undefined> {
+    if (!this.hasSession || !this.account?.profile_url) return undefined;
+    try {
+      const res = await fetchPrivate(this.account.profile_url);
+      const json = await res.json();
+      return json as Profile;
+    } catch (e) {
+      console.log('[micro-stacks/react] getProfile failed', e);
+    }
+    return undefined;
+  }
+
   /** ------------------------------------------------------------------------------------------------------------------
    *   Statuses
    *  ------------------------------------------------------------------------------------------------------------------
@@ -288,6 +306,8 @@ export class MicroStacksClient {
               accounts: state.accounts.concat({
                 address,
                 appPrivateKey: this.debug?.disableAppPrivateKey ? undefined : session.appPrivateKey,
+                decentralizedID: session.decentralizedID,
+                profile_url: session.profile_url,
               }),
               currentAccountIndex: state.accounts.length,
             }));

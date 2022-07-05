@@ -102,6 +102,13 @@ export interface ClientConfig {
   onAuthentication?: (payload: StacksSessionState) => void;
 }
 
+export interface Account {
+  appPrivateKey?: string;
+  address: [version: number, hash: Uint8Array];
+  decentralizedID?: string;
+  profile_url?: string;
+}
+
 export type State = {
   appName?: string;
   appIconUrl?: string;
@@ -113,7 +120,7 @@ export type State = {
   };
   network: StacksNetwork;
   currentAccountIndex: number;
-  accounts: { appPrivateKey?: string; address: [version: number, hash: Uint8Array] }[];
+  accounts: Account[];
   // actions
   onPersistState?: ClientConfig['onPersistState'];
   onSignOut?: ClientConfig['onSignOut'];

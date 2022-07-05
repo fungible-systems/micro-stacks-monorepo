@@ -1,4 +1,4 @@
-import { ClientConfig, DebugOptions, State } from './common/types';
+import { Account, ClientConfig, DebugOptions, State } from './common/types';
 import { ChainID, StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
 import { Status, StatusKeys } from './common/constants';
 import { getGlobalObject } from 'micro-stacks/common';
@@ -15,6 +15,7 @@ export function serialize({ state, version }: { state: State; version: number })
         return {
           appPrivateKey: account.appPrivateKey,
           address: c32address(account.address[0], account.address[1]),
+          profile_url: account.profile_url,
         };
       }),
     ],
@@ -36,10 +37,11 @@ export function deserialize(str: string) {
   return {
     network,
     currentAccountIndex,
-    accounts: accounts.map((account: { appPrivateKey: string | null; address: string }) => {
+    accounts: accounts.map((account: Omit<Account, 'address'> & { address: string }) => {
       return {
         appPrivateKey: account.appPrivateKey,
         address: c32addressDecode(account.address),
+        profile_url: account.profile_url,
       };
     }),
     version,
