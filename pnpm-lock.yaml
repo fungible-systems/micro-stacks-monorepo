@@ -103,6 +103,35 @@ importers:
       tsup: 6.0.1_typescript@4.4.4
       type-fest: 2.13.0
 
+  packages/jotai:
+    specifiers:
+      '@micro-stacks/client': workspace:*
+      '@micro-stacks/react': workspace:*
+      '@stacks/stacks-blockchain-api-types': 1.0.7
+      '@types/common-tags': 1.8.1
+      '@types/jest': 27.0.2
+      '@types/jsdom': 16.2.13
+      '@types/randombytes': 2.0.0
+      '@types/react': 17.0.31
+      '@types/react-dom': 17.0.10
+      jotai: ^1.7.3
+      micro-stacks: '>=0.6.1'
+      tsup: 6.0.1
+    dependencies:
+      '@micro-stacks/client': link:../client
+      '@micro-stacks/react': link:../react
+      jotai: 1.7.3_d922dd58e2800c8586436edcd4822884
+      micro-stacks: 0.6.1
+    devDependencies:
+      '@stacks/stacks-blockchain-api-types': 1.0.7
+      '@types/common-tags': 1.8.1
+      '@types/jest': 27.0.2
+      '@types/jsdom': 16.2.13
+      '@types/randombytes': 2.0.0
+      '@types/react': 17.0.31
+      '@types/react-dom': 17.0.10
+      tsup: 6.0.1_typescript@4.4.4
+
   packages/react:
     specifiers:
       '@micro-stacks/client': workspace:*
@@ -4077,6 +4106,44 @@ packages:
       react-query: 3.34.5
     dev: true
 
+  /jotai/1.7.3_d922dd58e2800c8586436edcd4822884:
+    resolution: {integrity: sha512-7oyKS1cUlwO8bLvhrSrw3/G2tiprmUjt0eK19z4LMiyScsaeqnFwcr+3xaM6N8Ej6iGd0MmBlGhQsmJcnV6+Fw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      react-query: '*'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      react-query:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      '@babel/core': 7.15.8
+      react-query: 3.34.5
+    dev: false
+
   /joycon/3.0.1:
     resolution: {integrity: sha512-SJcJNBg32dGgxhPtM0wQqxqV0ax9k/9TaUskGDSJkSFSQOEWWvQ3zzWdGQRIUry2j1zA5+ReH13t0Mf3StuVZA==}
     engines: {node: '>=10'}
@@ -5363,7 +5430,7 @@ packages:
     dev: true
 
   /thenify-all/1.6.0:
-    resolution: {integrity: sha1-GhkY1ALY/D+Y+/I02wvMjMEOlyY=}
+    resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
     engines: {node: '>=0.8'}
     dependencies:
       thenify: 3.3.1
@@ -5403,7 +5470,7 @@ packages:
     dev: true
 
   /tr46/1.0.1:
-    resolution: {integrity: sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=}
+    resolution: {integrity: sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==}
     dependencies:
       punycode: 2.1.1
     dev: true
@@ -5693,7 +5760,7 @@ packages:
     dev: true
 
   /wrappy/1.0.2:
-    resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}
+    resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: true
 
   /y18n/4.0.3:
