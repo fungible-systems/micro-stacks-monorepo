@@ -4,7 +4,7 @@ import { useMicroStacksClient } from './use-client';
 import { Client, Status, StatusKeys } from '@micro-stacks/client';
 
 interface UseAuth {
-  authenticate: Client['authenticate'];
+  openAuthRequest: Client['authenticate'];
   signOut: Client['signOut'];
   isSignedIn: boolean;
   isRequestPending: boolean;
@@ -18,7 +18,7 @@ export const useAuth = (): UseAuth => {
     /**
      * actions
      */
-    authenticate: client.authenticate,
+    openAuthRequest: client.authenticate,
     signOut: client.signOut,
     /**
      * state
