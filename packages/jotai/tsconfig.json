@@ -8,12 +8,18 @@
     "paths": {
       "@micro-stacks/client": [
         "../client/src"
+      ],
+      "@micro-stacks/react": [
+        "../react/src"
       ]
     }
   },
   "references": [
     {
       "path": "../client/tsconfig.json"
+    },
+    {
+      "path": "../react/tsconfig.json"
     }
   ],
   "include": [
