@@ -71,10 +71,11 @@ function useAccount() {
 
   return {
     appPrivateKey: account?.appPrivateKey ?? null,
-    rawAddress: account.address,
+    rawAddress: account?.address,
     identityAddress,
     decentralizedID,
     stxAddress,
+    profileUrl: account?.profile_url,
   };
 }
 

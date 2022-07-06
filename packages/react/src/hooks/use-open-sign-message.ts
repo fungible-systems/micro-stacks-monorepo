@@ -4,14 +4,14 @@ import { useMicroStacksClient } from './use-client';
 import { Status, StatusKeys } from '@micro-stacks/client';
 import type { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect';
 
-interface UseOpenSignMessage {
+export interface UseOpenSignMessage {
   openSignMessage: (
     params: SignedOptionsWithOnHandlers<{ message: string }>
   ) => Promise<SignatureData | undefined>;
   isRequestPending: boolean;
 }
 
-type OpenSignMessageParams = SignedOptionsWithOnHandlers<{ message: string }>;
+export type OpenSignMessageParams = SignedOptionsWithOnHandlers<{ message: string }>;
 
 export const useOpenSignMessage = (
   callbacks?: SignedOptionsWithOnHandlers<{}>

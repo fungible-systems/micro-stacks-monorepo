@@ -264,6 +264,14 @@ export class MicroStacksClient {
     return this.store.getState().statuses;
   }
 
+  get isSignMessageRequestPending() {
+    return this.statuses[StatusKeys.MessageSigning];
+  }
+
+  get isSignStructuredMessageRequestPending() {
+    return this.statuses[StatusKeys.StructuredMessageSigning];
+  }
+
   /** ------------------------------------------------------------------------------------------------------------------
    *   Authenticate
    *
