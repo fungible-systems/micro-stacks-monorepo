@@ -100,6 +100,7 @@ export interface ClientConfig {
    * @param payload - StacksSessionState returned from the wallet
    */
   onAuthentication?: (payload: StacksSessionState) => void;
+  fetcher?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
 
 export interface Account {
