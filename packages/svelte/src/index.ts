@@ -5,5 +5,7 @@ export * from './auth';
 export * from './status';
 export * from './message';
 export * from './network';
+export * from './stx';
+export * from './contract';
 
 export {};
