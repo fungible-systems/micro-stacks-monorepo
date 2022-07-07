@@ -1,8 +1,8 @@
 {
-  "name": "@micro-stacks/react-monorepo",
+  "name": "@micro-stacks/monorepo",
   "private": true,
   "version": "0.0.1",
-  "description": "Opinionated React integrations for micro-stacks.",
+  "description": "Opinionated integrations for micro-stacks.",
   "workspaces": [
     "packages/*"
   ],
@@ -27,7 +27,7 @@
   ],
   "author": "Thomas Osmonson",
   "contributors": [],
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fungible-systems/micro-stacks-react/issues"
   },

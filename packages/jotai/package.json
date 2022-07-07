@@ -1,7 +1,7 @@
 {
-  "name": "@micro-stacks/react",
+  "name": "@micro-stacks/jotai",
   "private": false,
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.0",
   "description": "Opinionated React integration for micro-stacks.",
   "files": [
     "dist"
@@ -79,11 +79,12 @@
   },
   "dependencies": {
     "@micro-stacks/client": "workspace:*",
+    "@micro-stacks/react": "workspace:*",
     "micro-stacks": ">=0.6.1",
-    "react-async-hook": "^4.0.0"
+    "jotai": "^1.7.3"
   },
   "peerDependencies": {
-    "react": ">=17.0.0",
-    "react-dom": ">=17.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }

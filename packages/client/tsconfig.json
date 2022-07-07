@@ -11,13 +11,7 @@
       ]
     }
   },
-  "references": [
-    {
-      "path": "../client/tsconfig.json"
-    }
-  ],
   "include": [
-    "src/**/*",
-    "tests/**/*"
+    "./src/**/*",
   ]
 }

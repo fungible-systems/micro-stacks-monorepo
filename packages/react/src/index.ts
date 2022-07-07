@@ -1,23 +1,30 @@
-export * from './common/types';
-export * from './common/utils';
-export * from './common/constants';
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Hooks
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
+export * from './hooks/use-client';
 export * from './hooks/use-auth';
-export * from './hooks/use-gaia-hub-config';
-export * from './hooks/use-loading';
 export * from './hooks/use-network';
-export * from './hooks/use-session';
-export * from './hooks/use-storage';
-export * from './hooks/transaction-signing';
-export * from './hooks/use-user';
+export * from './hooks/use-account';
+export * from './hooks/use-statuses';
+export * from './hooks/use-open-sign-message';
+export * from './hooks/use-open-sign-structured-message';
+export * from './hooks/use-open-contract-deploy';
+export * from './hooks/use-open-contract-call';
+export * from './hooks/use-open-stx-token-transfer';
+export * from './hooks/use-gaia';
 
-export * from './hooks/use-sign-message';
-export * from './hooks/use-sign-structured-data';
-export * from './hooks/use-verify-message';
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Client Provider
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
-export * from './store/network';
-export * from './store/common';
-export * from './store/gaia-hub-config';
-export * from './store/auth';
+export * from './components/client-provider';
 
-export * from './provider';
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
+export * from './common/types';

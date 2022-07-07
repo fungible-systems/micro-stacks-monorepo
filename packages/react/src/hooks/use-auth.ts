@@ -1,61 +1,39 @@
-import { authenticate, StacksSessionState } from 'micro-stacks/connect';
-import { useCallback } from 'react';
-import { useIsSignedIn, useResetSessionCallback, useSession } from './use-session';
-import { useLoading } from './use-loading';
-import { LOADING_KEYS } from '../common/constants';
-import { useAtomCallback } from 'jotai/utils';
-import { authOptionsAtom, isSignedInAtom, stacksSessionAtom } from '../store/auth';
+import { useAccount } from './use-account';
+import { useStatuses } from './use-statuses';
+import { useMicroStacksClient } from './use-client';
+import { Client, Status, StatusKeys } from '@micro-stacks/client';
 
-export function useAuth() {
-  const [sessionState] = useSession();
-  const isSignedIn = useIsSignedIn();
-  const [isLoading, setIsLoading] = useLoading(LOADING_KEYS.AUTHENTICATION);
-  const resetSession = useResetSessionCallback();
-  const handleSignIn = useAtomCallback<
-    void,
-    { onFinish?: (payload: StacksSessionState) => void } | undefined
-  >(
-    useCallback(
-      async (get, set, params) => {
-        const authOptions = get(authOptionsAtom);
-        if (!authOptions) throw Error('[handleSignIn] No authOptions provided.');
-        setIsLoading(true);
-        return authenticate({
-          ...authOptions,
-          onFinish: payload => {
-            if (params?.onFinish) params?.onFinish(payload);
-            authOptions?.onFinish?.(payload);
-            set(stacksSessionAtom, payload);
-            setIsLoading(false);
-          },
-          onCancel: error => {
-            console.error(error);
-            setIsLoading(false);
-          },
-        });
-      },
-      [setIsLoading, stacksSessionAtom, isSignedInAtom, authOptionsAtom]
-    )
-  );
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
-  const handleSignOut = useAtomCallback(
-    useCallback(
-      get => {
-        const authOptions = get(authOptionsAtom);
-        if (!authOptions) throw Error('[handleSignOut] No authOptions provided.');
-        if (typeof localStorage !== 'undefined') localStorage.clear();
-        resetSession();
-        authOptions?.onSignOut?.();
-      },
-      [resetSession]
-    )
-  );
-
-  return {
-    isLoading,
-    isSignedIn,
-    handleSignIn,
-    handleSignOut,
-    session: sessionState,
-  };
+interface UseAuth {
+  openAuthRequest: Client['authenticate'];
+  signOut: Client['signOut'];
+  isSignedIn: boolean;
+  isRequestPending: boolean;
 }
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useAuth hook (derived + actions)
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
+export const useAuth = (): UseAuth => {
+  const client = useMicroStacksClient();
+  const { stxAddress } = useAccount();
+  const status = useStatuses();
+  return {
+    /**
+     * actions
+     */
+    openAuthRequest: client.authenticate,
+    signOut: client.signOut,
+    /**
+     * state
+     */
+    isSignedIn: !!stxAddress,
+    isRequestPending: status[StatusKeys.Authentication] === Status.IsLoading,
+  };
+};

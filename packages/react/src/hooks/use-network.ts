@@ -1,42 +1,48 @@
-import { currentNetworkName, networkAtom } from '../store/network';
-import { StacksMainnet, StacksNetwork, StacksTestnet } from 'micro-stacks/network';
-import { useCallback } from 'react';
-import { useAtomValue, useUpdateAtom } from 'jotai/utils';
-import { ChainID } from 'micro-stacks/common';
+import { useMicroStacksClient } from './use-client';
+import { ChainID, StacksNetwork } from 'micro-stacks/network';
+import { useCallback, useMemo } from 'react';
+import { getNetwork, watchNetwork } from '@micro-stacks/client';
+import { clientStateHookFactory } from '../common/utils';
 
-export function useNetwork() {
-  const network = useAtomValue<StacksNetwork>(networkAtom);
-  const name = useAtomValue(currentNetworkName);
-  const setNetwork = useUpdateAtom<
-    StacksNetwork | StacksTestnet | StacksMainnet,
-    StacksNetwork | StacksTestnet | StacksMainnet,
-    void
-  >(networkAtom);
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
-  const handleSetNetwork = useCallback(
-    (network: StacksNetwork) => setNetwork(network),
-    [setNetwork]
-  );
-
-  const handleSetTestnet = () => handleSetNetwork(new StacksTestnet());
-  const handleSetMainnet = () => handleSetNetwork(new StacksMainnet());
-
-  return {
-    network,
-    chain: network.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet',
-    name,
-    handleSetMainnet,
-    handleSetTestnet,
-    handleSetNetwork,
-  };
+interface UseNetwork {
+  network: StacksNetwork;
+  isMainnet: boolean;
+  setNetwork: (network: 'mainnet' | 'testnet' | StacksNetwork) => void;
 }
 
-export const useCurrentNetworkChain = () => {
-  const network = useAtomValue<StacksNetwork>(networkAtom);
-  return network?.chainId === ChainID.Mainnet ? 'mainnet' : 'testnet';
-};
+/** ------------------------------------------------------------------------------------------------------------------
+ *   State values
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
-export const useCurrentNetworkUrl = () => {
-  const network = useAtomValue<StacksNetwork>(networkAtom);
-  return network?.getCoreApiUrl();
-};
+const useNetworkValue = clientStateHookFactory(getNetwork, watchNetwork);
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useNetwork hook (derived and actions)
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+export function useNetwork(): UseNetwork {
+  const client = useMicroStacksClient();
+  const network = useNetworkValue();
+
+  network.isMainnet = useCallback(() => network.chainId === ChainID.Mainnet, [network.chainId]);
+
+  const isMainnet = useMemo(() => network.isMainnet(), [network]);
+
+  return {
+    /**
+     * actions
+     */
+    setNetwork: client.setNetwork,
+    /**
+     * state
+     */
+    network,
+    isMainnet,
+  };
+}

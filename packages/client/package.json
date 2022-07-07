@@ -1,8 +1,8 @@
 {
-  "name": "@micro-stacks/react",
+  "name": "@micro-stacks/client",
   "private": false,
-  "version": "1.0.0-beta.9",
-  "description": "Opinionated React integration for micro-stacks.",
+  "version": "1.0.0-beta.6",
+  "description": "Session client for Stacks apps using micro-stacks",
   "files": [
     "dist"
   ],
@@ -28,7 +28,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake",
+    "build": "shx rm -rf ./dist && tsup-node src/index.ts --format esm,cjs --dts --minify --splitting --treeshake --external micro-stacks",
     "typecheck": "tsc --noEmit --target esnext",
     "dev:publish": "yalc publish --push",
     "lint": "pnpm lint:eslint && pnpm lint:prettier",
@@ -37,23 +37,13 @@
     "lint:prettier": "prettier --check \"src/**/*.{ts,tsx}\" *.js",
     "lint:prettier:fix": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "prettier": "@stacks/prettier-config",
-  "lint-staged": {
-    "*.{js,ts,tsx,md}": [
-      "prettier --write"
-    ]
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aulneau/micro-stacks.git"
+    "url": "git+https://github.com/aulneau/micro-stacks-monorepo.git"
   },
   "keywords": [
     "stacks",
@@ -64,26 +54,21 @@
   "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fungible-systems/micro-stacks-react/issues"
+    "url": "https://github.com/fungible-systems/micro-stacks-monorepo/issues"
   },
-  "homepage": "https://github.com/fungible-systems/micro-stacks",
+  "homepage": "https://github.com/fungible-systems/micro-stacks-monorepo",
   "devDependencies": {
     "@stacks/stacks-blockchain-api-types": "1.0.7",
     "@types/common-tags": "1.8.1",
     "@types/jest": "27.0.2",
     "@types/jsdom": "16.2.13",
-    "@types/randombytes": "2.0.0",
-    "@types/react": "17.0.31",
-    "@types/react-dom": "17.0.10",
-    "tsup": "6.0.1"
+    "tsup": "6.0.1",
+    "type-fest": "^2.13.0"
   },
   "dependencies": {
-    "@micro-stacks/client": "workspace:*",
+    "fast-deep-equal": "3.1.3",
     "micro-stacks": ">=0.6.1",
-    "react-async-hook": "^4.0.0"
-  },
-  "peerDependencies": {
-    "react": ">=17.0.0",
-    "react-dom": ">=17.0.0"
+    "tiny-invariant": ">=1.2.0",
+    "zustand": "4.0.0-rc.1"
   }
 }
