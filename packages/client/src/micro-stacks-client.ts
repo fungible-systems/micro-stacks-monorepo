@@ -46,6 +46,7 @@ export class MicroStacksClient {
     [['zustand/subscribeWithSelector', never], ['zustand/persist', Partial<State>]]
   >;
   debug?: DebugOptions;
+  fetcher: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
   constructor(initConfig: ClientConfig = {}) {
     const config = {
@@ -81,6 +82,7 @@ export class MicroStacksClient {
     this.debug = getDebugState();
     this.config = config;
     this.storage = config.storage;
+    this.fetcher = config.fetcher || fetchPrivate;
   }
 
   private setState(updater: State | ((state: State) => State)) {
@@ -223,18 +225,6 @@ export class MicroStacksClient {
   get decentralizedID(): string | undefined {
     if (!this.identityAddress) return undefined;
     return `did:btc-addr:${this.identityAddress}`;
-  }
-
-  async getProfile(): Promise<Profile | undefined> {
-    if (!this.hasSession || !this.account?.profile_url) return undefined;
-    try {
-      const res = await fetchPrivate(this.account.profile_url);
-      const json = await res.json();
-      return json as Profile;
-    } catch (e) {
-      console.log('[micro-stacks/react] getProfile failed', e);
-    }
-    return undefined;
   }
 
   /** ------------------------------------------------------------------------------------------------------------------
@@ -583,4 +573,49 @@ export class MicroStacksClient {
       verify,
     });
   };
+
+  /** ------------------------------------------------------------------------------------------------------------------
+   *   Fetchers
+   *  ------------------------------------------------------------------------------------------------------------------
+   */
+
+  async fetchBNSName(): Promise<string | undefined> {
+    if (!this.hasSession || !this.stxAddress) return undefined;
+    const path = this.network.getCoreApiUrl() + `/v1/addresses/stacks/${this.stxAddress}`;
+    try {
+      const res = await this.fetcher(path);
+      const json: { names?: string[] } = await res.json();
+      return json?.names?.[0];
+    } catch (e) {
+      console.log('[micro-stacks/react] fetchBNSName failed', e);
+    }
+    return undefined;
+  }
+
+  async fetchZoneFile(): Promise<any> {
+    try {
+      if (!this.hasSession || !this.stxAddress) return undefined;
+      const username = await this.fetchBNSName();
+      if (!username) return undefined;
+      const path = this.network.getCoreApiUrl() + `/v1/names/${this.stxAddress}/zonefile`;
+      const res = await this.fetcher(path);
+      const payload = await res.json();
+      return payload as { zonefile: string; address: string };
+    } catch (e) {
+      console.log('[micro-stacks/react] fetchZoneFile failed', e);
+    }
+    return undefined;
+  }
+
+  async fetchProfile(): Promise<Profile | undefined> {
+    if (!this.hasSession || !this.account?.profile_url) return undefined;
+    try {
+      const res = await this.fetcher(this.account.profile_url);
+      const json = await res.json();
+      return json as Profile;
+    } catch (e) {
+      console.log('[micro-stacks/react] getProfile failed', e);
+    }
+    return undefined;
+  }
 }
