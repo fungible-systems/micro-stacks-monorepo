@@ -1,6 +1,8 @@
-import { ClientConfig, defaultStorage, getClient as _getClient, MicroStacksClient } from '@micro-stacks/client';
+import { defaultStorage, getClient as _getClient } from '@micro-stacks/client';
 import { get, writable } from 'svelte/store';
 import { onAuthentication, onPersistState, onSignOut } from './events';
+
+import type { ClientConfig, MicroStacksClient } from '@micro-stacks/client';
 
 export const microStacksClientStore = writable<ReturnType<typeof _getClient> | null>();
 

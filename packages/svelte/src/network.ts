@@ -1,27 +1,22 @@
 import { getNetwork, watchNetwork as _watchNetwork } from '@micro-stacks/client';
 import { ChainID, StacksNetwork } from 'micro-stacks/network';
-import { derived, readable } from 'svelte/store';
+import { derived } from 'svelte/store';
 
 import { getClient } from './store';
+import { readableClientState } from './utils';
 
-interface Network {
+interface WatchNetwork {
   network: StacksNetwork;
   isMainnet: boolean;
   setNetwork: (network: 'mainnet' | 'testnet' | StacksNetwork) => void;
 }
 
-function networkStore() {
-  const client = getClient();
-
-  return readable(getNetwork(client), set => {
-    return _watchNetwork(set, client);
-  });
-}
+const networkStore = readableClientState(getNetwork, _watchNetwork);
 
 export function watchNetwork() {
   const client = getClient();
 
-  const modifyNetwork = (network: StacksNetwork): Network => {
+  const modifyNetwork = (network: StacksNetwork): WatchNetwork => {
     network.isMainnet = () => network.chainId === ChainID.Mainnet;
 
     return {

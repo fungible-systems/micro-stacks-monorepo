@@ -6,6 +6,10 @@ import { watchStatuses } from './status';
 import { ClarityValue } from 'micro-stacks/clarity';
 import { ChainID } from 'micro-stacks/network';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Simple message signing
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 interface OpenSignMessage {
   openSignMessage: (
     params: SignedOptionsWithOnHandlers<{ message: string }>
@@ -41,6 +45,11 @@ export function getOpenSignMessage(
     };
   });
 }
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *  Structured message signing
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export type OpenSignStructuredMessageParams = SignedOptionsWithOnHandlers<{
   message: string | ClarityValue;
