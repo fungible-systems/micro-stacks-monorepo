@@ -1,11 +1,4 @@
-import { readable } from 'svelte/store';
 import { getStatus, watchStatus } from '@micro-stacks/client';
-import { getClient } from './store';
+import { readableClientState } from './utils';
 
-export function watchStatuses() {
-  const client = getClient();
-
-  return readable(getStatus(client), set => {
-    return watchStatus(set, client);
-  });
-}
+export const watchStatuses = readableClientState(getStatus, watchStatus);

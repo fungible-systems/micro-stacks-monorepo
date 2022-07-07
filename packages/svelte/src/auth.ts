@@ -4,6 +4,11 @@ import { getAccount } from './account';
 import { watchStatuses } from './status';
 import { getClient } from './store';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Derived state
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 export function getAuth() {
   const client: any = getClient();
 
@@ -12,7 +17,7 @@ export function getAuth() {
       /**
        * actions
        */
-      authenticate: client.authenticate,
+      openAuthRequest: client.authenticate,
       signOut: client.signOut,
       /**
        * state

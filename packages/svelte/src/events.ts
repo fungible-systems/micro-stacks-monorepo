@@ -1,6 +1,5 @@
-import { ClientConfig, MicroStacksClient } from '@micro-stacks/client';
-
 import { getClient } from './store';
+import type { ClientConfig, MicroStacksClient } from '@micro-stacks/client';
 
 type ConfigCallback<K extends keyof ClientConfig> = ClientConfig[K];
 

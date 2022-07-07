@@ -9,9 +9,19 @@ import {
 import { derived } from 'svelte/store';
 import { readableClientState } from './utils';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   State values
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 export const watchAccounts = readableClientState(getAccounts, _watchAccounts);
 export const watchAccount = readableClientState(getCurrentAccount, watchCurrentAccount);
 export const watchStxAddress = readableClientState(getStxAddress, _watchStxAddress);
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Derived state
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export function getAccount() {
   const account = watchAccount();
