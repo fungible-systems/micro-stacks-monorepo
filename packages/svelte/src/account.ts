@@ -6,32 +6,12 @@ import {
   watchCurrentAccount,
   watchStxAddress as _watchStxAddress,
 } from '@micro-stacks/client';
-import { derived, readable } from 'svelte/store';
-import { getClient } from './store';
+import { derived } from 'svelte/store';
+import { readableClientState } from './utils';
 
-export function watchAccounts() {
-  const client = getClient();
-
-  return readable(getAccounts(client), set => {
-    return _watchAccounts(set, client);
-  });
-}
-
-export function watchAccount() {
-  const client = getClient();
-
-  return readable(getCurrentAccount(client), set => {
-    return watchCurrentAccount(set, client);
-  });
-}
-
-export function watchStxAddress() {
-  const client = getClient();
-
-  return readable(getStxAddress(client), set => {
-    return _watchStxAddress(set, client);
-  });
-}
+export const watchAccounts = readableClientState(getAccounts, _watchAccounts);
+export const watchAccount = readableClientState(getCurrentAccount, watchCurrentAccount);
+export const watchStxAddress = readableClientState(getStxAddress, _watchStxAddress);
 
 export function getAccount() {
   const account = watchAccount();
