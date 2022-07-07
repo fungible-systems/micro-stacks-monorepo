@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   getAccounts,
   getCurrentAccount,
@@ -11,57 +10,24 @@ import {
   watchIdentityAddress,
   watchStxAddress,
 } from '@micro-stacks/client';
-import { useMicroStacksClient } from './use-client';
 
-function useWatchAccounts(): ReturnType<typeof getAccounts> {
-  const client = useMicroStacksClient();
-  const [state, setState] = useState(getAccounts(client));
-  useEffect(() => {
-    return watchAccounts(setState, client);
-  }, [client]);
+import { clientStateHookFactory } from '../common/utils';
 
-  return state;
-}
+/** ------------------------------------------------------------------------------------------------------------------
+ *   State values
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
-function useWatchAccount(): ReturnType<typeof getCurrentAccount> {
-  const client = useMicroStacksClient();
-  const [state, setState] = useState(getCurrentAccount(client));
-  useEffect(() => {
-    return watchCurrentAccount(setState, client);
-  }, [client]);
+const useWatchAccounts = clientStateHookFactory(getAccounts, watchAccounts);
+const useWatchAccount = clientStateHookFactory(getCurrentAccount, watchCurrentAccount);
+const useIdentityAddress = clientStateHookFactory(getIdentityAddress, watchIdentityAddress);
+const useDecentralizedID = clientStateHookFactory(getDecentralizedID, watchDecentralizedID);
+const useWatchStxAddress = clientStateHookFactory(getStxAddress, watchStxAddress);
 
-  return state;
-}
-
-function useIdentityAddress(): ReturnType<typeof getIdentityAddress> {
-  const client = useMicroStacksClient();
-  const [state, setState] = useState(getIdentityAddress(client));
-  useEffect(() => {
-    return watchIdentityAddress(setState, client);
-  }, [client]);
-
-  return state;
-}
-
-function useDecentralizedID(): ReturnType<typeof getIdentityAddress> {
-  const client = useMicroStacksClient();
-  const [state, setState] = useState(getDecentralizedID(client));
-  useEffect(() => {
-    return watchDecentralizedID(setState, client);
-  }, [client]);
-
-  return state;
-}
-
-function useWatchStxAddress() {
-  const client = useMicroStacksClient();
-  const [state, setState] = useState(getStxAddress(client));
-  useEffect(() => {
-    return watchStxAddress(setState, client);
-  }, [client]);
-
-  return state;
-}
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useAccount hook (derived state)
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 function useAccount() {
   const account = useWatchAccount();

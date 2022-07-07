@@ -1,8 +1,13 @@
 import { useCallback, useMemo } from 'react';
 import { useStatuses } from './use-statuses';
 import { useMicroStacksClient } from './use-client';
-import { Status, StatusKeys } from '@micro-stacks/client';
+import { OpenSignMessageParams, Status, StatusKeys } from '@micro-stacks/client';
 import type { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect';
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export interface UseOpenSignMessage {
   openSignMessage: (
@@ -11,7 +16,10 @@ export interface UseOpenSignMessage {
   isRequestPending: boolean;
 }
 
-export type OpenSignMessageParams = SignedOptionsWithOnHandlers<{ message: string }>;
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useOpenSignMessage hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const useOpenSignMessage = (
   callbacks?: SignedOptionsWithOnHandlers<{}>

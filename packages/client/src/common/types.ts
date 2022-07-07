@@ -8,6 +8,9 @@ import type {
 import type { StacksNetwork } from 'micro-stacks/network';
 import type { ClientStorage } from './storage';
 import { Status, StatusKeys, TxType } from './constants';
+import { ChainID } from 'micro-stacks/network';
+import { SignedOptionsWithOnHandlers } from 'micro-stacks/connect';
+import { ClarityValue } from 'micro-stacks/clarity';
 
 export interface AppDetails {
   /** A human-readable name for your application */
@@ -127,3 +130,16 @@ export type State = {
   onSignOut?: ClientConfig['onSignOut'];
   onAuthentication?: ClientConfig['onAuthentication'];
 };
+
+export type OpenSignMessageParams = SignedOptionsWithOnHandlers<{ message: string }>;
+
+export interface StructuredDataDomainTuple {
+  name?: string;
+  version?: string;
+  chainId?: ChainID;
+}
+
+export type OpenSignStructuredMessageParams = SignedOptionsWithOnHandlers<{
+  message: string | ClarityValue;
+  domain?: StructuredDataDomainTuple;
+}>;

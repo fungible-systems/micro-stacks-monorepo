@@ -5,10 +5,20 @@ import { useMicroStacksClient } from './use-client';
 import { useStatuses } from './use-statuses';
 import { useCallback, useMemo } from 'react';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 interface UseOpenContractCall {
   openContractCall: (params: ContractCallParams) => Promise<FinishedTxData | undefined>;
   isRequestPending: boolean;
 }
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useOpenContractCall hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const useOpenContractCall = (callbacks?: OptionalParams): UseOpenContractCall => {
   const client = useMicroStacksClient();

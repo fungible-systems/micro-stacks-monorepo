@@ -5,10 +5,20 @@ import { useMicroStacksClient } from './use-client';
 import { useStatuses } from './use-statuses';
 import { useCallback, useMemo } from 'react';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 interface UseOpenStxTokenTransfer {
   openStxTokenTransfer: (params: StxTransferParams) => Promise<FinishedTxData | undefined>;
   isRequestPending: boolean;
 }
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useOpenStxTokenTransfer hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const useOpenStxTokenTransfer = (callbacks?: OptionalParams): UseOpenStxTokenTransfer => {
   const client = useMicroStacksClient();

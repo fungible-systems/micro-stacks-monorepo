@@ -8,7 +8,11 @@ import {
 } from '../hooks/use-client-callbacks';
 import { memo } from 'react';
 
-// not to be exported
+/** ------------------------------------------------------------------------------------------------------------------
+ *   CallbacksProvider (private)
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 const CallbacksProvider: React.FC<
   Pick<ClientConfig, 'onAuthentication' | 'onSignOut' | 'onPersistState'>
 > = memo(({ onPersistState, onAuthentication, onSignOut }) => {
@@ -17,6 +21,11 @@ const CallbacksProvider: React.FC<
   useOnPersistEffect(onPersistState);
   return null;
 });
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   ClientProvider
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const ClientProvider: React.FC<
   {

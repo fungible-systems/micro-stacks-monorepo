@@ -2,11 +2,29 @@ import { useAsync, useAsyncCallback } from 'react-async-hook';
 import { useMicroStacksClient } from './use-client';
 import { useCallback } from 'react';
 
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
+
 interface UseGetFileOptions<T> {
   decrypt?: boolean;
   verify?: boolean;
   deserialize?: (value: string | Uint8Array) => T;
 }
+
+interface UsePutFileOptions<T> {
+  encrypt?: boolean;
+  sign?: boolean;
+  serialize?: (value: T) => string | Uint8Array;
+  onSuccess?: (path: string | null) => void;
+  onError?: (error: Error) => void;
+}
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useGetFile hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const useGetFile = <T = unknown>(filename: string, options?: UseGetFileOptions<T>) => {
   const client = useMicroStacksClient();
@@ -30,13 +48,10 @@ export const useGetFile = <T = unknown>(filename: string, options?: UseGetFileOp
   return { data, isLoading, hasError: !!error, error };
 };
 
-interface UsePutFileOptions<T> {
-  encrypt?: boolean;
-  sign?: boolean;
-  serialize?: (value: T) => string | Uint8Array;
-  onSuccess?: (path: string | null) => void;
-  onError?: (error: Error) => void;
-}
+/** ------------------------------------------------------------------------------------------------------------------
+ *   usePutFile hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const usePutFile = <T = unknown>(
   filename: string,

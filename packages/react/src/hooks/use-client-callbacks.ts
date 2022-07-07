@@ -11,20 +11,17 @@ type ConfigCallback<K extends keyof ClientConfig> = ClientConfig[K];
  */
 
 export const useSetOnPersistState = () => {
-  const client = useMicroStacksClient();
-  return client.setOnPersistState;
+  return useMicroStacksClient().setOnPersistState;
 };
 
 export const useSetOnAuthentication = (): ((
   onAuthentication: ClientConfig['onAuthentication']
 ) => void) => {
-  const client = useMicroStacksClient();
-  return client.setOnAuthentication;
+  return useMicroStacksClient().setOnAuthentication;
 };
 
 export const useSetOnSignOut = () => {
-  const client = useMicroStacksClient();
-  return client.setOnSignOut;
+  return useMicroStacksClient().setOnSignOut;
 };
 
 /** ------------------------------------------------------------------------------------------------------------------

@@ -2,9 +2,12 @@ import { SignatureData, SignedOptionsWithOnHandlers } from 'micro-stacks/connect
 import { useMicroStacksClient } from './use-client';
 import { useStatuses } from './use-statuses';
 import { useCallback, useMemo } from 'react';
-import { ClarityValue } from 'micro-stacks/clarity';
-import { ChainID } from 'micro-stacks/network';
-import { Status, StatusKeys } from '@micro-stacks/client';
+import { OpenSignStructuredMessageParams, Status, StatusKeys } from '@micro-stacks/client';
+
+/** ------------------------------------------------------------------------------------------------------------------
+ *   Types
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export interface UseOpenSignStructuredMessage {
   openSignStructuredMessage: (
@@ -13,14 +16,10 @@ export interface UseOpenSignStructuredMessage {
   isRequestPending: boolean;
 }
 
-export type OpenSignStructuredMessageParams = SignedOptionsWithOnHandlers<{
-  message: string | ClarityValue;
-  domain?: {
-    name?: string;
-    version?: string;
-    chainId?: ChainID;
-  };
-}>;
+/** ------------------------------------------------------------------------------------------------------------------
+ *   useOpenSignStructuredMessage hook
+ *  ------------------------------------------------------------------------------------------------------------------
+ */
 
 export const useOpenSignStructuredMessage = (
   callbacks?: SignedOptionsWithOnHandlers<{}>
