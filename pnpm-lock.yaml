@@ -96,7 +96,6 @@ importers:
       zustand: 4.0.0-rc.1
     dependencies:
       micro-stacks: 0.6.1
-      zustand: 4.0.0-rc.1
     devDependencies:
       '@stacks/stacks-blockchain-api-types': 1.0.7
       '@types/common-tags': 1.8.1
@@ -106,6 +105,7 @@ importers:
       tiny-invariant: 1.2.0
       tsup: 6.0.1_typescript@4.4.4
       type-fest: 2.16.0
+      zustand: 4.0.0-rc.1
 
   packages/jotai:
     specifiers:
@@ -5887,7 +5887,7 @@ packages:
     resolution: {integrity: sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dev: false
+    dev: true
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
@@ -6051,4 +6051,4 @@ packages:
         optional: true
     dependencies:
       use-sync-external-store: 1.1.0
-    dev: false
+    dev: true
