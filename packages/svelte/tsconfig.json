@@ -6,7 +6,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@micro-stacks/client": ["../client/src"]
+      "@micro-stacks/client": [
+        "../client/src"
+      ]
     }
   },
   "references": [
