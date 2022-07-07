@@ -4,5 +4,6 @@ export * from './account';
 export * from './auth';
 export * from './status';
 export * from './message';
+export * from './network';
 
 export {};
